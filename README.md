@@ -8,4 +8,4 @@ Proyecto ORM sobre una clínica veterinaria usando
 
 ## Modelo Base de datos relacional 
 
-<img src="imagenes/modelo-relacional-v4.png" alt="Modelo relacional sobre la clínica veterinaria">
+<img src="imagenes/modelo-relacional-v5.png" alt="Modelo relacional sobre la clínica veterinaria">
