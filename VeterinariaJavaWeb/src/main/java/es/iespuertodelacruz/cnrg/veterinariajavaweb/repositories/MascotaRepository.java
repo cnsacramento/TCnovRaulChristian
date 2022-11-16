@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota;
 
@@ -25,9 +26,22 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 	 * @param dao mascota a guardar en la base de datos
 	 */
 	@Override
-	public Mascota save(Mascota dao) {
+	public Mascota save(Mascota mascota) {
 		
-		return null;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(mascota);
+			entityManager.getTransaction().commit();
+		}catch(RollbackException ex) {
+			ex.printStackTrace();
+			mascota = null;
+		}
+		
+		entityManager.close();
+		return mascota;
 	}
 
 	/**
