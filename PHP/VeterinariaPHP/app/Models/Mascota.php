@@ -12,18 +12,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $fecha_nacimiento
  * @property float $peso
  * @property Cliente $cliente
- * @property EspecieMascotum $especieMascotum
- * @property Intervencion[] $intervencions
+ * @property EspeciesMascotum $especiesMascotum
+ * @property Intervencione[] $intervenciones
  */
 class Mascota extends Model
 {
-    /**
-     * The table associated with the model.
-     * 
-     * @var string
-     */
-    protected $table = 'mascota';
-
     /**
      * @var array
      */
@@ -40,16 +33,16 @@ class Mascota extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function especieMascotum()
+    public function especiesMascotum()
     {
-        return $this->belongsTo('App\Models\EspecieMascotum', 'id_especie');
+        return $this->belongsTo('App\Models\EspeciesMascotum', 'id_especie');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function intervencions()
+    public function intervenciones()
     {
-        return $this->hasMany('App\Models\Intervencion', 'id_mascota');
+        return $this->hasMany('App\Models\Intervencione', 'id_mascota');
     }
 }

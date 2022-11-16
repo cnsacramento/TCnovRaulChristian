@@ -9,17 +9,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $fecha
  * @property float $coste
  * @property string $detalles
- * @property Intervencion[] $intervencions
+ * @property Intervencione[] $intervenciones
  */
 class Factura extends Model
 {
-    /**
-     * The table associated with the model.
-     * 
-     * @var string
-     */
-    protected $table = 'factura';
-
     /**
      * @var array
      */
@@ -28,8 +21,8 @@ class Factura extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function intervencions()
+    public function intervenciones()
     {
-        return $this->hasMany('App\Models\Intervencion', 'id_factura');
+        return $this->hasMany('App\Models\Intervencione', 'id_factura');
     }
 }

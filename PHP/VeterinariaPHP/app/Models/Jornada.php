@@ -5,33 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string $fecha
- * @property integer $id_fraccion_tiempo
- * @property FraccionTiempo $fraccionTiempo
+ * @property integer $id
+ * @property string $hora_inicio
+ * @property string $hora_fin
+ * @property Sesione[] $sesiones
  */
 class Jornada extends Model
 {
-    /**
-     * The table associated with the model.
-     * 
-     * @var string
-     */
-    protected $table = 'jornada';
-
-    /**
-     * The primary key for the model.
-     * 
-     * @var string
-     */
-    protected $primaryKey = 'fecha';
-
-    /**
-     * The "type" of the auto-incrementing ID.
-     * 
-     * @var string
-     */
-    protected $keyType = 'string';
-
     /**
      * Indicates if the IDs are auto-incrementing.
      * 
@@ -42,13 +22,13 @@ class Jornada extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_fraccion_tiempo'];
+    protected $fillable = ['hora_inicio', 'hora_fin'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function fraccionTiempo()
+    public function sesiones()
     {
-        return $this->belongsTo('App\Models\FraccionTiempo', 'id_fraccion_tiempo');
+        return $this->hasMany('App\Models\Sesione', 'id_jornada');
     }
 }

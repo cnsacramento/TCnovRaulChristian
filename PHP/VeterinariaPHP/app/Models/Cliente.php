@@ -11,17 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $direccion
  * @property string $correo
  * @property string $telefono
- * @property Mascotum[] $mascotas
+ * @property Mascota[] $mascotas
  */
 class Cliente extends Model
 {
-    /**
-     * The table associated with the model.
-     * 
-     * @var string
-     */
-    protected $table = 'cliente';
-
     /**
      * The primary key for the model.
      * 
@@ -53,6 +46,6 @@ class Cliente extends Model
      */
     public function mascotas()
     {
-        return $this->hasMany('App\Models\Mascotum', 'dni_cliente', 'dni');
+        return $this->hasMany('App\Models\Mascota', 'dni_cliente', 'dni');
     }
 }

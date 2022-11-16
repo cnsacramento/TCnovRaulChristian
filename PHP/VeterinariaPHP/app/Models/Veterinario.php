@@ -11,19 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $nombre
  * @property string $apellidos
  * @property string $telefono
- * @property EquipoIntervencion[] $equipoIntervencions
- * @property CuentaVeterinarium $cuentaVeterinarium
- * @property EspecialidadVeterinario $especialidadVeterinario
+ * @property EquipoIntervencion $equipoIntervencion
+ * @property CuentasVeterinario $cuentasVeterinario
+ * @property EspecialidadesVeterinario $especialidadesVeterinario
  */
 class Veterinario extends Model
 {
-    /**
-     * The table associated with the model.
-     * 
-     * @var string
-     */
-    protected $table = 'veterinario';
-
     /**
      * The primary key for the model.
      * 
@@ -51,26 +44,26 @@ class Veterinario extends Model
     protected $fillable = ['cuenta_veterinaria', 'id_especialidad', 'nombre', 'apellidos', 'telefono'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function equipoIntervencions()
+    public function equipoIntervencion()
     {
-        return $this->hasMany('App\Models\EquipoIntervencion', 'dni_veterinario', 'dni');
+        return $this->hasOne('App\Models\EquipoIntervencion', 'dni_veterinario', 'dni');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function cuentaVeterinarium()
+    public function cuentasVeterinario()
     {
-        return $this->belongsTo('App\Models\CuentaVeterinarium', 'cuenta_veterinaria', 'correo');
+        return $this->belongsTo('App\Models\CuentasVeterinario', 'cuenta_veterinaria', 'correo');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function especialidadVeterinario()
+    public function especialidadesVeterinario()
     {
-        return $this->belongsTo('App\Models\EspecialidadVeterinario', 'id_especialidad');
+        return $this->belongsTo('App\Models\EspecialidadesVeterinario', 'id_especialidad');
     }
 }

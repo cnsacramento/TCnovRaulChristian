@@ -12,11 +12,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $id_equipo_intervencion
  * @property string $asunto
  * @property string $descripcion
- * @property FraccionTiempo[] $fraccionTiempos
- * @property TipoIntervencion $tipoIntervencion
+ * @property TiposIntervencion $tiposIntervencion
  * @property Factura $factura
  * @property EquipoIntervencion $equipoIntervencion
- * @property Mascotum $mascotum
+ * @property Mascota $mascota
+ * @property Sesione[] $sesiones
  */
 class Intervencion extends Model
 {
@@ -25,7 +25,7 @@ class Intervencion extends Model
      * 
      * @var string
      */
-    protected $table = 'intervencion';
+    protected $table = 'intervenciones';
 
     /**
      * @var array
@@ -33,19 +33,11 @@ class Intervencion extends Model
     protected $fillable = ['id_tipo_intervencion', 'id_mascota', 'id_factura', 'id_equipo_intervencion', 'asunto', 'descripcion'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function fraccionTiempos()
-    {
-        return $this->hasMany('App\Models\FraccionTiempo', 'id_intervencion');
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function tipoIntervencion()
+    public function tiposIntervencion()
     {
-        return $this->belongsTo('App\Models\TipoIntervencion', 'id_tipo_intervencion');
+        return $this->belongsTo('App\Models\TiposIntervencion', 'id_tipo_intervencion');
     }
 
     /**
@@ -67,8 +59,16 @@ class Intervencion extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function mascotum()
+    public function mascota()
     {
-        return $this->belongsTo('App\Models\Mascotum', 'id_mascota');
+        return $this->belongsTo('App\Models\Mascota', 'id_mascota');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sesiones()
+    {
+        return $this->hasMany('App\Models\Sesione', 'id_intervencion');
     }
 }

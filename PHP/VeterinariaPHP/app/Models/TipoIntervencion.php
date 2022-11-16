@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer $id
  * @property string $tipo
- * @property Intervencion[] $intervencions
+ * @property Intervencione[] $intervenciones
  */
 class TipoIntervencion extends Model
 {
@@ -16,7 +16,7 @@ class TipoIntervencion extends Model
      * 
      * @var string
      */
-    protected $table = 'tipo_intervencion';
+    protected $table = 'tipos_intervencion';
 
     /**
      * @var array
@@ -26,8 +26,8 @@ class TipoIntervencion extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function intervencions()
+    public function intervenciones()
     {
-        return $this->hasMany('App\Models\Intervencion', 'id_tipo_intervencion');
+        return $this->hasMany('App\Models\Intervencione', 'id_tipo_intervencion');
     }
 }

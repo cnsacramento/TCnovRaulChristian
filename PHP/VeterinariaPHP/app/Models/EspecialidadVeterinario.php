@@ -16,7 +16,7 @@ class EspecialidadVeterinario extends Model
      * 
      * @var string
      */
-    protected $table = 'especialidad_veterinario';
+    protected $table = 'especialidades_veterinario';
 
     /**
      * @var array

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer $id
  * @property string $dni_veterinario
+ * @property Intervencione[] $intervenciones
  * @property Veterinario $veterinario
- * @property Intervencion[] $intervencions
  */
 class EquipoIntervencion extends Model
 {
@@ -32,18 +32,18 @@ class EquipoIntervencion extends Model
     protected $fillable = ['dni_veterinario'];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function intervenciones()
+    {
+        return $this->hasMany('App\Models\Intervencione', 'id_equipo_intervencion');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function veterinario()
     {
         return $this->belongsTo('App\Models\Veterinario', 'dni_veterinario', 'dni');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function intervencions()
-    {
-        return $this->hasMany('App\Models\Intervencion', 'id_equipo_intervencion');
     }
 }

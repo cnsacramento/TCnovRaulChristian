@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $contrasenia
  * @property Veterinario[] $veterinarios
  */
-class CuentaVeterinaria extends Model
+class CuentaVeterinario extends Model
 {
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'cuenta_veterinaria';
+    protected $table = 'cuentas_veterinarios';
 
     /**
      * The primary key for the model.
