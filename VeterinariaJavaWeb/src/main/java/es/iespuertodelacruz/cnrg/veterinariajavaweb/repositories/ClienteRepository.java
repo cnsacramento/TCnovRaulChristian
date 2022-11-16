@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
 
@@ -23,12 +24,26 @@ public class ClienteRepository implements ICrud<Cliente, String>{
 	
 	/**
 	 * Metodo que guarda el cliente en la DDBB
-	 * @param dao Cliente que se quiere guardar
+	 * @param cliente Cliente que se quiere guardar
 	 */
 	@Override
-	public Cliente save(Cliente dao) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cliente save(Cliente cliente) {
+		
+		
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Cliente clienteGuardado = cliente;
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(cliente);
+			entityManager.getTransaction().commit();
+		} catch (RollbackException ex) {
+			clienteGuardado = null;
+			ex.printStackTrace();
+		}
+		
+		entityManager.close();
+		
+		return clienteGuardado;
 	}
 
 	/**
@@ -49,10 +64,10 @@ public class ClienteRepository implements ICrud<Cliente, String>{
 
 	/**
 	 * Metodo que actualiza los datos del cliente en la DDBB
-	 * @param dao Cliente que se quiere actualizar
+	 * @param cliente Cliente que se quiere actualizar
 	 */
 	@Override
-	public boolean update(Cliente dao) {
+	public boolean update(Cliente cliente) {
 		// TODO Auto-generated method stub
 		return false;
 	}
