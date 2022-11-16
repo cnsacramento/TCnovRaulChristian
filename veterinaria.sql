@@ -54,7 +54,7 @@ CREATE TABLE `cuentas_veterinarios` (
 --
 
 CREATE TABLE `equipo_intervencion` (
-  `id_intervencion` int NOT NULL,
+  `id` int NOT NULL,
   `dni_veterinario` char(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -199,6 +199,7 @@ ALTER TABLE `cuentas_veterinarios`
 -- Indices de la tabla `equipo_intervencion`
 --
 ALTER TABLE `equipo_intervencion`
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `dni_veterinario` (`dni_veterinario`);
 
 --
@@ -312,8 +313,7 @@ ALTER TABLE `tipos_intervencion`
 -- Filtros para la tabla `equipo_intervencion`
 --
 ALTER TABLE `equipo_intervencion`
-  ADD CONSTRAINT `equipo_intervencion_ibfk_1` FOREIGN KEY (`id_intervencion`) REFERENCES `intervenciones` (`id`),
-  ADD CONSTRAINT `equipo_intervencion_ibfk_2` FOREIGN KEY (`dni_veterinario`) REFERENCES `veterinarios` (`dni`);
+  ADD CONSTRAINT `equipo_intervencion_ibfk_1` FOREIGN KEY (`dni_veterinario`) REFERENCES `veterinarios` (`dni`);
 
 --
 -- Filtros para la tabla `sesiones`
@@ -328,6 +328,7 @@ ALTER TABLE `sesiones`
 ALTER TABLE `intervenciones`
   ADD CONSTRAINT `intervenciones_ibfk_1` FOREIGN KEY (`id_tipo_intervencion`) REFERENCES `tipos_intervencion` (`id`),
   ADD CONSTRAINT `intervenciones_ibfk_2` FOREIGN KEY (`id_factura`) REFERENCES `facturas` (`id`),
+  ADD CONSTRAINT `intervenciones_ibfk_3` FOREIGN KEY (`id_equipo_intervencion`) REFERENCES `equipo_intervencion` (`id`),
   ADD CONSTRAINT `intervenciones_ibfk_4` FOREIGN KEY (`id_mascota`) REFERENCES `mascotas` (`id`);
 
 --
