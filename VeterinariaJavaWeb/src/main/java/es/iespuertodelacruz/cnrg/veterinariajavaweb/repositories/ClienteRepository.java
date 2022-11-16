@@ -64,7 +64,22 @@ public class ClienteRepository implements ICrud<Cliente, String>{
 	@Override
 	public boolean delete(String id) {
 		
-		return false;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Cliente clienteBorrado = null;
+		
+		entityManager.getTransaction().begin();
+		Cliente cliente = entityManager.find(Cliente.class, id);
+		
+		if(cliente != null) {
+			cliente.getMascotas().forEach(mascota -> entityManager.remove(mascota));
+			entityManager.remove(cliente);
+			clienteBorrado = entityManager.find(Cliente.class, id);
+			entityManager.getTransaction().commit();
+		}
+		
+		entityManager.close();
+		
+		return clienteBorrado == null;
 	}
 
 	/**
