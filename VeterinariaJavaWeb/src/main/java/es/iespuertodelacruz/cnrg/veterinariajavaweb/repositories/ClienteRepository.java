@@ -1,6 +1,7 @@
 package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -71,8 +72,16 @@ public class ClienteRepository implements ICrud<Cliente, String>{
 	 */
 	@Override
 	public ArrayList<Cliente> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		List<Cliente> clientesList = 
+				entityManager.createNamedQuery("cliente.findAll", Cliente.class)
+				.getResultList();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		
+		return clientesList;
 	}
 
 }
