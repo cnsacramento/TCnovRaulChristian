@@ -5,20 +5,24 @@ import javax.persistence.Persistence;
 
 public final class EntityManagerFactorySingleton {
 
-	
-	private static EntityManagerFactory entityManagerFactory;
+	private static EntityManagerFactorySingleton instance;
+	private EntityManagerFactory entityManagerFactory;
 
     private EntityManagerFactorySingleton() {
     	
     	entityManagerFactory = Persistence.createEntityManagerFactory("VeterinariaJavaWeb");
     }
 
-    public static EntityManagerFactory getEmf() {
+    public static EntityManagerFactorySingleton getInstance() {
     	
-    	 if(entityManagerFactory == null) {
-         	new EntityManagerFactorySingleton();
+    	 if(instance == null) {
+         	instance = new EntityManagerFactorySingleton();
          }
     	 
-    	 return entityManagerFactory;
+    	 return instance;
+    }
+    
+    public EntityManagerFactory getEmf() {
+    	return entityManagerFactory;
     }
 }
