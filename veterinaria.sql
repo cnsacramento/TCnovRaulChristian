@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `cliente`
 --
 
-CREATE TABLE `clientes` (
+CREATE TABLE `cliente` (
   `dni` char(9) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `apellidos` varchar(100) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `clientes` (
 -- Estructura de tabla para la tabla `cuenta_veterinaria`
 --
 
-CREATE TABLE `cuentas_veterinarios` (
+CREATE TABLE `cuenta_veterinario` (
   `correo` varchar(100) NOT NULL,
   `contrasenia` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -54,17 +54,17 @@ CREATE TABLE `cuentas_veterinarios` (
 --
 
 CREATE TABLE `equipo_intervencion` (
-  `id` int NOT NULL,
+  `id_intervencion` int NOT NULL,
   `dni_veterinario` char(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `especialidades_veterinario`
+-- Estructura de tabla para la tabla `especialidad_veterinario`
 --
 
-CREATE TABLE `especialidades_veterinario` (
+CREATE TABLE `especialidad_veterinario` (
   `id` int NOT NULL,
   `nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -72,10 +72,10 @@ CREATE TABLE `especialidades_veterinario` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `especies_mascota`
+-- Estructura de tabla para la tabla `especie_mascota`
 --
 
-CREATE TABLE `especies_mascota` (
+CREATE TABLE `especie_mascota` (
   `id` int NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `peligrosa` tinyint(1) NOT NULL DEFAULT '0'
@@ -84,10 +84,10 @@ CREATE TABLE `especies_mascota` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `facturas`
+-- Estructura de tabla para la tabla `factura`
 --
 
-CREATE TABLE `facturas` (
+CREATE TABLE `factura` (
   `id` int NOT NULL,
   `fecha` timestamp NOT NULL,
   `coste` decimal(10,0) NOT NULL,
@@ -97,10 +97,10 @@ CREATE TABLE `facturas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sesiones`
+-- Estructura de tabla para la tabla `sesion`
 --
 
-CREATE TABLE `sesiones` (
+CREATE TABLE `sesion` (
   `id_jornada` int NOT NULL,
   `id_intervencion` int DEFAULT NULL,
   `hora_inicio` time NOT NULL,
@@ -110,10 +110,10 @@ CREATE TABLE `sesiones` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `intervenciones`
+-- Estructura de tabla para la tabla `intervencion`
 --
 
-CREATE TABLE `intervenciones` (
+CREATE TABLE `intervencion` (
   `id` int NOT NULL,
   `asunto` varchar(30) NOT NULL,
   `descripcion` varchar(150) NOT NULL,
@@ -126,10 +126,10 @@ CREATE TABLE `intervenciones` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `jornadas`
+-- Estructura de tabla para la tabla `jornada`
 --
 
-CREATE TABLE `jornadas` (
+CREATE TABLE `jornada` (
   `id` int NOT NULL,
   `hora_inicio` time NOT NULL,
   `hora_fin` time NOT NULL
@@ -138,10 +138,10 @@ CREATE TABLE `jornadas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `mascotas`
+-- Estructura de tabla para la tabla `mascota`
 --
 
-CREATE TABLE `mascotas` (
+CREATE TABLE `mascota` (
   `id` int NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `fecha_nacimiento` timestamp NOT NULL,
@@ -153,10 +153,10 @@ CREATE TABLE `mascotas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipos_intervencion`
+-- Estructura de tabla para la tabla `tipo_intervencion`
 --
 
-CREATE TABLE `tipos_intervencion` (
+CREATE TABLE `tipo_intervencion` (
   `id` int NOT NULL,
   `tipo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -164,10 +164,10 @@ CREATE TABLE `tipos_intervencion` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `veterinarios`
+-- Estructura de tabla para la tabla `veterinario`
 --
 
-CREATE TABLE `veterinarios` (
+CREATE TABLE `veterinario` (
   `dni` char(9) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `apellidos` varchar(100) NOT NULL,
@@ -181,17 +181,17 @@ CREATE TABLE `veterinarios` (
 --
 
 --
--- Indices de la tabla `clientes`
+-- Indices de la tabla `cliente`
 --
-ALTER TABLE `clientes`
+ALTER TABLE `cliente`
   ADD PRIMARY KEY (`dni`),
   ADD UNIQUE KEY `telefono` (`telefono`),
   ADD UNIQUE KEY `correo` (`correo`);
 
 --
--- Indices de la tabla `cuentas_veterinario`
+-- Indices de la tabla `cuenta_veterinario`
 --
-ALTER TABLE `cuentas_veterinarios`
+ALTER TABLE `cuenta_veterinario`
   ADD PRIMARY KEY (`correo`),
   ADD UNIQUE KEY `correo` (`correo`);
 
@@ -199,38 +199,37 @@ ALTER TABLE `cuentas_veterinarios`
 -- Indices de la tabla `equipo_intervencion`
 --
 ALTER TABLE `equipo_intervencion`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `dni_veterinario` (`dni_veterinario`);
 
 --
 -- Indices de la tabla `especialidad_veterinario`
 --
-ALTER TABLE `especialidades_veterinario`
+ALTER TABLE `especialidad_veterinario`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
--- Indices de la tabla `especies_mascota`
+-- Indices de la tabla `especie_mascota`
 --
-ALTER TABLE `especies_mascota`
+ALTER TABLE `especie_mascota`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `factura`
 --
-ALTER TABLE `facturas`
+ALTER TABLE `factura`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `sesiones`
+-- Indices de la tabla `sesion`
 --
-ALTER TABLE `sesiones`
+ALTER TABLE `sesion`
   ADD PRIMARY KEY (`id_jornada`,`id_intervencion`);
 
 --
 -- Indices de la tabla `intervencion`
 --
-ALTER TABLE `intervenciones`
+ALTER TABLE `intervencion`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_tipo_intervencion` (`id_tipo_intervencion`),
   ADD KEY `id_factura` (`id_factura`),
@@ -240,13 +239,13 @@ ALTER TABLE `intervenciones`
 --
 -- Indices de la tabla `jornada`
 --
-ALTER TABLE `jornadas`
+ALTER TABLE `jornada`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `mascota`
 --
-ALTER TABLE `mascotas`
+ALTER TABLE `mascota`
   ADD PRIMARY KEY (`id`),
   ADD KEY `dni_cliente` (`dni_cliente`),
   ADD KEY `id_especie` (`id_especie`);
@@ -254,14 +253,14 @@ ALTER TABLE `mascotas`
 --
 -- Indices de la tabla `tipo_intervencion`
 --
-ALTER TABLE `tipos_intervencion`
+ALTER TABLE `tipo_intervencion`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tipo` (`tipo`);
 
 --
 -- Indices de la tabla `veterinario`
 --
-ALTER TABLE `veterinarios`
+ALTER TABLE `veterinario`
   ADD PRIMARY KEY (`dni`),
   ADD UNIQUE KEY `telefono` (`telefono`),
   ADD KEY `cuenta_veterinaria` (`cuenta_veterinaria`),
@@ -273,36 +272,36 @@ ALTER TABLE `veterinarios`
 --
 -- AUTO_INCREMENT de la tabla `mascota`
 --
-ALTER TABLE `mascotas`
+ALTER TABLE `mascota`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `especialidad_veterinario`
 --
-ALTER TABLE `especialidades_veterinario`
+ALTER TABLE `especialidad_veterinario`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `especies_mascota`
+-- AUTO_INCREMENT de la tabla `especie_mascota`
 --
-ALTER TABLE `especies_mascota`
+ALTER TABLE `especie_mascota`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
-ALTER TABLE `facturas`
+ALTER TABLE `factura`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `intervencion`
 --
-ALTER TABLE `intervenciones`
+ALTER TABLE `intervencion`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_intervencion`
 --
-ALTER TABLE `tipos_intervencion`
+ALTER TABLE `tipo_intervencion`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -313,37 +312,37 @@ ALTER TABLE `tipos_intervencion`
 -- Filtros para la tabla `equipo_intervencion`
 --
 ALTER TABLE `equipo_intervencion`
-  ADD CONSTRAINT `equipo_intervencion_ibfk_1` FOREIGN KEY (`dni_veterinario`) REFERENCES `veterinarios` (`dni`);
+  ADD CONSTRAINT `equipo_intervencion_ibfk_1` FOREIGN KEY (`id_intervencion`) REFERENCES `intervencion` (`id`),
+  ADD CONSTRAINT `equipo_intervencion_ibfk_2` FOREIGN KEY (`dni_veterinario`) REFERENCES `veterinario` (`dni`);
 
 --
--- Filtros para la tabla `sesiones`
+-- Filtros para la tabla `sesion`
 --
-ALTER TABLE `sesiones`
-  ADD CONSTRAINT `sesiones_ibfk_1` FOREIGN KEY (`id_intervencion`) REFERENCES `intervenciones` (`id`),
-  ADD CONSTRAINT `sesiones_ibfk_2` FOREIGN KEY (`id_jornada`) REFERENCES `jornadas` (`id`);
+ALTER TABLE `sesion`
+  ADD CONSTRAINT `sesion_ibfk_1` FOREIGN KEY (`id_intervencion`) REFERENCES `intervencion` (`id`),
+  ADD CONSTRAINT `sesion_ibfk_2` FOREIGN KEY (`id_jornada`) REFERENCES `jornada` (`id`);
 
 --
--- Filtros para la tabla `intervenciones`
+-- Filtros para la tabla `intervencion`
 --
-ALTER TABLE `intervenciones`
-  ADD CONSTRAINT `intervenciones_ibfk_1` FOREIGN KEY (`id_tipo_intervencion`) REFERENCES `tipos_intervencion` (`id`),
-  ADD CONSTRAINT `intervenciones_ibfk_2` FOREIGN KEY (`id_factura`) REFERENCES `facturas` (`id`),
-  ADD CONSTRAINT `intervenciones_ibfk_3` FOREIGN KEY (`id_equipo_intervencion`) REFERENCES `equipo_intervencion` (`id`),
-  ADD CONSTRAINT `intervenciones_ibfk_4` FOREIGN KEY (`id_mascota`) REFERENCES `mascotas` (`id`);
+ALTER TABLE `intervencion`
+  ADD CONSTRAINT `intervencion_ibfk_1` FOREIGN KEY (`id_tipo_intervencion`) REFERENCES `tipo_intervencion` (`id`),
+  ADD CONSTRAINT `intervencion_ibfk_2` FOREIGN KEY (`id_factura`) REFERENCES `factura` (`id`),
+  ADD CONSTRAINT `intervencion_ibfk_4` FOREIGN KEY (`id_mascota`) REFERENCES `mascota` (`id`);
 
 --
--- Filtros para la tabla `mascotas`
+-- Filtros para la tabla `mascota`
 --
-ALTER TABLE `mascotas`
-  ADD CONSTRAINT `mascotas_ibfk_1` FOREIGN KEY (`dni_cliente`) REFERENCES `clientes` (`dni`),
-  ADD CONSTRAINT `mascotas_ibfk_2` FOREIGN KEY (`id_especie`) REFERENCES `especies_mascota` (`id`);
+ALTER TABLE `mascota`
+  ADD CONSTRAINT `mascota_ibfk_1` FOREIGN KEY (`dni_cliente`) REFERENCES `cliente` (`dni`),
+  ADD CONSTRAINT `mascota_ibfk_2` FOREIGN KEY (`id_especie`) REFERENCES `especie_mascota` (`id`);
 
 --
--- Filtros para la tabla `veterinarios`
+-- Filtros para la tabla `veterinario`
 --
-ALTER TABLE `veterinarios`
-  ADD CONSTRAINT `veterinarios_ibfk_1` FOREIGN KEY (`cuenta_veterinaria`) REFERENCES `cuentas_veterinarios` (`correo`),
-  ADD CONSTRAINT `veterinarios_ibfk_2` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidades_veterinario` (`id`);
+ALTER TABLE `veterinario`
+  ADD CONSTRAINT `veterinario_ibfk_1` FOREIGN KEY (`cuenta_veterinaria`) REFERENCES `cuenta_veterinario` (`correo`),
+  ADD CONSTRAINT `veterinario_ibfk_2` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidad_veterinario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
