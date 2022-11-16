@@ -63,9 +63,23 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 	 * @param dao mascota a actualizar en la base de datos
 	 */
 	@Override
-	public boolean update(Mascota dao) {
+	public boolean update(Mascota mascota) {
 		
-		return false;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		boolean resultado = true;
+		
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.find(Mascota.class, mascota.getId());
+			entityManager.getTransaction().commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			resultado = false;
+		}finally {
+			entityManager.close();
+		}
+		
+		return resultado;
 	}
 
 	/**
@@ -76,19 +90,24 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 	public boolean delete(Integer id) {
 		
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+		boolean resultado = false;
 		
-		Mascota mascota = entityManager.find(Mascota.class, id);
-		Mascota find = null;
-		
-		if (mascota != null) {
+		try {
+			entityManager.getTransaction().begin();
+			Mascota mascota = entityManager.find(Mascota.class, id);
 			entityManager.remove(mascota);
-			find = entityManager.find(Mascota.class, id);
 			entityManager.getTransaction().commit();
+			resultado = true;
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			entityManager.close();
 		}
+		
 		entityManager.close();
 		
-		return find == null;
+		return resultado;
 	}
 
 	/**
@@ -103,7 +122,6 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 		entityManager.close();
 		return lista;
 	}
-	
 	
 
 }
