@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ICrud<T,E> {
 	   
