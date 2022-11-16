@@ -12,5 +12,5 @@ public interface ICrud<T,E> {
 	   
 	   boolean delete(E id);
 	 
-	   ArrayList<T> findAll();
+	   List<T> findAll();
 }
