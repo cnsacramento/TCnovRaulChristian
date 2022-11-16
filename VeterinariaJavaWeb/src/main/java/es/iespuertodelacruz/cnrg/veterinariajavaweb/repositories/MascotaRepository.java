@@ -114,7 +114,7 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 	 * Metodo utilizado para buscar las mascotas en la DDBB
 	 */
 	@Override
-	public ArrayList<Mascota> findAll() {
+	public List<Mascota> findAll() {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		List<Mascota> lista = entityManager.createNamedQuery("Mascota.findAll", Mascota.class).getResultList();

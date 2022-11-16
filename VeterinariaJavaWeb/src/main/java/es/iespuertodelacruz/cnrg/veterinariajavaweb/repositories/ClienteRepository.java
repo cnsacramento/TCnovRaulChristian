@@ -129,7 +129,7 @@ public class ClienteRepository implements ICrud<Cliente, String>{
 	 * Metodo que devuelve todos los clientes de la DDBB
 	 */
 	@Override
-	public ArrayList<Cliente> findAll() {
+	public List<Cliente> findAll() {
 		
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
