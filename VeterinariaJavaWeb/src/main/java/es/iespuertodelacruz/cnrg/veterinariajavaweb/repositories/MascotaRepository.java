@@ -61,7 +61,20 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 	@Override
 	public boolean delete(Integer id) {
 		
-		return false;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		Mascota mascota = entityManager.find(Mascota.class, id);
+		Mascota find = null;
+		
+		if (mascota != null) {
+			entityManager.remove(mascota);
+			find = entityManager.find(Mascota.class, id);
+			entityManager.getTransaction().commit();
+		}
+		entityManager.close();
+		
+		return find == null;
 	}
 
 	/**
