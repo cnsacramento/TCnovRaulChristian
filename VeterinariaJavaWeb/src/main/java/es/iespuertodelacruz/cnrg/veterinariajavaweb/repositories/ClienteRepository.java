@@ -68,8 +68,33 @@ public class ClienteRepository implements ICrud<Cliente, String>{
 	 */
 	@Override
 	public boolean update(Cliente cliente) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		boolean isClienteUpdate = false;
+		
+		try {
+			entityManager.getTransaction().begin();
+			
+			Cliente clienteEncontrado = entityManager.find(Cliente.class, cliente.getDni());
+			clienteEncontrado.setNombre(cliente.getNombre());
+			clienteEncontrado.setApellidos(cliente.getApellidos());
+			clienteEncontrado.setCorreo(cliente.getCorreo());
+			clienteEncontrado.setDireccion(cliente.getDireccion());
+			clienteEncontrado.setMascotas(cliente.getMascotas());
+			clienteEncontrado.setTelefono(cliente.getTelefono());
+			
+			entityManager.getTransaction().commit();
+			
+			isClienteUpdate = true;
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			entityManager.close();
+		}
+		
+		
+		return isClienteUpdate;
 	}
 
 	/**
@@ -80,21 +105,24 @@ public class ClienteRepository implements ICrud<Cliente, String>{
 	public boolean delete(String id) {
 		
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		Cliente clienteBorrado = null;
 		
-		entityManager.getTransaction().begin();
-		Cliente cliente = entityManager.find(Cliente.class, id);
+		boolean isClienteBorrado = false;
 		
-		if(cliente != null) {
+		try {
+			entityManager.getTransaction().begin();
+			Cliente cliente = entityManager.find(Cliente.class, id);
 			cliente.getMascotas().forEach(mascota -> entityManager.remove(mascota));
 			entityManager.remove(cliente);
-			clienteBorrado = entityManager.find(Cliente.class, id);
 			entityManager.getTransaction().commit();
+			isClienteBorrado = true;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			entityManager.close();
 		}
+				
 		
-		entityManager.close();
-		
-		return clienteBorrado == null;
+		return isClienteBorrado;
 	}
 
 	/**
