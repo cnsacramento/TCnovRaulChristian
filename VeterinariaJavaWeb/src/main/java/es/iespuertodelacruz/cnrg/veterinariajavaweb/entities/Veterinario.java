@@ -30,14 +30,23 @@ public class Veterinario implements Serializable {
 	@JoinColumn(name="id_especialidad")
 	private EspecialidadVeterinario especialidadVeterinario;
 
-	//bi-directional one-to-one association to CuentaVeterinaria
-	@OneToOne
-	@JoinColumn(name="cuenta_veterinaria")
-	private CuentaVeterinaria cuentaVeterinariaBean;
-
 	//bi-directional many-to-many association to Intervencion
-	@ManyToMany(mappedBy="veterinarios")
+	@ManyToMany
+	@JoinTable(
+		name="equipo_intervencion"
+		, joinColumns={
+			@JoinColumn(name="dni_veterinario")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="id_intervencion")
+			}
+		)
 	private List<Intervencion> intervencions;
+
+	//bi-directional many-to-one association to CuentaVeterinario
+	@ManyToOne
+	@JoinColumn(name="cuenta_veterinaria")
+	private CuentaVeterinario cuentaVeterinario;
 
 	public Veterinario() {
 	}
@@ -82,20 +91,20 @@ public class Veterinario implements Serializable {
 		this.especialidadVeterinario = especialidadVeterinario;
 	}
 
-	public CuentaVeterinaria getCuentaVeterinariaBean() {
-		return this.cuentaVeterinariaBean;
-	}
-
-	public void setCuentaVeterinariaBean(CuentaVeterinaria cuentaVeterinariaBean) {
-		this.cuentaVeterinariaBean = cuentaVeterinariaBean;
-	}
-
 	public List<Intervencion> getIntervencions() {
 		return this.intervencions;
 	}
 
 	public void setIntervencions(List<Intervencion> intervencions) {
 		this.intervencions = intervencions;
+	}
+
+	public CuentaVeterinario getCuentaVeterinario() {
+		return this.cuentaVeterinario;
+	}
+
+	public void setCuentaVeterinario(CuentaVeterinario cuentaVeterinario) {
+		this.cuentaVeterinario = cuentaVeterinario;
 	}
 
 }

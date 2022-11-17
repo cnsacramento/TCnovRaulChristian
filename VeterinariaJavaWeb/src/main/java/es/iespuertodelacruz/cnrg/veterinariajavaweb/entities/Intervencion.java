@@ -19,11 +19,12 @@ public class Intervencion implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
+	private String asunto;
+
 	private String descripcion;
 
-	//bi-directional many-to-one association to FraccionTiempo
-	@OneToMany(mappedBy="intervencion")
-	private List<FraccionTiempo> fraccionTiempos;
+	@Column(name="id_equipo_intervencion")
+	private int idEquipoIntervencion;
 
 	//bi-directional many-to-one association to Factura
 	@ManyToOne
@@ -41,18 +42,12 @@ public class Intervencion implements Serializable {
 	private TipoIntervencion tipoIntervencion;
 
 	//bi-directional many-to-many association to Veterinario
-	@ManyToMany
-	@JoinTable(
-		name="equipo_intervencion"
-		, joinColumns={
-			@JoinColumn(name="dni_veterinario", referencedColumnName="asunto"),
-			@JoinColumn(name="id", referencedColumnName="id_equipo_intervencion")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="dni_veterinario")
-			}
-		)
+	@ManyToMany(mappedBy="intervencions")
 	private List<Veterinario> veterinarios;
+
+	//bi-directional many-to-one association to Reserva
+	@OneToMany(mappedBy="intervencion")
+	private List<Reserva> reservas;
 
 	public Intervencion() {
 	}
@@ -65,6 +60,14 @@ public class Intervencion implements Serializable {
 		this.id = id;
 	}
 
+	public String getAsunto() {
+		return this.asunto;
+	}
+
+	public void setAsunto(String asunto) {
+		this.asunto = asunto;
+	}
+
 	public String getDescripcion() {
 		return this.descripcion;
 	}
@@ -73,26 +76,12 @@ public class Intervencion implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public List<FraccionTiempo> getFraccionTiempos() {
-		return this.fraccionTiempos;
+	public int getIdEquipoIntervencion() {
+		return this.idEquipoIntervencion;
 	}
 
-	public void setFraccionTiempos(List<FraccionTiempo> fraccionTiempos) {
-		this.fraccionTiempos = fraccionTiempos;
-	}
-
-	public FraccionTiempo addFraccionTiempo(FraccionTiempo fraccionTiempo) {
-		getFraccionTiempos().add(fraccionTiempo);
-		fraccionTiempo.setIntervencion(this);
-
-		return fraccionTiempo;
-	}
-
-	public FraccionTiempo removeFraccionTiempo(FraccionTiempo fraccionTiempo) {
-		getFraccionTiempos().remove(fraccionTiempo);
-		fraccionTiempo.setIntervencion(null);
-
-		return fraccionTiempo;
+	public void setIdEquipoIntervencion(int idEquipoIntervencion) {
+		this.idEquipoIntervencion = idEquipoIntervencion;
 	}
 
 	public Factura getFactura() {
@@ -125,6 +114,28 @@ public class Intervencion implements Serializable {
 
 	public void setVeterinarios(List<Veterinario> veterinarios) {
 		this.veterinarios = veterinarios;
+	}
+
+	public List<Reserva> getReservas() {
+		return this.reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	public Reserva addReserva(Reserva reserva) {
+		getReservas().add(reserva);
+		reserva.setIntervencion(this);
+
+		return reserva;
+	}
+
+	public Reserva removeReserva(Reserva reserva) {
+		getReservas().remove(reserva);
+		reserva.setIntervencion(null);
+
+		return reserva;
 	}
 
 }
