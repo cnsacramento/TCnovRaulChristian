@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="VeterinariaJavaWeb" transaction-type="RESOURCE_LOCAL">
-		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Intervencione</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.CuentaVeterinario</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecialidadVeterinario</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Factura</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Intervencion</class>
-		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Jornada</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota</class>
-		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Sesion</class>
-		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.SesionPK</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoIntervencion</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Veterinario</class>
+		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Reserva</class>
+		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoRestriccionDia</class>
 		<properties>
 		
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/veterinaria?serverTimezone=UTC" />
