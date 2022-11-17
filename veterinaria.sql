@@ -97,14 +97,15 @@ CREATE TABLE `factura` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sesion`
+-- Estructura de tabla para la tabla `reserva`
 --
 
-CREATE TABLE `sesion` (
-  `id_jornada` int NOT NULL,
+CREATE TABLE `reserva` (
+  `id` int NOT NULL,
+  `fecha_inicio` timestamp NOT NULL,
+  `fecha_fin` timestamp NOT NULL,
   `id_intervencion` int DEFAULT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_fin` time NOT NULL
+  `id_restriccion_dia` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -126,13 +127,14 @@ CREATE TABLE `intervencion` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `jornada`
+-- Estructura de tabla para la tabla `tipo_restriccion_dia`
 --
 
-CREATE TABLE `jornada` (
-  `id` int NOT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_fin` time NOT NULL
+CREATE TABLE `tipo_restriccion_dia` (
+  `tipo` varchar(20) NOT NULL,
+  `hora_apertura` time NOT NULL,
+  `hora_cierre` time NOT NULL,
+  `intervalo_tiempo` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -221,10 +223,10 @@ ALTER TABLE `factura`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `sesion`
+-- Indices de la tabla `reserva`
 --
-ALTER TABLE `sesion`
-  ADD PRIMARY KEY (`id_jornada`,`id_intervencion`);
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `intervencion`
@@ -237,10 +239,10 @@ ALTER TABLE `intervencion`
   ADD KEY `id_mascota` (`id_mascota`);
 
 --
--- Indices de la tabla `jornada`
+-- Indices de la tabla `tipo_restriccion_dia`
 --
-ALTER TABLE `jornada`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `tipo_restriccion_dia`
+  ADD PRIMARY KEY (`tipo`);
 
 --
 -- Indices de la tabla `mascota`
@@ -287,6 +289,12 @@ ALTER TABLE `especie_mascota`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
@@ -316,11 +324,11 @@ ALTER TABLE `equipo_intervencion`
   ADD CONSTRAINT `equipo_intervencion_ibfk_2` FOREIGN KEY (`dni_veterinario`) REFERENCES `veterinario` (`dni`);
 
 --
--- Filtros para la tabla `sesion`
+-- Filtros para la tabla `reserva`
 --
-ALTER TABLE `sesion`
-  ADD CONSTRAINT `sesion_ibfk_1` FOREIGN KEY (`id_intervencion`) REFERENCES `intervencion` (`id`),
-  ADD CONSTRAINT `sesion_ibfk_2` FOREIGN KEY (`id_jornada`) REFERENCES `jornada` (`id`);
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_intervencion`) REFERENCES `intervencion` (`id`),
+  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_restriccion_dia`) REFERENCES `tipo_restriccion_dia` (`tipo`);
 
 --
 -- Filtros para la tabla `intervencion`
@@ -348,3 +356,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
