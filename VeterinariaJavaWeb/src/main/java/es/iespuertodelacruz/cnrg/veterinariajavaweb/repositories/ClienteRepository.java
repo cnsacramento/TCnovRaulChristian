@@ -133,7 +133,7 @@ public class ClienteRepository implements ICrud<Cliente, String>{
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         List<Cliente> clientesList =
-                entityManager.createNamedQuery("cliente.findAll", Cliente.class)
+                entityManager.createNamedQuery("Cliente.findAll", Cliente.class)
                 .getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();

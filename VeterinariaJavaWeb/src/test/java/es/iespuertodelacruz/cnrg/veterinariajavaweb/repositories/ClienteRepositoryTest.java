@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManagerFactory;
@@ -36,6 +37,7 @@ class ClienteRepositoryTest {
     }
 
     @Test
+    @Order(1)
     void testSave() {
         Cliente cliente = new Cliente();
         cliente.setDni(DNI);
@@ -49,23 +51,27 @@ class ClienteRepositoryTest {
     }
 
     @Test
+    @Order(2)
     void testFindById() {
         assertNotNull(clienteRepository.findById(DNI), "El cliente no debería ser nulo si existe");
     }
 
     @Test
+    @Order(3)
     void testUpdate() {
         fail("Not yet implemented");
     }
 
     @Test
+    @Order(5)
     void testDelete() {
         fail("Not yet implemented");
     }
 
     @Test
+    @Order(4)
     void testFindAll() {
-        fail("Not yet implemented");
+        assertNotNull(clienteRepository.findAll(), "Si existen clientes no debería dar nulo");
     }
 
 }
