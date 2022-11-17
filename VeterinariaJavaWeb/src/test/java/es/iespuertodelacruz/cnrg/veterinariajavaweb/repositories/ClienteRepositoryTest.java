@@ -11,8 +11,18 @@ import javax.persistence.EntityManagerFactory;
 class ClienteRepositoryTest {
 
     static ClienteRepository clienteRepository;
+    static final String DNI = "123456789";
+    static final String NOMBRE = "nombre";
+    static final String APELLIDOS = "apellido1 apellido2";
+    static final String DIRECCION = "C/Mi direccion";
+    static final String CORREO = "micorreo@gmail.com";
+    static final String TELEFONO = "xxx-xx-xx-xx";
+
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
+        EntityManagerFactory entityManagerFactory =
+                             EntityManagerFactorySingleton.getInstance().getEmf();
+        clienteRepository = new ClienteRepository(entityManagerFactory);
     }
 
     @AfterAll
@@ -31,7 +41,7 @@ class ClienteRepositoryTest {
 
     @Test
     void testFindById() {
-        fail("Not yet implemented");
+        assertNotNull(clienteRepository.findById(DNI), "El cliente no debería ser nulo si existe");
     }
 
     @Test
