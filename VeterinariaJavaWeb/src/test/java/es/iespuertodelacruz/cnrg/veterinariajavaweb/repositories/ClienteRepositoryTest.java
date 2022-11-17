@@ -3,7 +3,6 @@ package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 import static org.junit.jupiter.api.Assertions.*;
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -19,21 +18,18 @@ class ClienteRepositoryTest {
     static final String DIRECCION = "C/Mi direccion";
     static final String CORREO = "micorreo@gmail.com";
     static final String TELEFONO = "xxx-xx-xx-xx";
+    static final String NUEVO_DNI = "987654321";
+    static final String NUEVO_NOMBRE = "NuevoNombre";
+    static final String NUEVOS_APELLIDOS = "Nuevo apellido";
+    static final String NUEVA_DIRECCION = "C/Mi nueva direccion";
+    static final String NUEVO_CORREO = "nuevocorreo@gmail.com";
+    static final String NUEVO_TELEFONO = "yyy-yy-yy-yy";
 
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
         EntityManagerFactory entityManagerFactory =
                              EntityManagerFactorySingleton.getInstance().getEmf();
         clienteRepository = new ClienteRepository(entityManagerFactory);
-    }
-
-    @AfterAll
-    static void tearDownAfterClass() throws Exception {
-    }
-
-    @Test
-    void testClienteRepository() {
-        fail("Not yet implemented");
     }
 
     @Test
@@ -59,13 +55,20 @@ class ClienteRepositoryTest {
     @Test
     @Order(3)
     void testUpdate() {
-        fail("Not yet implemented");
+
+        Cliente cliente = clienteRepository.findById(DNI);
+        cliente.setNombre(NUEVO_NOMBRE);
+        cliente.setApellidos(NUEVOS_APELLIDOS);
+        cliente.setDireccion(NUEVA_DIRECCION);
+        cliente.setCorreo(NUEVO_CORREO);
+        cliente.setTelefono(NUEVO_TELEFONO);
+
+        assertTrue(clienteRepository.update(cliente), "Si el cliente existe debería haberse modificado");
     }
 
     @Test
     @Order(5)
     void testDelete() {
-        fail("Not yet implemented");
     }
 
     @Test

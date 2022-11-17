@@ -69,7 +69,6 @@ public class ClienteRepository implements ICrud<Cliente, String>{
     public boolean update(Cliente cliente) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        boolean isClienteUpdate = false;
 
         try {
             entityManager.getTransaction().begin();
@@ -84,7 +83,7 @@ public class ClienteRepository implements ICrud<Cliente, String>{
 
             entityManager.getTransaction().commit();
 
-            isClienteUpdate = true;
+            return true;
 
         } catch(Exception ex) {
             ex.printStackTrace();
@@ -93,7 +92,7 @@ public class ClienteRepository implements ICrud<Cliente, String>{
         }
 
 
-        return isClienteUpdate;
+        return false;
     }
 
     /**
@@ -105,23 +104,21 @@ public class ClienteRepository implements ICrud<Cliente, String>{
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        boolean isClienteBorrado = false;
-
         try {
             entityManager.getTransaction().begin();
             Cliente cliente = entityManager.find(Cliente.class, id);
             cliente.getMascotas().forEach(mascota -> entityManager.remove(mascota));
             entityManager.remove(cliente);
             entityManager.getTransaction().commit();
-            isClienteBorrado = true;
+            return true;
         } catch(Exception ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             entityManager.close();
         }
 
 
-        return isClienteBorrado;
+        return false;
     }
 
     /**
