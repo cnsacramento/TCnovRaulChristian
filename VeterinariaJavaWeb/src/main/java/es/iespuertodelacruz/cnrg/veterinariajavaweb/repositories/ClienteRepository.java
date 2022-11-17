@@ -29,21 +29,12 @@ public class ClienteRepository implements ICrud<Cliente, String>{
     @Override
     public Cliente save(Cliente cliente) {
 
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            Cliente clienteParaGuardar = new Cliente();
-            clienteParaGuardar.setDni(cliente.getDni());
-            clienteParaGuardar.setNombre(cliente.getNombre());
-            clienteParaGuardar.setApellidos(cliente.getApellidos());
-            clienteParaGuardar.setDireccion(cliente.getApellidos());
-            clienteParaGuardar.setCorreo(cliente.getCorreo());
-            clienteParaGuardar.setTelefono(cliente.getTelefono());
-            clienteParaGuardar.setMascotas(cliente.getMascotas());
-            entityManager.persist(clienteParaGuardar);
+            entityManager.persist(cliente);
             entityManager.getTransaction().commit();
-            return clienteParaGuardar;
+            return cliente;
         } catch (RollbackException ex) {
             ex.printStackTrace();
         } finally {
