@@ -107,7 +107,7 @@ public class ClienteRepository implements ICrud<Cliente, String>{
         try {
             entityManager.getTransaction().begin();
             Cliente cliente = entityManager.find(Cliente.class, id);
-            cliente.getMascotas().forEach(mascota -> entityManager.remove(mascota));
+            cliente.getMascotas().forEach(entityManager::remove);
             entityManager.remove(cliente);
             entityManager.getTransaction().commit();
             return true;

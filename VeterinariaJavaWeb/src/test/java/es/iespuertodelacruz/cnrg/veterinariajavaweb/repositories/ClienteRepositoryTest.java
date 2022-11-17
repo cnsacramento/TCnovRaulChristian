@@ -69,6 +69,8 @@ class ClienteRepositoryTest {
     @Test
     @Order(5)
     void testDelete() {
+        assertTrue(clienteRepository.delete(DNI),
+                "Si el cliente existe debería y no tiene mascotas debería poder borrarse");
     }
 
     @Test
