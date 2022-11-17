@@ -2,6 +2,7 @@ package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,15 @@ class ClienteRepositoryTest {
 
     @Test
     void testSave() {
-        fail("Not yet implemented");
+        Cliente cliente = new Cliente();
+        cliente.setDni(DNI);
+        cliente.setNombre(NOMBRE);
+        cliente.setApellidos(APELLIDOS);
+        cliente.setDireccion(DIRECCION);
+        cliente.setCorreo(CORREO);
+        cliente.setTelefono(TELEFONO);
+
+        assertNotNull(clienteRepository.save(cliente), "El cliente no ha sido insertado correctamente");
     }
 
     @Test
