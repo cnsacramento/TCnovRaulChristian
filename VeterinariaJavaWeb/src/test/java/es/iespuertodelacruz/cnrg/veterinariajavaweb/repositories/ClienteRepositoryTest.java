@@ -3,12 +3,11 @@ package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 import static org.junit.jupiter.api.Assertions.*;
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import javax.persistence.EntityManagerFactory;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ClienteRepositoryTest {
 
     static ClienteRepository clienteRepository;
