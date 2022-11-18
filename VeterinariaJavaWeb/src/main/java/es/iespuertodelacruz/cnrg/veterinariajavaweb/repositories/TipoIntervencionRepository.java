@@ -37,6 +37,18 @@ public class TipoIntervencionRepository implements ICrud<TipoIntervencion, Integ
 
     @Override
     public boolean delete(Integer id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.remove(id);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }finally {
+            entityManager.close();
+        }
+
         return false;
     }
 
