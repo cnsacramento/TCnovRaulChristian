@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -51,11 +52,11 @@ class MascotaRepositoryTest {
 	private static final byte Peligrosa2 = (byte)0;
 	
 	//MASCOTA 1
-	private static final String Nombre1 = "nombre";
+	private static final String Nombre1 = "nombre1";
 	private static final Double Peso1 = 12.23;
 	
 	//MASCOTA 2
-	private static final String Nombre2 = "nombre";
+	private static final String Nombre2 = "nombre2";
 	private static final Double Peso2 = 15.22;
 	
 	//OBJETOS
@@ -125,12 +126,22 @@ class MascotaRepositoryTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+        clienteRepository.delete(cliente1.getDni()) ;
+        especieMascotaRepository.delete(especie1.getId()) ;
+        especieMascotaRepository.delete(especie2.getId()) ;
+		
 	}
 	
 	@Test
     @Order(1)
 	void testSave() {
         assertNotNull(mascotaRepository.save(mascota1), "La mascota se debería guardar");
+        
+        Exception ex = assertThrows(Exception.class, ()->{
+        	mascotaRepository.save(mascota1);
+        });
+
+        assertNotNull(ex, "Si mascota ya existía debería lanzar Exepcion");
 	}
 
 	@Test
@@ -142,19 +153,27 @@ class MascotaRepositoryTest {
 	@Test
     @Order(3)
 	void testUpdate() {
+		mascota2.setId(mascota1.getId());
+		mascotaRepository.update(mascota2);
 		
+		mascota2 = mascotaRepository.findById(mascota1.getId());
+		assertNotEquals(mascota1.getCliente(), mascota2.getCliente(), "Los clientes deberian ser distintos");
+		assertNotEquals(mascota1.getEspecieMascota(), mascota2.getEspecieMascota(), "Las especie deberian ser distintas" );
+		assertNotEquals(mascota1.getFechaNacimiento(), mascota2.getFechaNacimiento(), "Las fechas de nacimiento deberian ser distintas" );
+		assertNotEquals(mascota1.getNombre(), mascota2.getNombre(), "Los nombres deberian ser distintos" );
+		assertNotEquals(mascota1.getPeso(), mascota2.getPeso(),"Los pesos deberian ser distintos" );
 	}
 
 	@Test
     @Order(4)
 	void testDelete() {
-		fail("Not yet implemented");
+		assertTrue(mascotaRepository.delete(mascota1.getId()), "Si la mascota existe se debería borrar");
 	}
 
 	@Test
 	@Order(5)
 	void testFindAll() {
-		fail("Not yet implemented");
+		assertTrue(mascotaRepository.findAll().size() > 0, "El tamanio del array debe ser mayor que cero");
 	}
 
 }
