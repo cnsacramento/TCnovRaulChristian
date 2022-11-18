@@ -6,6 +6,7 @@ import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
 import org.junit.jupiter.api.*;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ClienteRepositoryTest {
@@ -46,9 +47,27 @@ class ClienteRepositoryTest {
     }
 
     @Test
+    void testSaveNuevoClienteConDNIexistenteDevuelveNulo() {
+
+        Cliente clienteExistente = clienteRepository.findById(DNI);
+        assertNotNull(clienteExistente, "El cliente no existe en DDBB");
+
+        Cliente nuevoClienteConDNIexistente = new Cliente();
+        nuevoClienteConDNIexistente.setDni(DNI);
+        nuevoClienteConDNIexistente.setNombre("Paco Segundo");
+        nuevoClienteConDNIexistente.setApellidos("Glez Glez");
+        nuevoClienteConDNIexistente.setDireccion("La direccion de paquito");
+        nuevoClienteConDNIexistente.setCorreo("paquito@gmail.com");
+        nuevoClienteConDNIexistente.setTelefono("xxx-xx-xx-xx");
+
+        assertNull(clienteRepository.save(nuevoClienteConDNIexistente));
+    }
+
+    @Test
     @Order(2)
     void testFindById() {
-        assertNotNull(clienteRepository.findById(DNI), "El cliente no debería ser nulo si existe");
+        assertNotNull(clienteRepository.findById(DNI),
+                "El cliente no debería ser nulo si existe");
     }
 
     @Test
