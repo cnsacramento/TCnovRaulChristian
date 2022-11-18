@@ -45,8 +45,12 @@ public class EspecieMascotaRepository implements ICrud<EspecieMascota, Integer>{
 
 	@Override
 	public EspecieMascota findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		EspecieMascota especieMascota = entityManager.find(EspecieMascota.class, id);
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return especieMascota;
 	}
 
 	@Override
