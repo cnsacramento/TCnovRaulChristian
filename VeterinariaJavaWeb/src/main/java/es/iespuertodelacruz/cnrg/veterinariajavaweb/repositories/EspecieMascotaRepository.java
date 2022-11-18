@@ -29,11 +29,8 @@ public class EspecieMascotaRepository implements ICrud<EspecieMascota, Integer>{
 	@Override
 	public EspecieMascota save(EspecieMascota especieMascota) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		System.out.println("chill");
-		entityManager.getTransaction().begin();
 		
 		try {
-			System.out.println("llege");
 			entityManager.getTransaction().begin();
 			entityManager.persist(especieMascota);
 			entityManager.getTransaction().commit();

@@ -27,7 +27,7 @@ class MascotaRepositoryTest {
 	private final int id = 1;
 	private final String nombre = "name";
 	private final String fecha_nacimiento = "01-01-2022";
-	private final BigDecimal peso = new BigDecimal("10.20");
+	private final Double peso = 12.2;
 	private final String dni_cliente = "43383649z" ;
 	private final int id_especie = 1;
 	
@@ -66,11 +66,13 @@ class MascotaRepositoryTest {
 		especieMascota.setNombre("nombre");
         especieMascota.setPeligrosa((byte)1);
         especieMascotaRepository.save(especieMascota);
+        
 		//mascotas
 		mascota.setCliente(cliente);
 		mascota.setEspecieMascota(especieMascota);
 		mascota.setFechaNacimiento(new Timestamp(new Date().getTime()));
 		mascota.setNombre(nombre);
+		System.out.println(peso);
 		mascota.setPeso(peso);
         assertNotNull(mascotaRepository.save(mascota), "La mascota se debería guardar");
 

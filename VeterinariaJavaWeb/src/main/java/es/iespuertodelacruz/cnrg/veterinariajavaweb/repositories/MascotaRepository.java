@@ -30,7 +30,6 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 	public Mascota save(Mascota mascota) {
 		
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		
 		try {
 			entityManager.getTransaction().begin();
