@@ -2,12 +2,18 @@ package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.persistence.EntityManagerFactory;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+
+
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota;
@@ -17,13 +23,13 @@ class MascotaRepositoryTest {
 	
 	static MascotaRepository mascotaRepository;
 	static ClienteRepository clienteRepository;
-	static EspeciMascotaRespository EspecieMascotaRepository;
-	static final int id = 1;
-	static final String nombre = "name";
-	static final String fecha_nacimiento = "01-01-2022";
-	static final int peso = 12;
-	static final String dni_cliente = "43383649z" ;
-	static final int id_especie = 1;
+	static EspecieMascotaRepository especieMascotaRepository;
+	private final int id = 1;
+	private final String nombre = "name";
+	private final String fecha_nacimiento = "01-01-2022";
+	private final BigDecimal peso = new BigDecimal("10.20");
+	private final String dni_cliente = "43383649z" ;
+	private final int id_especie = 1;
 	
 
 	@BeforeAll
@@ -31,7 +37,7 @@ class MascotaRepositoryTest {
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance().getEmf();
 		mascotaRepository = new MascotaRepository(entityManagerFactory);
         clienteRepository = new ClienteRepository(entityManagerFactory);
-
+        especieMascotaRepository = new EspecieMascotaRepository(entityManagerFactory);
 	}
 
 	@AfterAll
@@ -53,23 +59,27 @@ class MascotaRepositoryTest {
         cliente.setDireccion("direccion");
         cliente.setCorreo("correo");
         cliente.setTelefono("telefono");
-        
+        clienteRepository.save(cliente);
+
         
         //especieMascotas
 		especieMascota.setNombre("nombre");
-        especieMascota.setPeligrosa((byte)1); 
-
+        especieMascota.setPeligrosa((byte)1);
+        especieMascotaRepository.save(especieMascota);
 		//mascotas
 		mascota.setCliente(cliente);
 		mascota.setEspecieMascota(especieMascota);
-		mascota.setFechaNacimiento(null);
-		fail("Not yet implemented");
+		mascota.setFechaNacimiento(new Timestamp(new Date().getTime()));
+		mascota.setNombre(nombre);
+		mascota.setPeso(peso);
+        assertNotNull(mascotaRepository.save(mascota), "La mascota se debería guardar");
+
 	}
 
 	@Test
     @Order(2)
 	void testFindById() {
-        assertNotNull(mascotaRepository.findById(id), "El cliente no debería ser nulo si existe");
+        assertNotNull(mascotaRepository.findById(id), "La mascota no debería ser nula si existe");
 	}
 
 	@Test
