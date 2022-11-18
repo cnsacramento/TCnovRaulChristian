@@ -16,6 +16,18 @@ public class TipoIntervencionRepository implements ICrud<TipoIntervencion, Integ
 
     @Override
     public TipoIntervencion save(TipoIntervencion dao) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(dao);
+            entityManager.getTransaction().commit();
+            return dao;
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            entityManager.close();
+        }
         return null;
     }
 
