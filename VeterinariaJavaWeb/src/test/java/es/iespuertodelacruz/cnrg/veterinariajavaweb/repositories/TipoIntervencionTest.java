@@ -70,8 +70,15 @@ class TipoIntervencionTest {
     }
 
     @Test
+    void testFindByIdNoExistenteDevuelveNull() {
+
+        assertNull(tipoIntervencionRepository.findById(0),
+                "Si el ID no existe debería devolver null");
+    }
+
+    @Test
     void testUpdate() {
-        
+
     }
 
     @Test
