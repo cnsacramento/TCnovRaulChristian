@@ -26,7 +26,7 @@ public class Mascota implements Serializable {
 
 	private String nombre;
 
-	private BigDecimal peso;
+	private Double peso;
 
 	//bi-directional many-to-one association to Intervencion
 	@OneToMany(mappedBy="mascota")
@@ -69,11 +69,11 @@ public class Mascota implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public BigDecimal getPeso() {
+	public Double getPeso() {
 		return this.peso;
 	}
 
-	public void setPeso(BigDecimal peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
 
