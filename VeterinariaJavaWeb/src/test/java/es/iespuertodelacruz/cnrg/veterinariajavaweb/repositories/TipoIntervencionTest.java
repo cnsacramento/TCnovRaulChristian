@@ -25,12 +25,12 @@ class TipoIntervencionTest {
         TipoIntervencion tipoIntervencion = new TipoIntervencion();
         tipoIntervencion.setTipo("Cirugía");
 
-        TipoIntervencion tipoIntervencionEncontrada;
-        assertNotNull(tipoIntervencionEncontrada = tipoIntervencionRepository.save(tipoIntervencion),
+        TipoIntervencion tipoIntervencionGuardada;
+        assertNotNull(tipoIntervencionGuardada = tipoIntervencionRepository.save(tipoIntervencion),
                 "Si se ha guardado correctamente no debería devolver null");
 
-        tipoIntervencionRepository.findById(tipoIntervencionEncontrada.getId());
-        assertEquals(tipoIntervencion.getTipo(), tipoIntervencionEncontrada.getTipo(),
+        tipoIntervencionRepository.findById(tipoIntervencionGuardada.getId());
+        assertEquals(tipoIntervencion.getTipo(), tipoIntervencionGuardada.getTipo(),
                 "El tipo guardado debería ser el mismo del tipo creado");
     }
 
@@ -56,12 +56,22 @@ class TipoIntervencionTest {
 
     @Test
     void testFindById() {
-        fail("Not yet implemented");
+        TipoIntervencion tipoIntervencion = new TipoIntervencion();
+        tipoIntervencion.setTipo("Consulta");
+
+        TipoIntervencion tipoIntervencionEncontrada;
+        assertNotNull(tipoIntervencionEncontrada = tipoIntervencionRepository.save(tipoIntervencion),
+                "Si se ha guardado correctamente no debería devolver null");
+
+        assertNotNull(tipoIntervencionRepository.findById(tipoIntervencionEncontrada.getId()),
+                "Si existe en la DDBB no debería devolver null");
+        assertEquals(tipoIntervencion.getTipo(), tipoIntervencionEncontrada.getTipo(),
+                "El tipo guardado debería ser el mismo del tipo encontrado");
     }
 
     @Test
     void testUpdate() {
-        fail("Not yet implemented");
+        
     }
 
     @Test
