@@ -78,6 +78,17 @@ class TipoIntervencionTest {
 
     @Test
     void testUpdate() {
+        TipoIntervencion tipoIntervencion = new TipoIntervencion();
+        tipoIntervencion.setTipo("Exploración");
+
+        TipoIntervencion tipoIntervencionGuardada = tipoIntervencionRepository.save(tipoIntervencion);
+        assertNotNull(tipoIntervencionGuardada,
+                "Si se ha guardado correctamente no debería devolver null");
+
+        TipoIntervencion tipoIntervencionModificada = tipoIntervencionGuardada;
+        tipoIntervencionModificada.setTipo("Nuevo tipo");
+        assertTrue(tipoIntervencionRepository.update(tipoIntervencionModificada),
+                "Si se ha modificado correctamente no debería devolver null");
 
     }
 
