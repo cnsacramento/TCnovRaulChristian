@@ -83,12 +83,28 @@ class TipoIntervencionTest {
 
     @Test
     void testDelete() {
-        fail("Not yet implemented");
+        TipoIntervencion tipoIntervencion = new TipoIntervencion();
+        tipoIntervencion.setTipo("Medicinas");
+
+        TipoIntervencion tipoIntervencionGuardada;
+        assertNotNull(tipoIntervencionGuardada = tipoIntervencionRepository.save(tipoIntervencion),
+                "Si se ha guardado correctamente no debería devolver null");
+
+        assertTrue(tipoIntervencionRepository.delete(tipoIntervencionGuardada.getId()),
+                "Si se borra correctamente debería devolver true");
+
     }
 
     @Test
     void testFindAll() {
-        fail("Not yet implemented");
+        TipoIntervencion tipoIntervencion = new TipoIntervencion();
+        tipoIntervencion.setTipo("Revision");
+
+        assertNotNull(tipoIntervencionRepository.save(tipoIntervencion),
+                "Si se ha guardado correctamente no debería devolver null");
+
+        assertNotNull(tipoIntervencionRepository.findAll(),
+                "Si hay tipos de intervenciones no debería devolver null");
     }
 
 }

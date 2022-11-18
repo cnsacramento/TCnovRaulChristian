@@ -92,7 +92,8 @@ public class TipoIntervencionRepository implements ICrud<TipoIntervencion, Integ
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            entityManager.remove(id);
+            TipoIntervencion tipoIntervencion = entityManager.find(TipoIntervencion.class, id);
+            entityManager.remove(tipoIntervencion);
             entityManager.getTransaction().commit();
             return true;
         } catch(Exception ex) {
