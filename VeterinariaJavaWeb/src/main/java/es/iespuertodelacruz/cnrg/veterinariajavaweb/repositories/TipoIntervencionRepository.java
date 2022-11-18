@@ -44,6 +44,22 @@ public class TipoIntervencionRepository implements ICrud<TipoIntervencion, Integ
 
     @Override
     public boolean update(TipoIntervencion dao) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            TipoIntervencion tipoIntervencionActualizada = entityManager.find(TipoIntervencion.class, dao.getId());
+            tipoIntervencionActualizada.setId(dao.getId());
+            tipoIntervencionActualizada.setTipo(dao.getTipo());
+            tipoIntervencionActualizada.setIntervencions(dao.getIntervencions());
+            entityManager.getTransaction().commit();
+            return true;
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            entityManager.close();
+        }
+
         return false;
     }
 
