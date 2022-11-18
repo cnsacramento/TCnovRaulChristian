@@ -26,10 +26,22 @@ class TipoIntervencionTest {
         tipoIntervencion.setTipo("Cirugía");
 
         TipoIntervencion tipoIntervencionEncontrada;
-        assertNotNull(tipoIntervencionEncontrada = tipoIntervencionRepository.save(tipoIntervencion));
+        assertNotNull(tipoIntervencionEncontrada = tipoIntervencionRepository.save(tipoIntervencion),
+                "Si se ha guardado correctamente no debería devolver null");
 
         tipoIntervencionRepository.findById(tipoIntervencionEncontrada.getId());
-        assertEquals(tipoIntervencion.getTipo(), tipoIntervencionEncontrada.getTipo());
+        assertEquals(tipoIntervencion.getTipo(), tipoIntervencionEncontrada.getTipo(),
+                "El tipo guardado debería ser el mismo del tipo creado");
+    }
+
+    @Test
+    void testSaveTipoNuloDevuelveNulo() {
+
+        TipoIntervencion tipoIntervencion = new TipoIntervencion();
+        tipoIntervencion.setTipo(null);
+
+        assertNull(tipoIntervencionRepository.save(tipoIntervencion), 
+                "No se debería poder guardar un tipo nulo");
     }
 
     @Test
