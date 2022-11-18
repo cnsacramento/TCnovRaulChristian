@@ -35,8 +35,8 @@ public class ClienteRepository implements ICrud<Cliente, String>{
             entityManager.persist(cliente);
             entityManager.getTransaction().commit();
             return cliente;
-        } catch (RollbackException ex) {
-            ex.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         } finally {
             entityManager.close();
         }
