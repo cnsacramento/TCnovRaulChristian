@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.RollbackException;
 
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota;
 
 public class MascotaRepository implements ICrud<Mascota, Integer>{
@@ -63,14 +64,23 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 	 * @param dao mascota a actualizar en la base de datos
 	 */
 	@Override
-	public boolean update(Mascota mascota) {
+	public boolean update(Mascota mascotaOriginal) {
 		
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		boolean resultado = true;
 		
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.find(Mascota.class, mascota.getId());
+			
+			Mascota mascota = entityManager.find(Mascota.class, mascotaOriginal.getId());
+			mascota.setId(mascotaOriginal.getId());
+			mascota.setNombre(mascotaOriginal.getNombre());
+			mascota.setCliente(mascotaOriginal.getCliente());
+			mascota.setEspecieMascota(mascotaOriginal.getEspecieMascota());
+			mascota.setFechaNacimiento(mascotaOriginal.getFechaNacimiento());
+			mascota.setIntervencions(mascotaOriginal.getIntervencions());
+			mascota.setPeso(mascotaOriginal.getPeso());
+			
 			entityManager.getTransaction().commit();
 		}catch(Exception ex) {
 			ex.printStackTrace();

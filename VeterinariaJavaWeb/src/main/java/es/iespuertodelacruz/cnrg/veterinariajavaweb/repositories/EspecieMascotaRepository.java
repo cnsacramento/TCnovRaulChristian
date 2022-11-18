@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.RollbackException;
 
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota;
 
@@ -54,9 +55,27 @@ public class EspecieMascotaRepository implements ICrud<EspecieMascota, Integer>{
 	}
 
 	@Override
-	public boolean update(EspecieMascota dao) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(EspecieMascota especieMascotaOriginal) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		boolean resultado = true;
+		
+		try {
+			entityManager.getTransaction().begin();			
+			
+			EspecieMascota especieMascota = entityManager.find(EspecieMascota.class, especieMascotaOriginal.getId());
+			especieMascota.setId(especieMascotaOriginal.getId());
+			especieMascota.setNombre(especieMascotaOriginal.getNombre());
+			especieMascota.setPeligrosa(especieMascotaOriginal.getPeligrosa());
+            
+			entityManager.getTransaction().commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			resultado = false;
+		}finally {
+			entityManager.close();
+		}
+		
+		return resultado;
 	}
 
 	@Override
