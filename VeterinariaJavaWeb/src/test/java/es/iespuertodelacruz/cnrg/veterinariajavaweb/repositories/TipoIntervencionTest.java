@@ -40,8 +40,18 @@ class TipoIntervencionTest {
         TipoIntervencion tipoIntervencion = new TipoIntervencion();
         tipoIntervencion.setTipo(null);
 
-        assertNull(tipoIntervencionRepository.save(tipoIntervencion), 
+        assertNull(tipoIntervencionRepository.save(tipoIntervencion),
                 "No se debería poder guardar un tipo nulo");
+    }
+
+    @Test
+    void testSaveIdCreadoManualDevuelveNulo() {
+        TipoIntervencion tipoIntervencion = new TipoIntervencion();
+        tipoIntervencion.setId(10);
+        tipoIntervencion.setTipo("Estética");
+
+        assertNull(tipoIntervencionRepository.save(tipoIntervencion),
+                "No se debería poder guardar un tipo con un id manual");
     }
 
     @Test
