@@ -1,86 +1,72 @@
 package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.RollbackException;
 
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota;
 
-public class MascotaRepository implements ICrud<Mascota, Integer>{
-	
+public class EspecieMascotaRepository implements ICrud<EspecieMascota, Integer>{
+
 	private final EntityManagerFactory entityManagerFactory;
 	
 	/**
-	 * Constructor con un parametro de la clase MascotaRepository 
+	 * Constructor con un parametro de la clase EspecieMascotaRepository 
 	 * @param entityManagerFactory encargado de abrir la conexion DDBB
 	 */
-	public MascotaRepository(EntityManagerFactory entityManagerFactory) {
+	public EspecieMascotaRepository(EntityManagerFactory entityManagerFactory) {
 		this.entityManagerFactory = entityManagerFactory;
 	}
 	
 	/**
-	 * Metodo utilizado para guardar mascotas en la DDBB
-	 * @param dao mascota a guardar en la base de datos
+	 * Metodo utilizado para guardar las especies de las mascotas en la DDBB
+	 * @param dao EspecieMascota a guardar en la base de datos
 	 */
 	@Override
-	public Mascota save(Mascota mascota) {
-		
+	public EspecieMascota save(EspecieMascota especieMascota) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.persist(mascota);
+			entityManager.persist(especieMascota);
 			entityManager.getTransaction().commit();
 		}catch(RollbackException ex) {
 			ex.printStackTrace();
-			mascota = null;
+			especieMascota = null;
 		}
 		
 		entityManager.close();
-		return mascota;
+		return especieMascota;
 	}
 
-	/**
-	 * Metodo utilizado para buscar una mascota en la DDBB
-	 * @param id de la mascota a buscar en la base de datos
-	 */
 	@Override
-	public Mascota findById(Integer id) {
+	public EspecieMascota findById(Integer id) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		Mascota mascota = entityManager.find(Mascota.class, id);
+		EspecieMascota especieMascota = entityManager.find(EspecieMascota.class, id);
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		return mascota;
+		return especieMascota;
 	}
 
-	/**
-	 * Metodo utilizado para actualizar mascotas en la DDBB
-	 * @param dao mascota a actualizar en la base de datos
-	 */
 	@Override
-	public boolean update(Mascota mascotaOriginal) {
-		
+	public boolean update(EspecieMascota especieMascotaOriginal) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		boolean resultado = true;
 		
 		try {
-			entityManager.getTransaction().begin();
+			entityManager.getTransaction().begin();			
 			
-			Mascota mascota = entityManager.find(Mascota.class, mascotaOriginal.getId());
-			mascota.setId(mascotaOriginal.getId());
-			mascota.setNombre(mascotaOriginal.getNombre());
-			mascota.setCliente(mascotaOriginal.getCliente());
-			mascota.setEspecieMascota(mascotaOriginal.getEspecieMascota());
-			mascota.setFechaNacimiento(mascotaOriginal.getFechaNacimiento());
-			mascota.setIntervencions(mascotaOriginal.getIntervencions());
-			mascota.setPeso(mascotaOriginal.getPeso());
-			
+			EspecieMascota especieMascota = entityManager.find(EspecieMascota.class, especieMascotaOriginal.getId());
+			especieMascota.setId(especieMascotaOriginal.getId());
+			especieMascota.setNombre(especieMascotaOriginal.getNombre());
+			especieMascota.setPeligrosa(especieMascotaOriginal.getPeligrosa());
+            
 			entityManager.getTransaction().commit();
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -92,23 +78,17 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 		return resultado;
 	}
 
-	/**
-	 * Metodo utilizado para borrar una mascota en la DDBB
-	 * @param id de la mascota a borrar en la base de datos
-	 */
 	@Override
 	public boolean delete(Integer id) {
-		
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		boolean resultado = false;
 		
 		try {
 			entityManager.getTransaction().begin();
-			Mascota mascota = entityManager.find(Mascota.class, id);
-			entityManager.remove(mascota);
+			EspecieMascota especieMascota = entityManager.find(EspecieMascota.class, id);
+			entityManager.remove(especieMascota);
 			entityManager.getTransaction().commit();
 			resultado = true;
-
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -120,18 +100,14 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 		return resultado;
 	}
 
-	/**
-	 * Metodo utilizado para buscar las mascotas en la DDBB
-	 */
 	@Override
-	public List<Mascota> findAll() {
+	public List<EspecieMascota> findAll() {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		List<Mascota> lista = entityManager.createNamedQuery("Mascota.findAll", Mascota.class).getResultList();
+		List<EspecieMascota> lista = entityManager.createNamedQuery("EspecieMascota.findAll", EspecieMascota.class).getResultList();
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		return lista;
 	}
-	
 
 }
