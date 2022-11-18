@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 15-11-2022 a las 05:33:02
--- Versión del servidor: 8.0.31-0ubuntu0.22.04.1
--- Versión de PHP: 8.1.12
+-- Servidor: localhost
+-- Tiempo de generación: 18-11-2022 a las 23:04:58
+-- Versión del servidor: 8.0.28
+-- Versión de PHP: 8.0.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +39,7 @@ CREATE TABLE `cliente` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cuenta_veterinaria`
+-- Estructura de tabla para la tabla `cuenta_veterinario`
 --
 
 CREATE TABLE `cuenta_veterinario` (
@@ -97,20 +97,6 @@ CREATE TABLE `factura` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reserva`
---
-
-CREATE TABLE `reserva` (
-  `id` int NOT NULL,
-  `fecha_inicio` timestamp NOT NULL,
-  `fecha_fin` timestamp NOT NULL,
-  `id_intervencion` int DEFAULT NULL,
-  `id_restriccion_dia` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `intervencion`
 --
 
@@ -127,19 +113,6 @@ CREATE TABLE `intervencion` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipo_restriccion_dia`
---
-
-CREATE TABLE `tipo_restriccion_dia` (
-  `tipo` varchar(20) NOT NULL,
-  `hora_apertura` time NOT NULL,
-  `hora_cierre` time NOT NULL,
-  `intervalo_tiempo` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `mascota`
 --
 
@@ -147,9 +120,23 @@ CREATE TABLE `mascota` (
   `id` int NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `fecha_nacimiento` timestamp NOT NULL,
-  `peso` decimal(4,3) DEFAULT NULL,
+  `peso` decimal(6,2) DEFAULT NULL,
   `dni_cliente` char(9) NOT NULL,
   `id_especie` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reserva`
+--
+
+CREATE TABLE `reserva` (
+  `id` int NOT NULL,
+  `fecha_inicio` timestamp NOT NULL,
+  `fecha_fin` timestamp NOT NULL,
+  `id_intervencion` int DEFAULT NULL,
+  `id_restriccion_dia` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -161,6 +148,19 @@ CREATE TABLE `mascota` (
 CREATE TABLE `tipo_intervencion` (
   `id` int NOT NULL,
   `tipo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_restriccion_dia`
+--
+
+CREATE TABLE `tipo_restriccion_dia` (
+  `tipo` varchar(20) NOT NULL,
+  `hora_apertura` time NOT NULL,
+  `hora_cierre` time NOT NULL,
+  `intervalo_tiempo` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -201,7 +201,8 @@ ALTER TABLE `cuenta_veterinario`
 -- Indices de la tabla `equipo_intervencion`
 --
 ALTER TABLE `equipo_intervencion`
-  ADD UNIQUE KEY `dni_veterinario` (`dni_veterinario`);
+  ADD UNIQUE KEY `dni_veterinario` (`dni_veterinario`),
+  ADD KEY `equipo_intervencion_ibfk_1` (`id_intervencion`);
 
 --
 -- Indices de la tabla `especialidad_veterinario`
@@ -223,12 +224,6 @@ ALTER TABLE `factura`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `reserva`
---
-ALTER TABLE `reserva`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `intervencion`
 --
 ALTER TABLE `intervencion`
@@ -239,12 +234,6 @@ ALTER TABLE `intervencion`
   ADD KEY `id_mascota` (`id_mascota`);
 
 --
--- Indices de la tabla `tipo_restriccion_dia`
---
-ALTER TABLE `tipo_restriccion_dia`
-  ADD PRIMARY KEY (`tipo`);
-
---
 -- Indices de la tabla `mascota`
 --
 ALTER TABLE `mascota`
@@ -253,11 +242,25 @@ ALTER TABLE `mascota`
   ADD KEY `id_especie` (`id_especie`);
 
 --
+-- Indices de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reserva_ibfk_1` (`id_intervencion`),
+  ADD KEY `reserva_ibfk_2` (`id_restriccion_dia`);
+
+--
 -- Indices de la tabla `tipo_intervencion`
 --
 ALTER TABLE `tipo_intervencion`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tipo` (`tipo`);
+
+--
+-- Indices de la tabla `tipo_restriccion_dia`
+--
+ALTER TABLE `tipo_restriccion_dia`
+  ADD PRIMARY KEY (`tipo`);
 
 --
 -- Indices de la tabla `veterinario`
@@ -271,11 +274,7 @@ ALTER TABLE `veterinario`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
---
--- AUTO_INCREMENT de la tabla `mascota`
---
-ALTER TABLE `mascota`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `especialidad_veterinario`
 --
@@ -289,12 +288,6 @@ ALTER TABLE `especie_mascota`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `reserva`
---
-ALTER TABLE `reserva`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
@@ -304,6 +297,18 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `intervencion`
 --
 ALTER TABLE `intervencion`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `mascota`
+--
+ALTER TABLE `mascota`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `reserva`
+--
+ALTER TABLE `reserva`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -324,13 +329,6 @@ ALTER TABLE `equipo_intervencion`
   ADD CONSTRAINT `equipo_intervencion_ibfk_2` FOREIGN KEY (`dni_veterinario`) REFERENCES `veterinario` (`dni`);
 
 --
--- Filtros para la tabla `reserva`
---
-ALTER TABLE `reserva`
-  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_intervencion`) REFERENCES `intervencion` (`id`),
-  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_restriccion_dia`) REFERENCES `tipo_restriccion_dia` (`tipo`);
-
---
 -- Filtros para la tabla `intervencion`
 --
 ALTER TABLE `intervencion`
@@ -346,6 +344,13 @@ ALTER TABLE `mascota`
   ADD CONSTRAINT `mascota_ibfk_2` FOREIGN KEY (`id_especie`) REFERENCES `especie_mascota` (`id`);
 
 --
+-- Filtros para la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_intervencion`) REFERENCES `intervencion` (`id`),
+  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_restriccion_dia`) REFERENCES `tipo_restriccion_dia` (`tipo`);
+
+--
 -- Filtros para la tabla `veterinario`
 --
 ALTER TABLE `veterinario`
@@ -356,4 +361,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
