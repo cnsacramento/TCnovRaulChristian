@@ -80,14 +80,34 @@ public class EspecieMascotaRepository implements ICrud<EspecieMascota, Integer>{
 
 	@Override
 	public boolean delete(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		boolean resultado = false;
+		
+		try {
+			entityManager.getTransaction().begin();
+			EspecieMascota especieMascota = entityManager.find(EspecieMascota.class, id);
+			entityManager.remove(especieMascota);
+			entityManager.getTransaction().commit();
+			resultado = true;
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			entityManager.close();
+		}
+		
+		entityManager.close();
+		
+		return resultado;
 	}
 
 	@Override
 	public List<EspecieMascota> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		List<EspecieMascota> lista = entityManager.createNamedQuery("EspecieMascota.findAll", EspecieMascota.class).getResultList();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return lista;
 	}
 
 }
