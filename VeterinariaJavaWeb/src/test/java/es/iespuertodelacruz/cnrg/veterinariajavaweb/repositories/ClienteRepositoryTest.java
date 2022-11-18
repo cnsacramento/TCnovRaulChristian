@@ -12,18 +12,6 @@ import javax.persistence.RollbackException;
 class ClienteRepositoryTest {
 
     static ClienteRepository clienteRepository;
-    static final String DNI = "123456789";
-    static final String NOMBRE = "nombre";
-    static final String APELLIDOS = "apellido1 apellido2";
-    static final String DIRECCION = "C/Mi direccion";
-    static final String CORREO = "micorreo@gmail.com";
-    static final String TELEFONO = "xxx-xx-xx-xx";
-    static final String NUEVO_DNI = "987654321";
-    static final String NUEVO_NOMBRE = "NuevoNombre";
-    static final String NUEVOS_APELLIDOS = "Nuevo apellido";
-    static final String NUEVA_DIRECCION = "C/Mi nueva direccion";
-    static final String NUEVO_CORREO = "nuevocorreo@gmail.com";
-    static final String NUEVO_TELEFONO = "yyy-yy-yy-yy";
 
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
@@ -33,68 +21,149 @@ class ClienteRepositoryTest {
     }
 
     @Test
-    @Order(1)
     void testSave() {
         Cliente cliente = new Cliente();
-        cliente.setDni(DNI);
-        cliente.setNombre(NOMBRE);
-        cliente.setApellidos(APELLIDOS);
-        cliente.setDireccion(DIRECCION);
-        cliente.setCorreo(CORREO);
-        cliente.setTelefono(TELEFONO);
+        cliente.setDni("111111111");
+        cliente.setNombre("cliente1");
+        cliente.setApellidos("apellido1 apellido1");
+        cliente.setDireccion("Cliente 1 direccion");
+        cliente.setCorreo("primercliente@gmail.com");
+        cliente.setTelefono("111-11-11-11");
 
-        assertNotNull(clienteRepository.save(cliente), "El cliente no ha sido insertado correctamente");
+        assertNotNull(clienteRepository.save(cliente),
+                "El cliente no ha sido insertado correctamente");
+
+        Cliente clienteGuardado;
+        assertNotNull(clienteGuardado = clienteRepository.findById(cliente.getDni()),
+                "El cliente debería estar guardado");
+
+        assertEquals(cliente.getDni(), clienteGuardado.getDni(),
+                "El cliente debería tener el mismo DNI si se ha guardado");
+        assertEquals(cliente.getNombre(), clienteGuardado.getNombre(),
+                "El cliente debería tener el mismo NOMBRE si se ha guardado");
+        assertEquals(cliente.getApellidos(), clienteGuardado.getApellidos(),
+                "El cliente debería tener los mismos APELLIDOS si se ha guardado");
+        assertEquals(cliente.getDireccion(), clienteGuardado.getDireccion(),
+                "El cliente debería tener la misma DIRECCION si se ha guardado");
+        assertEquals(cliente.getTelefono(), clienteGuardado.getTelefono(),
+                "El cliente debería tener el mismo TELEFONO si se ha guardado");
+
     }
 
     @Test
     void testSaveNuevoClienteConDNIexistenteDevuelveNulo() {
+        Cliente cliente = new Cliente();
+        cliente.setDni("222222222");
+        cliente.setNombre("cliente2");
+        cliente.setApellidos("apellido2 apellido2");
+        cliente.setDireccion("Cliente 2 direccion");
+        cliente.setCorreo("segundocliente@gmail.com");
+        cliente.setTelefono("222-22-22-22");
 
-        Cliente clienteExistente = clienteRepository.findById(DNI);
-        assertNotNull(clienteExistente, "El cliente no existe en DDBB");
+        assertNotNull(clienteRepository.save(cliente),
+                "El cliente no ha sido insertado correctamente");
 
         Cliente nuevoClienteConDNIexistente = new Cliente();
-        nuevoClienteConDNIexistente.setDni(DNI);
-        nuevoClienteConDNIexistente.setNombre("Paco Segundo");
-        nuevoClienteConDNIexistente.setApellidos("Glez Glez");
-        nuevoClienteConDNIexistente.setDireccion("La direccion de paquito");
-        nuevoClienteConDNIexistente.setCorreo("paquito@gmail.com");
-        nuevoClienteConDNIexistente.setTelefono("xxx-xx-xx-xx");
+        nuevoClienteConDNIexistente.setDni("222222222");
+        nuevoClienteConDNIexistente.setNombre("Cliente2Retido");
+        nuevoClienteConDNIexistente.setApellidos("Apellido2repetido Apellido2repetido");
+        nuevoClienteConDNIexistente.setDireccion("Cliente 2 direccion repetida");
+        nuevoClienteConDNIexistente.setCorreo("cliente2repetido@gmail.com");
+        nuevoClienteConDNIexistente.setTelefono("222-22-22-22");
 
         assertNull(clienteRepository.save(nuevoClienteConDNIexistente));
     }
+    
+    @Test
+    void testSaveClienteConDniNuloDevuelveNulo() {
+        Cliente clienteDniNulo = new Cliente();
+        clienteDniNulo.setDni(null);
+        clienteDniNulo.setNombre("Cliente 3");
+        clienteDniNulo.setApellidos("Apellido 3 Apellido 3");
+        clienteDniNulo.setDireccion("La direccion de cliente 3");
+        clienteDniNulo.setCorreo("cliente3@gmail.com");
+        clienteDniNulo.setTelefono("333-33-33-33");
+        assertNull(clienteRepository.save(clienteDniNulo),
+                "Un cliente con DNI nulo no se debería guardar");
+    }
 
     @Test
-    @Order(2)
     void testFindById() {
-        assertNotNull(clienteRepository.findById(DNI),
+        Cliente cliente = new Cliente();
+        cliente.setDni("444444444");
+        cliente.setNombre("cliente4");
+        cliente.setApellidos("apellido4 apellido4");
+        cliente.setDireccion("Cliente 4 direccion");
+        cliente.setCorreo("cuartocliente@gmail.com");
+        cliente.setTelefono("444-44-44-44");
+        assertNotNull(clienteRepository.save(cliente),
+                "El cliente no se ha guardado en DDBB");
+        assertNotNull(clienteRepository.findById("444444444"),
                 "El cliente no debería ser nulo si existe");
     }
 
     @Test
-    @Order(3)
     void testUpdate() {
 
-        Cliente cliente = clienteRepository.findById(DNI);
-        cliente.setNombre(NUEVO_NOMBRE);
-        cliente.setApellidos(NUEVOS_APELLIDOS);
-        cliente.setDireccion(NUEVA_DIRECCION);
-        cliente.setCorreo(NUEVO_CORREO);
-        cliente.setTelefono(NUEVO_TELEFONO);
+        Cliente cliente = new Cliente();
+        cliente.setDni("555555555");
+        cliente.setNombre("cliente5");
+        cliente.setApellidos("apellido5 apellido5");
+        cliente.setDireccion("Cliente 5 direccion");
+        cliente.setCorreo("quintocliente@gmail.com");
+        cliente.setTelefono("555-55-55-55");
+        assertNotNull(clienteRepository.save(cliente),
+                "El cliente no se ha podido guardar");
 
-        assertTrue(clienteRepository.update(cliente), "Si el cliente existe debería haberse modificado");
+        Cliente clienteParaActualizar = clienteRepository.findById(cliente.getDni());
+        clienteParaActualizar.setNombre("cliente5Nuevo");
+        clienteParaActualizar.setApellidos("apellido5Nuevo apellido5Nuevo");
+        clienteParaActualizar.setDireccion("Cliente 5 nueva direccion");
+        clienteParaActualizar.setCorreo("quintoclienteNuevo@gmail.com");
+        clienteParaActualizar.setTelefono("555-55-66-55");
+
+        assertTrue(clienteRepository.update(clienteParaActualizar),
+                "Si el cliente existe debería haberse modificado");
+
+        Cliente clienteActualizado = clienteRepository.findById(clienteParaActualizar.getDni());
+        assertNotEquals(cliente.getNombre(), clienteActualizado.getNombre(),
+                "El cliente debería tener distinto NOMBRE si se ha guardado");
+        assertNotEquals(cliente.getApellidos(), clienteActualizado.getApellidos(),
+                "El cliente debería tener distintos APELLIDOS si se ha guardado");
+        assertNotEquals(cliente.getDireccion(), clienteActualizado.getDireccion(),
+                "El cliente debería tener distinta DIRECCION si se ha guardado");
+        assertNotEquals(cliente.getTelefono(), clienteActualizado.getTelefono(),
+                "El cliente debería tener distinto TELEFONO si se ha guardado");
+
     }
 
     @Test
-    @Order(5)
-    void testDelete() {
-        assertTrue(clienteRepository.delete(DNI),
-                "Si el cliente existe debería y no tiene mascotas debería poder borrarse");
-    }
-
-    @Test
-    @Order(4)
     void testFindAll() {
+        Cliente cliente = new Cliente();
+        cliente.setDni("777777777");
+        cliente.setNombre("cliente7");
+        cliente.setApellidos("apellido7 apellido5");
+        cliente.setDireccion("Cliente 7 direccion");
+        cliente.setCorreo("septimocliente@gmail.com");
+        cliente.setTelefono("777-77-77-77");
+        assertNotNull(clienteRepository.save(cliente),
+                "El cliente no se ha podido guardar");
         assertNotNull(clienteRepository.findAll(), "Si existen clientes no debería dar nulo");
+    }
+
+    @Test
+    void testDelete() {
+        Cliente cliente = new Cliente();
+        cliente.setDni("888888888");
+        cliente.setNombre("cliente8");
+        cliente.setApellidos("apellido8 apellido5");
+        cliente.setDireccion("Cliente 8 direccion");
+        cliente.setCorreo("octavocliente@gmail.com");
+        cliente.setTelefono("888-88-88-88");
+        assertNotNull(clienteRepository.save(cliente),
+                "El cliente no se ha podido guardar");
+        assertTrue(clienteRepository.delete(cliente.getDni()),
+                "Si el cliente existe debería y no tiene mascotas debería poder borrarse");
     }
 
 }
