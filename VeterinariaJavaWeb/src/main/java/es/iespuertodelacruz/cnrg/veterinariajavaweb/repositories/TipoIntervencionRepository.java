@@ -42,6 +42,14 @@ public class TipoIntervencionRepository implements ICrud<TipoIntervencion, Integ
 
     @Override
     public List<TipoIntervencion> findAll() {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        List<TipoIntervencion> tiposIntevencionesList =
+                entityManager.createNamedQuery("TipoIntervencion.findAll", TipoIntervencion.class)
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return tiposIntevencionesList;
     }
 }
