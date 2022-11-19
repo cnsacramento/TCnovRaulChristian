@@ -68,6 +68,12 @@ class CuentaVeterinarioRepositoryTest {
     }
 
     @Test
+    void testFindByIdNoExistenteDevuelveNulo() {
+        assertNull(cuentaVeterinarioRepository.findById(""),
+                "Si el correo no esta guardado no debería devolver distinto de nulo");
+    }
+
+    @Test
     void testUpdateCuentaVeterinario() {
         fail("Not yet implemented");
     }
