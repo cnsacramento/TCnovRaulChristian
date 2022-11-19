@@ -11,7 +11,8 @@ import javax.persistence.RollbackException;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ClienteRepositoryTest {
 
-    static ClienteRepository clienteRepository;
+    private static ClienteRepository clienteRepository;
+    private Cliente cliente;
 
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
@@ -20,15 +21,24 @@ class ClienteRepositoryTest {
         clienteRepository = new ClienteRepository(entityManagerFactory);
     }
 
-    @Test
-    void testSave() {
-        Cliente cliente = new Cliente();
+    @BeforeEach
+    void setUpBeforeEach() {
+        cliente = new Cliente();
         cliente.setDni("111111111");
         cliente.setNombre("cliente1");
         cliente.setApellidos("apellido1 apellido1");
         cliente.setDireccion("Cliente 1 direccion");
         cliente.setCorreo("primercliente@gmail.com");
         cliente.setTelefono("111-11-11-11");
+    }
+
+    @AfterEach
+    void setUpAfterAll() {
+        clienteRepository.delete(cliente.getDni());
+    }
+
+    @Test
+    void testSave() {
 
         assertNotNull(clienteRepository.save(cliente),
                 "El cliente no ha sido insertado correctamente");
@@ -52,19 +62,12 @@ class ClienteRepositoryTest {
 
     @Test
     void testSaveNuevoClienteConDNIexistenteDevuelveNulo() {
-        Cliente cliente = new Cliente();
-        cliente.setDni("222222222");
-        cliente.setNombre("cliente2");
-        cliente.setApellidos("apellido2 apellido2");
-        cliente.setDireccion("Cliente 2 direccion");
-        cliente.setCorreo("segundocliente@gmail.com");
-        cliente.setTelefono("222-22-22-22");
 
         assertNotNull(clienteRepository.save(cliente),
                 "El cliente no ha sido insertado correctamente");
 
         Cliente nuevoClienteConDNIexistente = new Cliente();
-        nuevoClienteConDNIexistente.setDni("222222222");
+        nuevoClienteConDNIexistente.setDni(cliente.getDni());
         nuevoClienteConDNIexistente.setNombre("Cliente2Retido");
         nuevoClienteConDNIexistente.setApellidos("Apellido2repetido Apellido2repetido");
         nuevoClienteConDNIexistente.setDireccion("Cliente 2 direccion repetida");
@@ -76,42 +79,24 @@ class ClienteRepositoryTest {
     
     @Test
     void testSaveClienteConDniNuloDevuelveNulo() {
-        Cliente clienteDniNulo = new Cliente();
-        clienteDniNulo.setDni(null);
-        clienteDniNulo.setNombre("Cliente 3");
-        clienteDniNulo.setApellidos("Apellido 3 Apellido 3");
-        clienteDniNulo.setDireccion("La direccion de cliente 3");
-        clienteDniNulo.setCorreo("cliente3@gmail.com");
-        clienteDniNulo.setTelefono("333-33-33-33");
-        assertNull(clienteRepository.save(clienteDniNulo),
+
+        cliente.setDni(null);
+        assertNull(clienteRepository.save(cliente),
                 "Un cliente con DNI nulo no se debería guardar");
     }
 
     @Test
     void testFindById() {
-        Cliente cliente = new Cliente();
-        cliente.setDni("444444444");
-        cliente.setNombre("cliente4");
-        cliente.setApellidos("apellido4 apellido4");
-        cliente.setDireccion("Cliente 4 direccion");
-        cliente.setCorreo("cuartocliente@gmail.com");
-        cliente.setTelefono("444-44-44-44");
+
         assertNotNull(clienteRepository.save(cliente),
                 "El cliente no se ha guardado en DDBB");
-        assertNotNull(clienteRepository.findById("444444444"),
+        assertNotNull(clienteRepository.findById(cliente.getDni()),
                 "El cliente no debería ser nulo si existe");
     }
 
     @Test
     void testUpdate() {
 
-        Cliente cliente = new Cliente();
-        cliente.setDni("555555555");
-        cliente.setNombre("cliente5");
-        cliente.setApellidos("apellido5 apellido5");
-        cliente.setDireccion("Cliente 5 direccion");
-        cliente.setCorreo("quintocliente@gmail.com");
-        cliente.setTelefono("555-55-55-55");
         assertNotNull(clienteRepository.save(cliente),
                 "El cliente no se ha podido guardar");
 
@@ -139,13 +124,6 @@ class ClienteRepositoryTest {
 
     @Test
     void testFindAll() {
-        Cliente cliente = new Cliente();
-        cliente.setDni("777777777");
-        cliente.setNombre("cliente7");
-        cliente.setApellidos("apellido7 apellido5");
-        cliente.setDireccion("Cliente 7 direccion");
-        cliente.setCorreo("septimocliente@gmail.com");
-        cliente.setTelefono("777-77-77-77");
         assertNotNull(clienteRepository.save(cliente),
                 "El cliente no se ha podido guardar");
         assertNotNull(clienteRepository.findAll(), "Si existen clientes no debería dar nulo");
@@ -153,13 +131,6 @@ class ClienteRepositoryTest {
 
     @Test
     void testDelete() {
-        Cliente cliente = new Cliente();
-        cliente.setDni("888888888");
-        cliente.setNombre("cliente8");
-        cliente.setApellidos("apellido8 apellido5");
-        cliente.setDireccion("Cliente 8 direccion");
-        cliente.setCorreo("octavocliente@gmail.com");
-        cliente.setTelefono("888-88-88-88");
         assertNotNull(clienteRepository.save(cliente),
                 "El cliente no se ha podido guardar");
         assertTrue(clienteRepository.delete(cliente.getDni()),
