@@ -21,7 +21,13 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
 
     @Override
     public Intervencion findById(Integer id) {
-        return null;
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Intervencion intervencion = entityManager.find(Intervencion.class, id);
+        entityManager.getTransaction().commit();
+
+        return intervencion;
     }
 
     @Override
