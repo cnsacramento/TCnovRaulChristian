@@ -11,10 +11,19 @@ public class EspecialidadVeterinarioRepository implements ICrud<EspecialidadVete
 
     private final EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Constructor que recibe el gestor de persistencia de datos
+     * @param entityManagerFactory EntityManagerFactory encargada de abrir la conexion con la DDBB
+     */
     public EspecialidadVeterinarioRepository(final EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /**
+     * Guarda en la DDBB la Especialidad del Veterinario
+     * @param dao Especialidad del veterinario que se desea guardar
+     * @return Nulo en caso de no haberse guardado en caso contrario devuelve el objeto guardado
+     */
     @Override
     public EspecialidadVeterinario save(EspecialidadVeterinario dao) {
 
@@ -34,6 +43,11 @@ public class EspecialidadVeterinarioRepository implements ICrud<EspecialidadVete
 
     }
 
+    /**
+     * Busca la especialidad del veterinario segun el ID de la misma
+     * @param id Identificador unico de la especialidad del veterinario
+     * @return True si se encuentra la especialidad y False si no existe
+     */
     @Override
     public EspecialidadVeterinario findById(Integer id) {
 
@@ -46,6 +60,11 @@ public class EspecialidadVeterinarioRepository implements ICrud<EspecialidadVete
         return especialidadVeterinario;
     }
 
+    /**
+     * Actualiza la informacion de una especialidad de veterinario existente
+     * @param dao Especialidad del veterinario que se desea actualizar
+     * @return True si se han realizado los cambios y False si no se han podido realizar
+     */
     @Override
     public boolean update(EspecialidadVeterinario dao) {
 
@@ -69,6 +88,11 @@ public class EspecialidadVeterinarioRepository implements ICrud<EspecialidadVete
 
     }
 
+    /**
+     * Elimina la especialidad del veterinario segun su ID
+     * @param id Identificador unico de la especialidad del veterinario
+     * @return TRUE si se ha conseguido eliminar en caso contrario FALSE
+     */
     @Override
     public boolean delete(Integer id) {
 
@@ -89,6 +113,11 @@ public class EspecialidadVeterinarioRepository implements ICrud<EspecialidadVete
         return false;
     }
 
+    /**
+     * Busca todas las especialidades de veterinarios guardadas
+     * @return Nulo si no se encuentrar especialidades
+     * y si existen devuelve una List<EspecialidadVeterinario> con los tipos  de intervenciones
+     */
     @Override
     public List<EspecialidadVeterinario> findAll() {
 
