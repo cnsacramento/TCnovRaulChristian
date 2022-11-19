@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.RollbackException;
 
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoRestriccionDia;
 
 public class TipoRestriccionDiaRepository implements ICrud<TipoRestriccionDia, String> {
@@ -42,11 +43,16 @@ public class TipoRestriccionDiaRepository implements ICrud<TipoRestriccionDia, S
 	@Override
 	public TipoRestriccionDia findById(String id) {
 		
-		return null;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		TipoRestriccionDia tipoRestriccionDia = entityManager.find(TipoRestriccionDia.class, id);
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return tipoRestriccionDia;
 	}
 
 	@Override
-	public boolean update(TipoRestriccionDia dao) {
+	public boolean update(TipoRestriccionDia tipoRestriccionDia) {
 		// TODO Auto-generated method stub
 		return false;
 	}
