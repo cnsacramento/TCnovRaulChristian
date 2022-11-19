@@ -29,7 +29,7 @@ class CuentaVeterinarioRepositoryTest {
     }
 
     @AfterEach
-    void setUpAfterAll() {
+    void setUpAfterEach() {
         cuentaVeterinarioRepository.delete(cuentaVeterinario.getCorreo());
     }
 
@@ -69,12 +69,47 @@ class CuentaVeterinarioRepositoryTest {
 
     @Test
     void testUpdateCuentaVeterinario() {
-        fail("Not yet implemented");
+
+        assertNotNull(cuentaVeterinarioRepository.save(cuentaVeterinario),
+                "Si se ha guardado correctamente la cuenta no debería dar null");
+
+        String contraseniaAntigua = cuentaVeterinario.getContrasenia();
+        cuentaVeterinario.setContrasenia("NUEVA");
+
+        assertTrue(cuentaVeterinarioRepository.update(cuentaVeterinario));
+
+        CuentaVeterinario cuentaVeterinarioActualizada =
+                cuentaVeterinarioRepository.findById(cuentaVeterinario.getCorreo());
+
+        assertNotEquals(contraseniaAntigua,
+                cuentaVeterinarioActualizada.getContrasenia());
+
     }
 
     @Test
     void testUpdateStringCuentaVeterinario() {
-        fail("Not yet implemented");
+
+     /*   assertNotNull(cuentaVeterinarioRepository.save(cuentaVeterinario),
+                "Si se ha guardado correctamente la cuenta no debería dar null");
+
+        String correoAntiguo = cuentaVeterinario.getCorreo();
+        cuentaVeterinario.setCorreo("NUEVO_CORREO");
+
+        String contraseniaAntigua = cuentaVeterinario.getContrasenia();
+        cuentaVeterinario.setContrasenia("NUEVA");
+
+        assertTrue(cuentaVeterinarioRepository.update(correoAntiguo, cuentaVeterinario));
+
+        CuentaVeterinario cuentaVeterinarioActualizada =
+                cuentaVeterinarioRepository.findById(cuentaVeterinario.getCorreo());
+
+        assertNotEquals(correoAntiguo,
+                cuentaVeterinarioActualizada.getCorreo());
+
+        assertNotEquals(contraseniaAntigua,
+                cuentaVeterinarioActualizada.getContrasenia());
+
+*/
     }
 
     @Test
