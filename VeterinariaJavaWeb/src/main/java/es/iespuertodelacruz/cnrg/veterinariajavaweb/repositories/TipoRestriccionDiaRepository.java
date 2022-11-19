@@ -60,7 +60,6 @@ public class TipoRestriccionDiaRepository implements ICrud<TipoRestriccionDia, S
 			entityManager.getTransaction().begin();			
 			
 			TipoRestriccionDia tipoRestriccionDia = entityManager.find(TipoRestriccionDia.class, tipoRestriccionDiaOriginal.getTipo());
-			tipoRestriccionDia.setTipo(tipoRestriccionDiaOriginal.getTipo());
 			tipoRestriccionDia.setReservas(tipoRestriccionDiaOriginal.getReservas());
 			tipoRestriccionDia.setIntervaloTiempo(tipoRestriccionDiaOriginal.getIntervaloTiempo());
 			tipoRestriccionDia.setHoraCierre(tipoRestriccionDiaOriginal.getHoraCierre());

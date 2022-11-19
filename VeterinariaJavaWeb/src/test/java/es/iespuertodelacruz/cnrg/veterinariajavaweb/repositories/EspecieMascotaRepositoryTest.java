@@ -49,11 +49,9 @@ class EspecieMascotaRepositoryTest {
 	static void tearDownAfterClass() throws Exception {
 		if (especieMascotaRepository.findById(especie1.getId()) != null) {
 			especieMascotaRepository.delete(especie1.getId());
-
 		}
 		if (especieMascotaRepository.findById(especie2.getId()) != null) {
 			especieMascotaRepository.delete(especie2.getId());
-
 		}
 	}
 
