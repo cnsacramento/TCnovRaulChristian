@@ -17,7 +17,21 @@ public class EspecialidadVeterinarioRepository implements ICrud<EspecialidadVete
 
     @Override
     public EspecialidadVeterinario save(EspecialidadVeterinario dao) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(dao);
+            entityManager.getTransaction().commit();
+            return dao;
+        } catch(Exception ex) {
+            System.out.println(ex.getClass());
+        } finally {
+            entityManager.close();
+        }
+
         return null;
+
     }
 
     @Override
