@@ -47,11 +47,11 @@ class EspecieMascotaRepositoryTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		if(especieMascotaRepository.findById(especie1.getId()) != null){
+		if (especieMascotaRepository.findById(especie1.getId()) != null) {
 			especieMascotaRepository.delete(especie1.getId());
 
 		}
-		if(especieMascotaRepository.findById(especie2.getId()) != null){
+		if (especieMascotaRepository.findById(especie2.getId()) != null) {
 			especieMascotaRepository.delete(especie2.getId());
 
 		}
@@ -59,44 +59,38 @@ class EspecieMascotaRepositoryTest {
 
 	@Test
 	@Order(1)
-	void testEspecieMascotaRepository() {
-        assertNotNull(especieMascotaRepository.save(especie1), "La especie se debería guardar");
-        
-        Exception ex = assertThrows(Exception.class, ()->{
-        	especieMascotaRepository.save(especie1);
-        });
+	void testSave() {
+		assertNotNull(especieMascotaRepository.save(especie1), "La especie se debería guardar");
 
-        assertNotNull(ex, "Si la especie ya existía debería lanzar Excepcion");
+		Exception ex = assertThrows(Exception.class, () -> {
+			especieMascotaRepository.save(especie1);
+		});
+
+		assertNotNull(ex, "Si la especie ya existía debería lanzar Excepcion");
 	}
 
 	@Test
 	@Order(2)
-	void testSave() {
-		fail("Not yet implemented");
+	void testFindById() {
+        assertNotNull(especieMascotaRepository.findById(especie1.getId()), "La mascota no debería ser nula si existe");
 	}
 
 	@Test
 	@Order(3)
-	void testFindById() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	@Order(4)
 	void testUpdate() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	@Order(6)
+	@Order(5)
 	void testDelete() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	@Order(5)
+	@Order(4)
 	void testFindAll() {
-		fail("Not yet implemented");
+		assertTrue(especieMascotaRepository.findAll().size() > 0, "El tamanio del array debe ser mayor que cero");
 	}
 
 }
