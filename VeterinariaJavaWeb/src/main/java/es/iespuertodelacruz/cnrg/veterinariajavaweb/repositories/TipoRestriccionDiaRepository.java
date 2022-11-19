@@ -79,8 +79,24 @@ public class TipoRestriccionDiaRepository implements ICrud<TipoRestriccionDia, S
 
 	@Override
 	public boolean delete(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		boolean resultado = false;
+		
+		try {
+			entityManager.getTransaction().begin();
+			TipoRestriccionDia tipoRestriccionDia = entityManager.find(TipoRestriccionDia.class, id);
+			entityManager.remove(tipoRestriccionDia);
+			entityManager.getTransaction().commit();
+			resultado = true;
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			entityManager.close();
+		}
+		
+		entityManager.close();
+		
+		return resultado;
 	}
 
 	@Override
