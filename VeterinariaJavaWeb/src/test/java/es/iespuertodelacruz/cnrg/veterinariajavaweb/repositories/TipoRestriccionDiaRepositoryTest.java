@@ -43,14 +43,14 @@ class TipoRestriccionDiaRepositoryTest {
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance().getEmf();
 		tipoRestriccionDiaRepository = new TipoRestriccionDiaRepository(entityManagerFactory);
 
-		// ESPECIE 1
+		// TIPO 1
 		tipo1 = new TipoRestriccionDia();
 		tipo1.setTipo(Tipo1);
 		tipo1.setHoraApertura(Apertura1);
 		tipo1.setHoraCierre(Cierre1);
 		tipo1.setIntervaloTiempo(Intervalo1);
 
-		// ESPECIE 2
+		// TIPO 2
 		tipo2 = new TipoRestriccionDia();
 		tipo2.setTipo(Tipo2);
 		tipo2.setHoraApertura(Apertura2);
