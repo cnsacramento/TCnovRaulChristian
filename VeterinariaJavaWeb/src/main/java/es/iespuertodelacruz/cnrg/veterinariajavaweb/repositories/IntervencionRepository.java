@@ -31,7 +31,22 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
 
     @Override
     public boolean delete(Integer id) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();;
+        try {
+            entityManager.getTransaction().begin();
+            Intervencion intervencion = entityManager.find(Intervencion.class, id);
+            entityManager.remove(intervencion);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+
         return false;
+
     }
 
     @Override
