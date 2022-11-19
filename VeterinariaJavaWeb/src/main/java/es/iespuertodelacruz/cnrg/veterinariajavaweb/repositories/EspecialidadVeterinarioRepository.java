@@ -43,6 +43,17 @@ public class EspecialidadVeterinarioRepository implements ICrud<EspecialidadVete
 
     @Override
     public List<EspecialidadVeterinario> findAll() {
-        return null;
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        List<EspecialidadVeterinario> especialidadesVeterinarioList
+                                      = entityManager.createNamedQuery(
+                                              "EspecialidadVeterinario.findAll",
+                EspecialidadVeterinario.class)
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return especialidadesVeterinarioList;
     }
 }
