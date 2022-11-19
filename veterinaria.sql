@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 18-11-2022 a las 23:04:58
+-- Tiempo de generación: 19-11-2022 a las 12:00:06
 -- Versión del servidor: 8.0.28
 -- Versión de PHP: 8.0.16
 
@@ -35,6 +35,17 @@ CREATE TABLE `cliente` (
   `correo` varchar(100) DEFAULT NULL,
   `telefono` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`dni`, `nombre`, `apellidos`, `direccion`, `correo`, `telefono`) VALUES
+('111111111', 'cliente1', 'apellido1 apellido1', 'Cliente 1 direccion', 'primercliente@gmail.com', '111-11-11-11'),
+('222222222', 'cliente2', 'apellido2 apellido2', 'Cliente 2 direccion', 'segundocliente@gmail.com', '222-22-22-22'),
+('444444444', 'cliente4', 'apellido4 apellido4', 'Cliente 4 direccion', 'cuartocliente@gmail.com', '444-44-44-44'),
+('555555555', 'cliente5Nuevo', 'apellido5Nuevo apellido5Nuevo', 'Cliente 5 nueva direccion', 'quintoclienteNuevo@gmail.com', '555-55-66-55'),
+('777777777', 'cliente7', 'apellido7 apellido5', 'Cliente 7 direccion', 'septimocliente@gmail.com', '777-77-77-77');
 
 -- --------------------------------------------------------
 
@@ -90,7 +101,7 @@ CREATE TABLE `especie_mascota` (
 CREATE TABLE `factura` (
   `id` int NOT NULL,
   `fecha` timestamp NOT NULL,
-  `coste` decimal(10,0) NOT NULL,
+  `coste` decimal(6,2) DEFAULT NULL,
   `detalles` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -149,6 +160,16 @@ CREATE TABLE `tipo_intervencion` (
   `id` int NOT NULL,
   `tipo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_intervencion`
+--
+
+INSERT INTO `tipo_intervencion` (`id`, `tipo`) VALUES
+(2, 'Cirugía'),
+(3, 'Consulta'),
+(5, 'Nuevo tipo'),
+(1, 'Revision');
 
 -- --------------------------------------------------------
 
@@ -285,7 +306,7 @@ ALTER TABLE `especialidad_veterinario`
 -- AUTO_INCREMENT de la tabla `especie_mascota`
 --
 ALTER TABLE `especie_mascota`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
@@ -303,19 +324,19 @@ ALTER TABLE `intervencion`
 -- AUTO_INCREMENT de la tabla `mascota`
 --
 ALTER TABLE `mascota`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_intervencion`
 --
 ALTER TABLE `tipo_intervencion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
