@@ -165,13 +165,13 @@ class MascotaRepositoryTest {
 	}
 
 	@Test
-    @Order(4)
+    @Order(5)
 	void testDelete() {
 		assertTrue(mascotaRepository.delete(mascota1.getId()), "Si la mascota existe se debería borrar");
 	}
 
 	@Test
-	@Order(5)
+	@Order(4)
 	void testFindAll() {
 		assertTrue(mascotaRepository.findAll().size() > 0, "El tamanio del array debe ser mayor que cero");
 	}
