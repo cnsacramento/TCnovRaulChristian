@@ -48,7 +48,25 @@ public class EspecialidadVeterinarioRepository implements ICrud<EspecialidadVete
 
     @Override
     public boolean update(EspecialidadVeterinario dao) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            EspecialidadVeterinario especialidadVeterinarioParaModificar =
+                    entityManager.find(EspecialidadVeterinario.class, dao.getId());
+            especialidadVeterinarioParaModificar.setNombre(dao.getNombre());
+            especialidadVeterinarioParaModificar.setVeterinarios(dao.getVeterinarios());
+            entityManager.persist(especialidadVeterinarioParaModificar);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch(Exception ex) {
+            System.out.println(ex.getClass());
+        } finally {
+            entityManager.close();
+        }
+
         return false;
+
     }
 
     @Override
