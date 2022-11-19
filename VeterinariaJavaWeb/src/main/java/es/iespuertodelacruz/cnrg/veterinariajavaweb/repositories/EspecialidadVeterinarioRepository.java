@@ -2,6 +2,7 @@ package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecialidadVeterinario;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
@@ -38,6 +39,21 @@ public class EspecialidadVeterinarioRepository implements ICrud<EspecialidadVete
 
     @Override
     public boolean delete(Integer id) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            EspecialidadVeterinario especialidadVeterinarioParaEliminar =
+                    entityManager.find(EspecialidadVeterinario.class, id);
+            entityManager.remove(especialidadVeterinarioParaEliminar);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch(Exception ex) {
+            System.out.println(ex.getClass());
+        } finally {
+            entityManager.close();
+        }
+
         return false;
     }
 
