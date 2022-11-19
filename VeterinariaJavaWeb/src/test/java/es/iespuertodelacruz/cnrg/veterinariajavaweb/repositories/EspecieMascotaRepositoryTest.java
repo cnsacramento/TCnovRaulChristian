@@ -38,13 +38,11 @@ class EspecieMascotaRepositoryTest {
 		especie1 = new EspecieMascota();
 		especie1.setNombre(NombreEspecie1);
 		especie1.setPeligrosa(Peligrosa1);
-		especieMascotaRepository.save(especie1);
 
 		// ESPECIE 2
 		especie2 = new EspecieMascota();
 		especie2.setNombre(NombreEspecie2);
 		especie2.setPeligrosa(Peligrosa2);
-		especieMascotaRepository.save(especie2);
 	}
 
 	@AfterAll
@@ -62,7 +60,13 @@ class EspecieMascotaRepositoryTest {
 	@Test
 	@Order(1)
 	void testEspecieMascotaRepository() {
-		fail("Not yet implemented");
+        assertNotNull(especieMascotaRepository.save(especie1), "La especie se debería guardar");
+        
+        Exception ex = assertThrows(Exception.class, ()->{
+        	especieMascotaRepository.save(especie1);
+        });
+
+        assertNotNull(ex, "Si la especie ya existía debería lanzar Excepcion");
 	}
 
 	@Test
