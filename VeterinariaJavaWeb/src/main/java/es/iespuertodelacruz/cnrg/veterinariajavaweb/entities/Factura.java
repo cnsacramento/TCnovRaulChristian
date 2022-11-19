@@ -21,7 +21,7 @@ public class Factura implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private BigDecimal coste;
+	private Double coste;
 
 	private String detalles;
 
@@ -42,11 +42,11 @@ public class Factura implements Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getCoste() {
+	public Double getCoste() {
 		return this.coste;
 	}
 
-	public void setCoste(BigDecimal coste) {
+	public void setCoste(Double coste) {
 		this.coste = coste;
 	}
 
