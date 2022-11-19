@@ -123,7 +123,7 @@ class ReservaRespositoryTest {
 	@Test
 	@Order(2)
 	void testFindById() {
-        assertNotNull(reservaRepository.findById(reserva1.getId()), "La mascota no debería ser nula si existe");
+        assertNotNull(reservaRepository.findById(reserva1.getId()), "La reserva no debería ser nula si existe");
 	}
 
 	@Test

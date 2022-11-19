@@ -82,7 +82,6 @@ class EspecieMascotaRepositoryTest {
 		especie2 = especieMascotaRepository.findById(especie1.getId());
 		assertNotEquals(especie1.getNombre(), especie2.getNombre(), "Los nombres deberian ser distintos");
 		assertNotEquals(especie1.getPeligrosa(), especie2.getPeligrosa(), "Las especie deberian ser distintas" );
-		
 	}
 
 	@Test
