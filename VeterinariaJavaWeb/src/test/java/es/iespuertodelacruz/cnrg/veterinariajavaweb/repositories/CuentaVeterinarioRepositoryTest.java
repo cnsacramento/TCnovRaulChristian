@@ -58,6 +58,13 @@ class CuentaVeterinarioRepositoryTest {
     @Test
     void testFindById() {
 
+        CuentaVeterinario cuentaVeterinarioGuardada = cuentaVeterinarioRepository.save(cuentaVeterinario);
+        assertNotNull(cuentaVeterinarioGuardada,
+                "Si se ha guardado correctamente la cuenta no debería dar null");
+
+        assertNotNull(cuentaVeterinarioRepository.findById(cuentaVeterinarioGuardada.getCorreo()),
+                "Si el cuenta esta guardada no debería devolver null");
+
     }
 
     @Test
