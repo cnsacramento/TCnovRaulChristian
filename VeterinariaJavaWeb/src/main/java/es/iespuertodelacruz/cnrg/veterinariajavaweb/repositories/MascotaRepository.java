@@ -12,7 +12,7 @@ import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota;
 
 public class MascotaRepository implements ICrud<Mascota, Integer>{
 	
-	private final EntityManagerFactory entityManagerFactory;
+	private EntityManagerFactory entityManagerFactory;
 	
 	/**
 	 * Constructor con un parametro de la clase MascotaRepository 
