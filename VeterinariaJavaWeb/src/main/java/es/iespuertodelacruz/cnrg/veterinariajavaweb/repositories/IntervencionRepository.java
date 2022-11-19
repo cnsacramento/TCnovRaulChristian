@@ -14,6 +14,11 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /**
+     * Guarda en la DDBB la intervencion
+     * @param dao Intervencion que se desea guardar
+     * @return Nulo en caso de no haberse guardado, en caso contrario devuelve el objeto guardado
+     */
     @Override
     public Intervencion save(Intervencion dao) {
 
@@ -32,6 +37,11 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
         return null;
     }
 
+    /**
+     * Busca una intervencion segun el ID de la misma
+     * @param id Identificador unico de la intervencion
+     * @return True si se encuentra la intervencion y False si no existe
+     */
     @Override
     public Intervencion findById(Integer id) {
 
@@ -43,6 +53,11 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
         return intervencion;
     }
 
+    /**
+     * Actualiza la informacion de una intervencion existente en DDBB
+     * @param dao Intervencion que se desea actualizar
+     * @return True si se han realizado los cambios y False si no se han podido realizar
+     */
     @Override
     public boolean update(Intervencion dao) {
 
@@ -66,10 +81,15 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
         return false;
     }
 
+    /**
+     * Elimina una intervencion segun su ID
+     * @param id Identificador unico de la intervencion
+     * @return TRUE si se ha conseguido eliminar, en caso contrario FALSE
+     */
     @Override
     public boolean delete(Integer id) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             Intervencion intervencion = entityManager.find(Intervencion.class, id);
@@ -86,6 +106,12 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
 
     }
 
+    /**
+     * Busca todas las intervencion guardadas en DDBB
+     * @return Nulo si no se encuentran ninguna intervencion
+     * y si existen devuelve una List<Intervencion> con todas
+     * las intervenciones
+     */
     @Override
     public List<Intervencion> findAll() {
 
