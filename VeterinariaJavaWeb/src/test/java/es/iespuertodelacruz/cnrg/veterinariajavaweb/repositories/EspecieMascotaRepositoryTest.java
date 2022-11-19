@@ -78,13 +78,20 @@ class EspecieMascotaRepositoryTest {
 	@Test
 	@Order(3)
 	void testUpdate() {
-		fail("Not yet implemented");
+		especie2.setId(especie1.getId());
+		especieMascotaRepository.update(especie2);
+		
+		especie2 = especieMascotaRepository.findById(especie1.getId());
+		assertNotEquals(especie1.getNombre(), especie2.getNombre(), "Los nombres deberian ser distintos");
+		assertNotEquals(especie1.getPeligrosa(), especie2.getPeligrosa(), "Las especie deberian ser distintas" );
+		
 	}
 
 	@Test
 	@Order(5)
 	void testDelete() {
-		fail("Not yet implemented");
+		assertTrue(especieMascotaRepository.delete(especie1.getId()), "Si la mascota existe se debería borrar");
+		assertFalse(especieMascotaRepository.delete(especie1.getId()), "Si la mascota no existe no se debería borrar");
 	}
 
 	@Test
