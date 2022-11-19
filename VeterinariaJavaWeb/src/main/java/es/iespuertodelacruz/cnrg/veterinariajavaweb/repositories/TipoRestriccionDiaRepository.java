@@ -101,8 +101,12 @@ public class TipoRestriccionDiaRepository implements ICrud<TipoRestriccionDia, S
 
 	@Override
 	public List<TipoRestriccionDia> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		List<TipoRestriccionDia> lista = entityManager.createNamedQuery("TipoRestriccionDia.findAll", TipoRestriccionDia.class).getResultList();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return lista;
 	}
 
 }
