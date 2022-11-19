@@ -3,14 +3,14 @@ package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 import static org.junit.jupiter.api.Assertions.*;
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoIntervencion;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import javax.persistence.EntityManagerFactory;
 
 class TipoIntervencionTest {
 
-    static TipoIntervencionRepository tipoIntervencionRepository;
+    private static TipoIntervencionRepository tipoIntervencionRepository;
+    private TipoIntervencion tipoIntervencion;
 
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
@@ -19,14 +19,23 @@ class TipoIntervencionTest {
         tipoIntervencionRepository = new TipoIntervencionRepository(entityManagerFactory);
     }
 
+    @BeforeEach
+    void setUpBeforeEach() {
+        tipoIntervencion = new TipoIntervencion();
+        tipoIntervencion.setTipo("tipoIntervencion");
+    }
+
+    @AfterEach
+    void setUpAfterEach() {
+        tipoIntervencionRepository.delete(tipoIntervencion.getId());
+    }
+
     @Test
     void testSave() {
 
-        TipoIntervencion tipoIntervencion = new TipoIntervencion();
-        tipoIntervencion.setTipo("Cirugía");
+        TipoIntervencion tipoIntervencionGuardada = tipoIntervencionRepository.save(tipoIntervencion);
 
-        TipoIntervencion tipoIntervencionGuardada;
-        assertNotNull(tipoIntervencionGuardada = tipoIntervencionRepository.save(tipoIntervencion),
+        assertNotNull(tipoIntervencionGuardada,
                 "Si se ha guardado correctamente no debería devolver null");
 
         tipoIntervencionRepository.findById(tipoIntervencionGuardada.getId());
@@ -37,7 +46,6 @@ class TipoIntervencionTest {
     @Test
     void testSaveTipoNuloDevuelveNulo() {
 
-        TipoIntervencion tipoIntervencion = new TipoIntervencion();
         tipoIntervencion.setTipo(null);
 
         assertNull(tipoIntervencionRepository.save(tipoIntervencion),
@@ -46,9 +54,9 @@ class TipoIntervencionTest {
 
     @Test
     void testSaveIdCreadoManualDevuelveNulo() {
-        TipoIntervencion tipoIntervencion = new TipoIntervencion();
+
         tipoIntervencion.setId(10);
-        tipoIntervencion.setTipo("Estética");
+        tipoIntervencion.setTipo("nuevo");
 
         assertNull(tipoIntervencionRepository.save(tipoIntervencion),
                 "No se debería poder guardar un tipo con un id manual");
@@ -56,11 +64,11 @@ class TipoIntervencionTest {
 
     @Test
     void testFindById() {
-        TipoIntervencion tipoIntervencion = new TipoIntervencion();
-        tipoIntervencion.setTipo("Consulta");
 
-        TipoIntervencion tipoIntervencionEncontrada;
-        assertNotNull(tipoIntervencionEncontrada = tipoIntervencionRepository.save(tipoIntervencion),
+        TipoIntervencion tipoIntervencionEncontrada =
+                tipoIntervencionRepository.save(tipoIntervencion);
+
+        assertNotNull(tipoIntervencionEncontrada,
                 "Si se ha guardado correctamente no debería devolver null");
 
         assertNotNull(tipoIntervencionRepository.findById(tipoIntervencionEncontrada.getId()),
@@ -72,22 +80,19 @@ class TipoIntervencionTest {
     @Test
     void testFindByIdNoExistenteDevuelveNull() {
 
-        assertNull(tipoIntervencionRepository.findById(0),
+        assertNull(tipoIntervencionRepository.findById(-1),
                 "Si el ID no existe debería devolver null");
     }
 
     @Test
     void testUpdate() {
-        TipoIntervencion tipoIntervencion = new TipoIntervencion();
-        tipoIntervencion.setTipo("Exploración");
 
         TipoIntervencion tipoIntervencionGuardada = tipoIntervencionRepository.save(tipoIntervencion);
         assertNotNull(tipoIntervencionGuardada,
                 "Si se ha guardado correctamente no debería devolver null");
 
-        TipoIntervencion tipoIntervencionModificada = tipoIntervencionGuardada;
-        tipoIntervencionModificada.setTipo("Nuevo tipo");
-        assertTrue(tipoIntervencionRepository.update(tipoIntervencionModificada),
+        tipoIntervencionGuardada.setTipo("Nuevo tipo");
+        assertTrue(tipoIntervencionRepository.update(tipoIntervencionGuardada),
                 "Si se ha modificado correctamente no debería devolver null");
 
     }
@@ -108,8 +113,6 @@ class TipoIntervencionTest {
 
     @Test
     void testFindAll() {
-        TipoIntervencion tipoIntervencion = new TipoIntervencion();
-        tipoIntervencion.setTipo("Revision");
 
         assertNotNull(tipoIntervencionRepository.save(tipoIntervencion),
                 "Si se ha guardado correctamente no debería devolver null");
