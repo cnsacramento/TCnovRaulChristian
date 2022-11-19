@@ -45,6 +45,24 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
 
     @Override
     public boolean update(Intervencion dao) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Intervencion intervencion = entityManager.find(Intervencion.class, dao.getId());
+            intervencion.setAsunto(dao.getAsunto());
+            intervencion.setDescripcion(dao.getDescripcion());
+            intervencion.setTipoIntervencion(dao.getTipoIntervencion());
+            intervencion.setMascota(dao.getMascota());
+            intervencion.setFactura(dao.getFactura());
+            intervencion.setVeterinarios(dao.getVeterinarios());
+            entityManager.getTransaction().commit();
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            entityManager.close();
+        }
+
         return false;
     }
 
