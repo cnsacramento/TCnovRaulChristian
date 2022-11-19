@@ -85,7 +85,12 @@ class CuentaVeterinarioRepositoryTest {
 
     @Test
     void testDelete() {
-        fail("Not yet implemented");
+        CuentaVeterinario cuentaVeterinarioGuardada = cuentaVeterinarioRepository.save(cuentaVeterinario);
+        assertNotNull(cuentaVeterinarioGuardada,
+                "Si se ha guardado correctamente la cuenta no debería dar null");
+
+        assertTrue(cuentaVeterinarioRepository.delete(cuentaVeterinarioGuardada.getCorreo()),
+                "Si el correo esta guardado debería devolver TRUE");
     }
 
     @Test
