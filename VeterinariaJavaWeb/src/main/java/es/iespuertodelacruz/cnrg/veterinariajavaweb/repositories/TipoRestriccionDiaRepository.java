@@ -52,9 +52,29 @@ public class TipoRestriccionDiaRepository implements ICrud<TipoRestriccionDia, S
 	}
 
 	@Override
-	public boolean update(TipoRestriccionDia tipoRestriccionDia) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(TipoRestriccionDia tipoRestriccionDiaOriginal) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		boolean resultado = true;
+		
+		try {
+			entityManager.getTransaction().begin();			
+			
+			TipoRestriccionDia tipoRestriccionDia = entityManager.find(TipoRestriccionDia.class, tipoRestriccionDiaOriginal.getTipo());
+			tipoRestriccionDia.setTipo(tipoRestriccionDiaOriginal.getTipo());
+			tipoRestriccionDia.setReservas(tipoRestriccionDiaOriginal.getReservas());
+			tipoRestriccionDia.setIntervaloTiempo(tipoRestriccionDiaOriginal.getIntervaloTiempo());
+			tipoRestriccionDia.setHoraCierre(tipoRestriccionDiaOriginal.getHoraCierre());
+			tipoRestriccionDia.setHoraApertura(tipoRestriccionDiaOriginal.getHoraApertura());
+            
+			entityManager.getTransaction().commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			resultado = false;
+		}finally {
+			entityManager.close();
+		}
+		
+		return resultado;
 	}
 
 	@Override
