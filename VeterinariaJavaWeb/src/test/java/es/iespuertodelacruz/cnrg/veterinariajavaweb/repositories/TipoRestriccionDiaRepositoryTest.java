@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoRestriccionDia;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class TipoRestriccionDiaTest {
+class TipoRestriccionDiaRepositoryTest {
 	
 	static TipoRestriccionDiaRepository tipoRestriccionDiaRepository;
 
