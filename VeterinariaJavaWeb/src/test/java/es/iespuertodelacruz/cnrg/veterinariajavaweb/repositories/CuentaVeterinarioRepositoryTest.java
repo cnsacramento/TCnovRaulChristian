@@ -19,12 +19,6 @@ class CuentaVeterinarioRepositoryTest {
         EntityManagerFactory entityManagerFactory =
                 EntityManagerFactorySingleton.getInstance().getEmf();
         cuentaVeterinarioRepository = new CuentaVeterinarioRepository(entityManagerFactory);
-
-
-    }
-
-    @AfterAll
-    static void tearDownAfterClass() throws Exception {
     }
 
     @BeforeEach
@@ -94,8 +88,20 @@ class CuentaVeterinarioRepositoryTest {
     }
 
     @Test
+    void testDeleteSiNoExisteDeberiaDevolverFalse() {
+        assertFalse(cuentaVeterinarioRepository.delete(""),
+                "Si no esta guardado en DDBB no debería devolver true");
+    }
+
+    @Test
     void testFindAll() {
-        fail("Not yet implemented");
+
+        CuentaVeterinario cuentaVeterinarioGuardada = cuentaVeterinarioRepository.save(cuentaVeterinario);
+        assertNotNull(cuentaVeterinarioGuardada,
+                "Si se ha guardado correctamente la cuenta no debería dar null");
+
+        assertNotNull(cuentaVeterinarioRepository.findAll(),
+                "Si existen cuentas no debería devolver null");
     }
 
 }
