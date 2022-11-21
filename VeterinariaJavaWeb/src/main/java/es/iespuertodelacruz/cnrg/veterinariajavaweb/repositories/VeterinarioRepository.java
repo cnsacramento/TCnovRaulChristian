@@ -96,8 +96,12 @@ public class VeterinarioRepository implements ICrud<Veterinario, String> {
 
 	@Override
 	public List<Veterinario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		List<Veterinario> lista = entityManager.createNamedQuery("Veterinario.findAll", Veterinario.class).getResultList();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return lista;
 	}
 
 }
