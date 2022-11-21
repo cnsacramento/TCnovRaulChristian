@@ -46,9 +46,30 @@ public class VeterinarioRepository implements ICrud<Veterinario, String> {
 	}
 
 	@Override
-	public boolean update(Veterinario veterinario) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(Veterinario veterinarioOriginal) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		boolean resultado = true;
+		
+		try {
+			entityManager.getTransaction().begin();			
+			
+			Veterinario veterinario = entityManager.find(Veterinario.class, veterinarioOriginal.getDni());
+			veterinario.setDni(veterinarioOriginal.getDni());
+			veterinario.setNombre(veterinarioOriginal.getNombre());
+			veterinario.setApellidos(veterinarioOriginal.getApellidos());
+			veterinario.setTelefono(veterinarioOriginal.getTelefono());
+			veterinario.setCuentaVeterinario(veterinarioOriginal.getCuentaVeterinario());
+			veterinario.setEspecialidadVeterinario(veterinarioOriginal.getEspecialidadVeterinario());
+            
+			entityManager.getTransaction().commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			resultado = false;
+		}finally {
+			entityManager.close();
+		}
+		
+		return resultado;
 	}
 
 	@Override
