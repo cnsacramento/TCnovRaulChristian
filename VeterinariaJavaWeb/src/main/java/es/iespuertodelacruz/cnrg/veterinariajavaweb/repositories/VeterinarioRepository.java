@@ -74,8 +74,24 @@ public class VeterinarioRepository implements ICrud<Veterinario, String> {
 
 	@Override
 	public boolean delete(String dni) {
-		// TODO Auto-generated method stub
-		return false;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		boolean resultado = false;
+		
+		try {
+			entityManager.getTransaction().begin();
+			Veterinario veterinario = entityManager.find(Veterinario.class, dni);
+			entityManager.remove(veterinario);
+			entityManager.getTransaction().commit();
+			resultado = true;
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			entityManager.close();
+		}
+		
+		entityManager.close();
+		
+		return resultado;
 	}
 
 	@Override
