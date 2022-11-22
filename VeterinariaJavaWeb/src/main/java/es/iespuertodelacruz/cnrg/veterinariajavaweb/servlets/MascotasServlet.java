@@ -74,13 +74,19 @@ public class MascotasServlet extends HttpServlet {
 		String proceso = request.getParameter("boton");
 		List<Mascota> mascotas = new ArrayList<>();
 
-		if (proceso != null) {
-
+		if (proceso != null && request.getParameter("idMascota").length() > 0 ) {
+			try {
+				int id = Integer.parseInt(request.getParameter("idMascota"));
+				mascotas = new ArrayList<>();
+				mascotas.add(mascotaRepository.findById(id));
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		} else {
 			mascotas = mascotaRepository.findAll();
-			request.setAttribute("mascotas", mascotas);
-			request.getRequestDispatcher("mascotas.jsp").forward(request, response);
 		}
+		request.setAttribute("mascotas", mascotas);
+		request.getRequestDispatcher("mascotas.jsp").forward(request, response);
 	}
 
 }

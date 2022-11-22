@@ -18,12 +18,13 @@
 	</header>
 	
 	<div class ="container">
-		<form action="" method="POST">
+		<form action="mascotasServlet" method="POST">
 			<label for ="idMascota"> </label> 
 			<input class="controls" type="text" name="idMascota" value="" placeholder="ID"> 
 			<input class="buttons" type="submit" name="boton" value="Buscar">
 		</form><br>
 	</div>
+	
 	<div class="container">
         <table class="table">
             <caption>Mascotas</caption>
