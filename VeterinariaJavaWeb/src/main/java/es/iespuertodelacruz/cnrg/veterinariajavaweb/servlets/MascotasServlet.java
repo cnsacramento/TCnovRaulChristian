@@ -40,10 +40,22 @@ public class MascotasServlet extends HttpServlet {
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
 				.getAttribute("entityManagerFactory");
 		MascotaRepository mascotaRepository = new MascotaRepository(entityManagerFactory);
-
 		List<Mascota> mascotas = new ArrayList<>();
-
 		mascotas = mascotaRepository.findAll();
+		
+		String metodo = request.getParameter("metodo");
+		if(metodo != null) {
+			switch(metodo) {
+			case "edit": 
+				
+				break;
+			case "delete": 
+					
+				break;
+			case "intervencion": 
+				break;	
+			}
+		}
 		request.setAttribute("mascotas", mascotas);
 		request.getRequestDispatcher("mascotas.jsp").forward(request, response);
 	}

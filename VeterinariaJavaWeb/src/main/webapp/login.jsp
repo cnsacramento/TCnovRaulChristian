@@ -10,27 +10,6 @@
     </head>
 
     <body>
-
-        <c:if test="${not empty mensaje}">
-            <script>
-                window.addEventListener("load", function(){
-                    alert("${mensaje}");
-                });
-            </script>
-        </c:if>
-
-        <header id = "header">
-            <div class="container">
-                <a href="index.html">
-                    <h3 class="nombreEmpresa">VETERINARIA CRRC</h3>
-                </a>
-                <div class="nav">
-                    <a href="index.html" class="nav-link">Incio</a>
-                    <a href="register.jsp" class="nav-link">Registrarse</a>
-                </div>
-            </div>
-        </header>
-
         <section id="form-login">
             <h5>Login</h5>
             <form action="logServlet" method="POST">
@@ -40,7 +19,14 @@
             </form>
             <p><a href="#">¿Olvidastes tu Contraseña?</a></p>
         </section>
-
+        
+        <c:if test="${not empty mensaje}">
+            <script>
+                window.addEventListener("load", function(){
+                    alert("${mensaje}");
+                });
+            </script>
+        </c:if>
     </body>
 
 </html>
