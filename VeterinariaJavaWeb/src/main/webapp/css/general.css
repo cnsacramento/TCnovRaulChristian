@@ -1,0 +1,109 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: whitesmoke;
+}
+
+h1{font-size: 3em;}
+h2{font-size: 2.5em;}
+h3{font-size: 2em;}
+p{font-size: 1.25em;}
+
+.colorLetras{color: rgb(212, 34, 212);}
+
+.buttons{
+    border: 3px solid rgba(100,100,100,0.1);
+    font-weight: bold;
+    background-size: 370px;
+    margin-bottom: 20px;
+    padding: 10px 35px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    color:white;
+    background-image: linear-gradient(to left, #FF5733, #881857, #FF5733 );
+}
+
+.buttons:hover{
+    background-image: linear-gradient(to left, #881857, #FF5733, #881857 );
+}
+
+.container{
+    max-width: 1400px;
+    margin:auto;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+    background-image: linear-gradient(200deg,   rgb(106, 230, 198),  rgb(106, 230, 198));
+
+}
+
+header .container{
+    display: flex;
+    flex-direction: row ;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+header h3{
+    color: indigo;
+}
+
+#relleno {
+    min-height: 1px;
+
+}
+
+.container img{
+    height: 80px;
+    margin-right: 10px;
+}
+
+header .nombreEmpresa{
+    font-size: 1.25em;
+    font-style: oblique;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans;
+}
+
+header .nav{
+    
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+
+header .log a{
+    color:black;
+    padding: 3px;
+    border-radius: 4px;
+    background-color: rgba(255,0,0, 0.8);
+}
+
+header .log a:hover{
+    color:black;
+    background-color: wheat;
+}
+
+header a{
+    padding: 5px 12px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+
+
+
