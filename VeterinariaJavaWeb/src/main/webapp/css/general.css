@@ -9,7 +9,7 @@ html{
 
 body{
     font-family: 'Roboto', sans-serif;
-    background-color: whitesmoke;
+    background-image: linear-gradient(to left, rgb(153, 193, 241), rgb(143, 240, 164) );
 }
 
 h1{font-size: 3em;}
@@ -29,11 +29,13 @@ p{font-size: 1.25em;}
     border-radius: 8px;
     cursor: pointer;
     color:white;
-    background-image: linear-gradient(to left, #FF5733, #881857, #FF5733 );
+    background-image: linear-gradient(to left,  rgb(26, 95, 180), rgb(38, 162, 105), rgb(26, 95, 180) );
+    box-shadow: 5px 10px 12px #000;
 }
 
 .buttons:hover{
-    background-image: linear-gradient(to left, #881857, #FF5733, #881857 );
+    background-image: linear-gradient(to left, rgb(26, 95, 180), rgb(26, 95, 180), rgb(26, 95, 180) );
+    box-shadow: 3px 5px 10px #000;
 }
 
 .container{
@@ -101,6 +103,14 @@ header a{
     padding: 5px 12px;
     text-decoration: none;
     font-weight: bold;
+}
+
+#hero{
+	display: flex;
+    flex-direction: column ;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 }
 
 
