@@ -78,32 +78,28 @@ class VeterinarioRepositoryTest {
 	@Test
 	@Order(1)
 	void testSave() {
-		assertNotNull(tipoRestriccionDiaRepository.save(tipo1), "La especie se debería guardar");
-
-		Exception ex = assertThrows(Exception.class, () -> {
-			tipoRestriccionDiaRepository.save(tipo1);
-		});
-
-		assertNotNull(ex, "Si la especie ya existía debería lanzar Excepcion");
+		assertNotNull(veterinarioRepository.save(veterinario1), "El veterinario se debería guardar");
 	}
 
 	@Test
 	@Order(2)
 	void testFindById() {
-        assertNotNull(tipoRestriccionDiaRepository.findById(tipo1.getTipo()), "La mascota no debería ser nula si existe");
+        assertNotNull(veterinarioRepository.findById(veterinario1.getDni()), "El veterinario no debería ser nulo si existe");
 	}
 
 	@Test
 	@Order(3)
 	void testUpdate() {
-		tipo2.setTipo(tipo1.getTipo());
-		tipoRestriccionDiaRepository.update(tipo2);
+		veterinario2.setDni(veterinario1.getDni());
+		veterinarioRepository.update(veterinario2);
 		
-		tipo2 = tipoRestriccionDiaRepository.findById(tipo1.getTipo());
-		System.out.println(tipo1.getTipo()+" "+ tipo2.getTipo());
-		assertNotEquals(tipo1.getHoraApertura(), tipo2.getHoraApertura(), "Las horas de apertura deberian ser distintas");
-		assertNotEquals(tipo1.getHoraCierre(), tipo2.getHoraCierre(), "Los horas de cierre deberian ser distintas");
-		assertNotEquals(tipo1.getIntervaloTiempo(), tipo2.getIntervaloTiempo(), "Los intervalos deberian ser distintos");
+		veterinario2 = veterinarioRepository.findById(veterinario1.getDni());
+		assertNotEquals(veterinario1.getNombre(), veterinario2.getNombre(), "Los nombres deberian ser distintas");
+		assertNotEquals(veterinario1.getApellidos(), veterinario2.getApellidos(), "Los apellidos deberian ser distintas");
+		assertNotEquals(veterinario1.getTelefono(), veterinario2.getTelefono(), "Los telefonos deberian ser distintos");
+		assertNotEquals(veterinario1.getCuentaVeterinario(), veterinario2.getCuentaVeterinario(), "Las cuentas deberian ser distintos");
+		assertNotEquals(veterinario1.getEspecialidadVeterinario(), veterinario2.getEspecialidadVeterinario(), "Las espcialidades deberian ser distintos");
+
 		
 	}
 
