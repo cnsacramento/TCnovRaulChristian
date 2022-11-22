@@ -54,8 +54,7 @@ public class MascotasServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
-				.getAttribute("entityManagerFactory");
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext().getAttribute("entityManagerFactory");
 		MascotaRepository mascotaRepository = new MascotaRepository(entityManagerFactory);
 		EspecieMascotaRepository especieRepository = new EspecieMascotaRepository(entityManagerFactory);
 		ClienteRepository clienteRepository = new ClienteRepository(entityManagerFactory);

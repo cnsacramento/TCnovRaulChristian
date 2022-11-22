@@ -30,16 +30,18 @@
 	        </div>
 	    </div>
 	</header>
-	
+
 	<div class="container">
         <table class="table">
             <caption>Consolas</caption>
             <thead>
                 <tr>
-                    <th>Consola</th>
-                    <th>Precio</th>
-                    <th>Ventas</th>
-                    <th>Fecha de lanzamiento</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Peso</th>
+                    <th>Especie</th>
+                    <th>Dueño</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,8 +52,8 @@
 	                    <td data-label="Nombre">${mascota.getNombre()}</td>
 	                    <td data-label="Fecha Nacimiento">${mascota.getFechaNacimiento()}</td>
 	                    <td data-label="Peso">${mascota.getPeso()}</td>
-	                    <td data-label="DNI Dueño">${mascota.getCliente().getDni()}</td>
 	                    <td data-label="Especie">${mascota.getEspecieMascota().getNombre()}</td>
+						<td data-label="DNI Dueño">${mascota.getCliente().getDni()}</td>
                 	</tr>
             	</c:forEach>
             </tbody>
