@@ -47,14 +47,24 @@ public class logServlet extends HttpServlet {
 		
 		String proceso = request.getParameter("boton");
 		
+		String correo = request.getParameter("correo");
+        String contra = request.getParameter("contrasenia");
+		
 		if(proceso.equals("login")) {
 			
-			
+			if(cvRepository.findById(correo) != null) {
+				CuentaVeterinario cv = cvRepository.findById(correo);
+				if(cv.getContrasenia().equals(contra)) {
+					 request.setAttribute("mensaje", "Se ha iniciado sesión correctamente");
+					 request.getServletContext().setAttribute("usuario", cv);
+				}else {
+	                request.setAttribute("mensaje", "El correo y la contrasenia no coinciden");
+				}
+			}else {
+                request.setAttribute("mensaje", "El correo introducido no está registrado");
+			}
 			
 		}else if(proceso.equals("register")) {
-			
-			String correo = request.getParameter("correo");
-            String contra = request.getParameter("contrasenia");
             
             //COMPROBACION DE CORREO
             Pattern pattern = Pattern
