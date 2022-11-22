@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.CuentaVeterinarioRepository;
+
 /**
  * Servlet implementation class logServlet
  */
@@ -34,7 +36,18 @@ public class logServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String proceso = request.getParameter("boton");
 		
+		CuentaVeterinarioRepository cvRepository = new CuentaVeterinarioRepository(null);
+		if(proceso.equals("login")) {
+			
+			
+			
+			
+		}else if(proceso.equals("register")) {
+			String nick = request.getParameter("nombre");
+            String contra = request.getParameter("contrasenia");
+		}
 	}
 
 }
