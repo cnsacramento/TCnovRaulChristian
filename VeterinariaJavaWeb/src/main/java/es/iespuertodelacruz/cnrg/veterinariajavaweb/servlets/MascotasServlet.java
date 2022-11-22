@@ -68,8 +68,8 @@ public class MascotasServlet extends HttpServlet {
 			throws ServletException, IOException {
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext().getAttribute("entityManagerFactory");
 		MascotaRepository mascotaRepository = new MascotaRepository(entityManagerFactory);
-		EspecieMascotaRepository especieRepository = new EspecieMascotaRepository(entityManagerFactory);
-		ClienteRepository clienteRepository = new ClienteRepository(entityManagerFactory);
+//		EspecieMascotaRepository especieRepository = new EspecieMascotaRepository(entityManagerFactory);
+//		ClienteRepository clienteRepository = new ClienteRepository(entityManagerFactory);
 
 		String proceso = request.getParameter("boton");
 		List<Mascota> mascotas = new ArrayList<>();

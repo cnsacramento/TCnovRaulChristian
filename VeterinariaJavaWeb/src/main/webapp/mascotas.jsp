@@ -61,6 +61,40 @@
         </table>
     </div>
     
+    <c:if test="${not empty idEdit}">
+    	<form action="mascotasServlet" method="POST">
+    		<label for ="nombre">ID: </label> 
+			<input class="controls" type="text" name="nombre" value="${mascota.getId()}" placeholder="Nombre" readonly="readonly"> 
+			<label for ="nombre">Nombre: </label> 
+			<input class="controls" type="text" name="nombre" value="${mascota.getNombre()}" placeholder="Nombre"> 
+			<label for ="fechaNacimiento">Fecha nacimiento: </label> 
+			<input class="controls" type="date" name="fechaNacimiento" value="${mascota.getFechaNacimiento()}" placeholder="ID"> 
+			<label for ="nombreMascota">Peso: </label> 
+			<input class="controls" type="text" name="peso" value="${mascota.getPeso()}" placeholder="ID"> 
+			<label for ="especie"> Especie: </label> 
+			<input class="controls" type="text" name="especie" value="${mascota.getEspecieMascota().getId()}" placeholder="ID_ESPECIE"> 
+			<label for ="cliente"> Cliente: </label>
+			<input class="controls" type="text" name="cliente" value="${mascota.getCliente().getDni()}" placeholder="DNI_CLIENTE"> 
+			<input class="buttons" type="submit" name="boton" value="Crear">
+		</form><br>
+    </c:if>
+    
+    <c:if test="${not empty crearMascota}">
+    	<form action="mascotasServlet" method="POST">
+			<label for ="nombre">Nombre: </label> 
+			<input class="controls" type="text" name="nombre" value="" placeholder="Nombre"> 
+			<label for ="fechaNacimiento">Fecha nacimiento: </label> 
+			<input class="controls" type="date" name="fechaNacimiento" value="" placeholder="ID"> 
+			<label for ="nombreMascota">Peso: </label> 
+			<input class="controls" type="text" name="peso" value="" placeholder="ID"> 
+			<label for ="especie"> Especie: </label> 
+			<input class="controls" type="text" name="especie" value="" placeholder="ID_ESPECIE"> 
+			<label for ="cliente"> Cliente: </label>
+			<input class="controls" type="text" name="cliente" value="" placeholder="DNI_CLIENTE"> 
+			<input class="buttons" type="submit" name="boton" value="Crear">
+		</form><br>
+    </c:if>
+    
     <c:if test="${not empty mensaje}">
 	    <script>
 	        window.addEventListener("load", function () {
