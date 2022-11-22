@@ -6,6 +6,11 @@
     margin: auto;
 }
 
+img{
+	 max-width: 1.5rem;
+	 max-height: 1.5rem;
+	}
+
 .table {
     width: 100%;
     border: 1px solid #ccc;
@@ -23,6 +28,7 @@
 }
 
 .table tr {
+	
     background-color: #f8f8f8;
     border: 1px solid #ddd;
 }
@@ -42,8 +48,22 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.table tbody td:hover {
-    background-color: rgba(0, 0, 0, 0.3);
+
+.container{
+	margin-top: 1rem;
+}
+
+.table .imagenes{
+	display: flex;
+   	width: 10%;
+}
+
+img{
+	filter: opacity(0.4) drop-shadow(0 0 0 red); 
+}
+
+img:hover{
+	filter: opacity(1) drop-shadow(0 0 0 red); 
 }
 
 @media screen and (max-width: 600px) {
@@ -78,4 +98,8 @@
         text-transform: uppercase;
         float: left;
     }
+    .table .imagenes{
+    	display: block;
+   		width: 100%;
+	}
 }
