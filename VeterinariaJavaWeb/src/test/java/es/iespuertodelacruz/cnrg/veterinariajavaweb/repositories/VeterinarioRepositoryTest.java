@@ -11,37 +11,67 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.CuentaVeterinario;
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecialidadVeterinario;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoRestriccionDia;
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Veterinario;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class VeterinarioRepositoryTest {
+	
+	static VeterinarioRepository veterinarioRepository;
+
+	static Veterinario veterinario1;
+	static Veterinario veterinario2;
+	static CuentaVeterinario cuenta1;
+	static CuentaVeterinario cuenta2;
+	static EspecialidadVeterinario especialidad1;
+	static EspecialidadVeterinario especialidad2;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance().getEmf();
-		tipoRestriccionDiaRepository = new TipoRestriccionDiaRepository(entityManagerFactory);
+		veterinarioRepository = new VeterinarioRepository(entityManagerFactory);
 
+		cuenta1 = new CuentaVeterinario();
+		cuenta1.setCorreo("correo1@gmail.com");
+		cuenta1.setContrasenia("1q2w3e4r");
+		
+		cuenta2 = new CuentaVeterinario();
+		cuenta2.setCorreo("correo2@gmail.com");
+		cuenta2.setContrasenia("1q2w3e4r");
+		
+		especialidad1 = new EspecialidadVeterinario();
+		especialidad1.setNombre("ESPECIALIDAD1");
+		
+		especialidad2 = new EspecialidadVeterinario();
+		especialidad2.setNombre("ESPECIALIDAD2");
+		
 		// TIPO 1
-		tipo1 = new TipoRestriccionDia();
-		tipo1.setTipo(Tipo1);
-		tipo1.setHoraApertura(Apertura1);
-		tipo1.setHoraCierre(Cierre1);
-		tipo1.setIntervaloTiempo(Intervalo1);
+		veterinario1 = new Veterinario();
+		veterinario1.setDni("12345678z");
+		veterinario1.setNombre("nombre1");
+		veterinario1.setApellidos("apellidos1");
+		veterinario1.setTelefono("123456789");
+		veterinario1.setCuentaVeterinario(cuenta1);
+		veterinario1.setEspecialidadVeterinario(especialidad1);
 
 		// TIPO 2
-		tipo2 = new TipoRestriccionDia();
-		tipo2.setTipo(Tipo2);
-		tipo2.setHoraApertura(Apertura2);
-		tipo2.setHoraCierre(Cierre2);
-		tipo2.setIntervaloTiempo(Intervalo2);
+		veterinario2 = new Veterinario();
+		veterinario2.setDni("87654321z");
+		veterinario2.setNombre("nombre2");
+		veterinario2.setApellidos("apellidos2");
+		veterinario2.setTelefono("987654321");
+		veterinario2.setCuentaVeterinario(cuenta2);
+		veterinario2.setEspecialidadVeterinario(especialidad2);
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		if (tipoRestriccionDiaRepository.findById(tipo1.getTipo()) != null) {
-			tipoRestriccionDiaRepository.delete(tipo1.getTipo());
+		if (veterinarioRepository.findById(veterinario1.getDni()) != null) {
+			veterinarioRepository.delete(veterinario1.getDni());
 		}
-		if (tipoRestriccionDiaRepository.findById(tipo2.getTipo()) != null) {
-			tipoRestriccionDiaRepository.delete(tipo2.getTipo());
+		if (veterinarioRepository.findById(veterinario2.getDni()) != null) {
+			veterinarioRepository.delete(veterinario2.getDni());
 		}
 	}
 
