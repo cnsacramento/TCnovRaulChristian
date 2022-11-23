@@ -131,7 +131,6 @@
 
 			<tbody>
 				<c:forEach var="cliente" items="${clientesList}">
-				<a href="/ClientesServlet?id=${cliente.getDni()}">
 					<tr>
 						<td data-label="DNI">${cliente.getDni()}</td>
 						<td data-label="Nombre">${cliente.getNombre()}</td>
@@ -146,7 +145,7 @@
 						</td>
 						<td>
 							<a href="MascotaNuevaServlet?id=${cliente.getDni()}">
-								Añadir mascota
+								Mascotas
 							</a>
 						</td>
 					</tr>
