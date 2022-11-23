@@ -24,8 +24,44 @@
 			<input class="buttons" type="submit" name="boton" value="Buscar">
 		</form><br>
 	</div>
-	
 	<div class ="contenedor">
+		<div class = "formularios">
+		    <c:if test="${not empty mascota}">
+		    	<form action="mascotasServlet" method="POST">
+		    		<label for ="nombre">ID: </label> 
+					<input class="controls" type="text" name="id" value="${mascota.getId()}" placeholder="ID" readonly="readonly"> 
+					<label for ="nombre">Nombre: </label> 
+					<input class="controls" type="text" name="nombre" value="${mascota.getNombre()}" placeholder="Nombre" required="required"> 
+					<label for ="fechaNacimiento">Fecha nacimiento: </label> 
+					<input class="controls" type="date" name="fechaNacimiento" value="${mascota.getFechaNacimiento()}" placeholder="ID" required="required"> 
+					<label for ="nombreMascota">Peso: </label> 
+					<input class="controls" type="text" name="peso" value="${mascota.getPeso()}" placeholder="ID" required="required"> 
+					<label for ="especie"> Especie: </label> 
+					<input class="controls" type="text" name="especie" value="${mascota.getEspecieMascota().getId()}" placeholder="ID_ESPECIE" required="required"> 
+					<label for ="cliente"> Cliente: </label>
+					<input class="controls" type="text" name="cliente" value="${mascota.getCliente().getDni()}" placeholder="DNI_CLIENTE" required="required"> 
+					<input class="buttons" type="submit" name="boton" value="Editar">
+				</form><br>
+		    </c:if>
+		    <c:if test="${empty mascota}">
+		    	<form action="mascotasServlet" method="POST">
+		    		<label for ="nombre">ID: </label> 
+					<input class="controls" type="text" name="nombre" value="${mascota.getId()}" placeholder="ID" readonly="readonly"> 
+					<label for ="nombre">Nombre: </label> 
+					<input class="controls" type="text" name="nombre" value="${mascota.getNombre()}" placeholder="Nombre" required="required" readonly="readonly"> 
+					<label for ="fechaNacimiento">Fecha nacimiento: </label> 
+					<input class="controls" type="date" name="fechaNacimiento" value="${mascota.getFechaNacimiento()}" placeholder="ID" required="required" readonly="readonly"> 
+					<label for ="nombreMascota">Peso: </label> 
+					<input class="controls" type="text" name="peso" value="${mascota.getPeso()}" placeholder="ID" required="required"> 
+					<label for ="especie"> Especie: </label> 
+					<input class="controls" type="text" name="especie" value="${mascota.getEspecieMascota().getId()}" placeholder="ID_ESPECIE" required="required" readonly="readonly"> 
+					<label for ="cliente"> Cliente: </label>
+					<input class="controls" type="text" name="cliente" value="${mascota.getCliente().getDni()}" placeholder="DNI_CLIENTE" required="required" readonly="readonly"> 
+					<input class="buttons" type="submit" name="boton" value="Editar">
+				</form><br>
+		    </c:if>
+		</div>
+	
 		<div class="container">
 	        <table class="table">
 	            <caption>Mascotas</caption>
@@ -61,42 +97,23 @@
 	            </tbody>
 	        </table>
 	    </div>
-	    <div class = "formularios">
-		    <c:if test="${not empty idEdit}">
+	    
+	    <div class = "formularios">    
+		    <div class="container">
 		    	<form action="mascotasServlet" method="POST">
-		    		<label for ="nombre">ID: </label> 
-					<input class="controls" type="text" name="nombre" value="${mascota.getId()}" placeholder="Nombre" readonly="readonly"> 
 					<label for ="nombre">Nombre: </label> 
-					<input class="controls" type="text" name="nombre" value="${mascota.getNombre()}" placeholder="Nombre" required="required"> 
+					<input class="controls" type="text" name="nombre" value="" placeholder="Nombre" required="required"> 
 					<label for ="fechaNacimiento">Fecha nacimiento: </label> 
-					<input class="controls" type="date" name="fechaNacimiento" value="${mascota.getFechaNacimiento()}" placeholder="ID" required="required"> 
+					<input class="controls" type="date" name="fechaNacimiento" value="" placeholder="ID" required="required"> 
 					<label for ="nombreMascota">Peso: </label> 
-					<input class="controls" type="text" name="peso" value="${mascota.getPeso()}" placeholder="ID" required="required"> 
+					<input class="controls" type="text" name="peso" value="" placeholder="ID" required="required"> 
 					<label for ="especie"> Especie: </label> 
-					<input class="controls" type="text" name="especie" value="${mascota.getEspecieMascota().getId()}" placeholder="ID_ESPECIE" required="required"> 
+					<input class="controls" type="number" name="especie" value="" placeholder="ID_ESPECIE" required="required"> 
 					<label for ="cliente"> Cliente: </label>
-					<input class="controls" type="text" name="cliente" value="${mascota.getCliente().getDni()}" placeholder="DNI_CLIENTE" required="required"> 
-					<input class="buttons" type="submit" name="boton" value="Editar">
+					<input class="controls" type="text" name="cliente" value="" placeholder="DNI_CLIENTE" required="required"> 
+					<input class="buttons" type="submit" name="boton" value="Crear">
 				</form><br>
-		    </c:if>
-		    
-		    <c:if test="${empty idEdit}">
-			    <div class="container">
-			    	<form action="mascotasServlet" method="POST">
-						<label for ="nombre">Nombre: </label> 
-						<input class="controls" type="text" name="nombre" value="" placeholder="Nombre" required="required"> 
-						<label for ="fechaNacimiento">Fecha nacimiento: </label> 
-						<input class="controls" type="date" name="fechaNacimiento" value="" placeholder="ID" required="required"> 
-						<label for ="nombreMascota">Peso: </label> 
-						<input class="controls" type="text" name="peso" value="" placeholder="ID" required="required"> 
-						<label for ="especie"> Especie: </label> 
-						<input class="controls" type="number" name="especie" value="" placeholder="ID_ESPECIE" required="required"> 
-						<label for ="cliente"> Cliente: </label>
-						<input class="controls" type="text" name="cliente" value="" placeholder="DNI_CLIENTE" required="required"> 
-						<input class="buttons" type="submit" name="boton" value="Crear">
-					</form><br>
-			    </div>
-		    </c:if>
+		    </div>
 	    </div>
     </div>
     <c:if test="${not empty mensaje}">

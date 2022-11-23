@@ -50,7 +50,8 @@ public class MascotasServlet extends HttpServlet {
 		if(metodo != null) {
 			switch(metodo) {
 			case "edit": 
-				
+					Mascota mascota = mascotaRepository.findById(Integer.parseInt(request.getParameter("id")));
+					request.setAttribute("mascota", mascota);
 				break;
 			case "delete": 
 					
@@ -75,26 +76,23 @@ public class MascotasServlet extends HttpServlet {
 		ClienteRepository clienteRepository = new ClienteRepository(entityManagerFactory);
 
 		String proceso = request.getParameter("boton");
-		List<Mascota> mascotas = new ArrayList<>();
+		List<Mascota> mascotas = null;
 		
 		if (proceso.equals("Buscar") && !request.getParameter("idMascota").isEmpty() ) {
 			
 			try {
 				int id = Integer.parseInt(request.getParameter("idMascota"));
 				mascotas = new ArrayList<>();
-				mascotas.add(mascotaRepository.findById(id));
+				if (mascotaRepository.findById(id) != null) {
+					mascotas.add(mascotaRepository.findById(id));
+				}
 			}catch(Exception ex) {
 				ex.printStackTrace();
 			}
 			
-		} else if(proceso.equals("Buscar") && request.getParameter("idMascota").isEmpty()){
-			
-			mascotas = mascotaRepository.findAll();
-			
 		}else if(proceso.equals("Crear")) {
 				try {
 					SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-					System.out.println(request.getParameter("fechaNacimiento"));
 					String[] split = request.getParameter("fechaNacimiento").split("-");
 					Date fecha = formato.parse(split[2]+"/"+split[1]+"/"+split[0]);
 					
@@ -109,10 +107,31 @@ public class MascotasServlet extends HttpServlet {
 				}catch(Exception ex) {
 					ex.printStackTrace();
 				}
-			mascotas = mascotaRepository.findAll();
+		}else if(proceso.equals("Editar")) {
+			
+			try {
+				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+				String[] split = request.getParameter("fechaNacimiento").split("-");
+				Date fecha = formato.parse(split[2]+"/"+split[1]+"/"+split[0]);
+				
+				Mascota mascota = new Mascota();
+				mascota.setId(Integer.parseInt(request.getParameter("id")));
+				mascota.setNombre(request.getParameter("nombre"));
+				mascota.setFechaNacimiento(new Timestamp(fecha.getTime()));
+				mascota.setPeso(Double.parseDouble((request.getParameter("peso").toString())));
+				mascota.setEspecieMascota(especieRepository.findById(Integer.parseInt(request.getParameter("especie").toString())));
+				mascota.setCliente(clienteRepository.findById(request.getParameter("cliente").toString()));
+				mascotaRepository.update(mascota);
+
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
 			
 		}else {
-			mascotas = mascotaRepository.findAll();
+		}
+		
+		if(mascotas == null) {
+			 mascotas = mascotaRepository.findAll();
 		}
 		request.setAttribute("mascotas", mascotas);
 		request.getRequestDispatcher("mascotas.jsp").forward(request, response);
