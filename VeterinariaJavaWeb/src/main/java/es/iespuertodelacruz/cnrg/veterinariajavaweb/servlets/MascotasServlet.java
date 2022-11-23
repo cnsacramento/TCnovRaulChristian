@@ -1,7 +1,10 @@
 package es.iespuertodelacruz.cnrg.veterinariajavaweb.servlets;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
@@ -68,13 +71,14 @@ public class MascotasServlet extends HttpServlet {
 			throws ServletException, IOException {
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext().getAttribute("entityManagerFactory");
 		MascotaRepository mascotaRepository = new MascotaRepository(entityManagerFactory);
-//		EspecieMascotaRepository especieRepository = new EspecieMascotaRepository(entityManagerFactory);
-//		ClienteRepository clienteRepository = new ClienteRepository(entityManagerFactory);
+		EspecieMascotaRepository especieRepository = new EspecieMascotaRepository(entityManagerFactory);
+		ClienteRepository clienteRepository = new ClienteRepository(entityManagerFactory);
 
 		String proceso = request.getParameter("boton");
 		List<Mascota> mascotas = new ArrayList<>();
-
-		if (proceso != null && request.getParameter("idMascota").length() > 0 ) {
+		
+		if (proceso.equals("Buscar") && !request.getParameter("idMascota").isEmpty() ) {
+			
 			try {
 				int id = Integer.parseInt(request.getParameter("idMascota"));
 				mascotas = new ArrayList<>();
@@ -82,7 +86,32 @@ public class MascotasServlet extends HttpServlet {
 			}catch(Exception ex) {
 				ex.printStackTrace();
 			}
-		} else {
+			
+		} else if(proceso.equals("Buscar") && request.getParameter("idMascota").isEmpty()){
+			
+			mascotas = mascotaRepository.findAll();
+			
+		}else if(proceso.equals("Crear")) {
+				try {
+					SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+					System.out.println(request.getParameter("fechaNacimiento"));
+					String[] split = request.getParameter("fechaNacimiento").split("-");
+					Date fecha = formato.parse(split[2]+"/"+split[1]+"/"+split[0]);
+					
+					Mascota mascota = new Mascota();
+					mascota.setNombre(request.getParameter("nombre"));
+					mascota.setFechaNacimiento(new Timestamp(fecha.getTime()));
+					mascota.setPeso(Double.parseDouble((request.getParameter("peso").toString())));
+					mascota.setEspecieMascota(especieRepository.findById(Integer.parseInt(request.getParameter("especie").toString())));
+					mascota.setCliente(clienteRepository.findById(request.getParameter("cliente").toString()));
+					mascotaRepository.save(mascota);
+					
+				}catch(Exception ex) {
+					ex.printStackTrace();
+				}
+			mascotas = mascotaRepository.findAll();
+			
+		}else {
 			mascotas = mascotaRepository.findAll();
 		}
 		request.setAttribute("mascotas", mascotas);
