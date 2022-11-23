@@ -36,17 +36,6 @@ CREATE TABLE `cliente` (
   `telefono` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Volcado de datos para la tabla `cliente`
---
-
-INSERT INTO `cliente` (`dni`, `nombre`, `apellidos`, `direccion`, `correo`, `telefono`) VALUES
-('111111111', 'cliente1', 'apellido1 apellido1', 'Cliente 1 direccion', 'primercliente@gmail.com', '111-11-11-11'),
-('222222222', 'cliente2', 'apellido2 apellido2', 'Cliente 2 direccion', 'segundocliente@gmail.com', '222-22-22-22'),
-('444444444', 'cliente4', 'apellido4 apellido4', 'Cliente 4 direccion', 'cuartocliente@gmail.com', '444-44-44-44'),
-('555555555', 'cliente5Nuevo', 'apellido5Nuevo apellido5Nuevo', 'Cliente 5 nueva direccion', 'quintoclienteNuevo@gmail.com', '555-55-66-55'),
-('777777777', 'cliente7', 'apellido7 apellido5', 'Cliente 7 direccion', 'septimocliente@gmail.com', '777-77-77-77');
-
 -- --------------------------------------------------------
 
 --
@@ -117,8 +106,7 @@ CREATE TABLE `intervencion` (
   `descripcion` varchar(150) NOT NULL,
   `id_tipo_intervencion` int NOT NULL,
   `id_mascota` int NOT NULL,
-  `id_factura` int NOT NULL,
-  `id_equipo_intervencion` int NOT NULL
+  `id_factura` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -161,15 +149,6 @@ CREATE TABLE `tipo_intervencion` (
   `tipo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Volcado de datos para la tabla `tipo_intervencion`
---
-
-INSERT INTO `tipo_intervencion` (`id`, `tipo`) VALUES
-(2, 'Cirugía'),
-(3, 'Consulta'),
-(5, 'Nuevo tipo'),
-(1, 'Revision');
 
 -- --------------------------------------------------------
 
@@ -222,8 +201,7 @@ ALTER TABLE `cuenta_veterinario`
 -- Indices de la tabla `equipo_intervencion`
 --
 ALTER TABLE `equipo_intervencion`
-  ADD UNIQUE KEY `dni_veterinario` (`dni_veterinario`),
-  ADD KEY `equipo_intervencion_ibfk_1` (`id_intervencion`);
+  ADD PRIMARY KEY(`id_intervencion`,`dni_veterinario`);
 
 --
 -- Indices de la tabla `especialidad_veterinario`
@@ -251,7 +229,6 @@ ALTER TABLE `intervencion`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_tipo_intervencion` (`id_tipo_intervencion`),
   ADD KEY `id_factura` (`id_factura`),
-  ADD KEY `id_equipo_intervencion` (`id_equipo_intervencion`),
   ADD KEY `id_mascota` (`id_mascota`);
 
 --

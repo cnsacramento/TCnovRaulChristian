@@ -2,7 +2,6 @@ package es.iespuertodelacruz.cnrg.veterinariajavaweb.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 

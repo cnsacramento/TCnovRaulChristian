@@ -8,10 +8,10 @@
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Factura</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Intervencion</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota</class>
-		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoIntervencion</class>
-		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Veterinario</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Reserva</class>
+		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoIntervencion</class>
 		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoRestriccionDia</class>
+		<class>es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Veterinario</class>
 		<properties>
 		
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/veterinaria?serverTimezone=UTC" />

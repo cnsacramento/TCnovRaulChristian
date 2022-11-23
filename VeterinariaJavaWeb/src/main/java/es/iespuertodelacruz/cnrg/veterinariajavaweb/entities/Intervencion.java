@@ -23,9 +23,6 @@ public class Intervencion implements Serializable {
 
 	private String descripcion;
 
-	@Column(name="id_equipo_intervencion")
-	private int idEquipoIntervencion;
-
 	//bi-directional many-to-one association to Factura
 	@ManyToOne
 	@JoinColumn(name="id_factura")
@@ -74,14 +71,6 @@ public class Intervencion implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public int getIdEquipoIntervencion() {
-		return this.idEquipoIntervencion;
-	}
-
-	public void setIdEquipoIntervencion(int idEquipoIntervencion) {
-		this.idEquipoIntervencion = idEquipoIntervencion;
 	}
 
 	public Factura getFactura() {

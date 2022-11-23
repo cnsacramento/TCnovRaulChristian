@@ -24,6 +24,11 @@ public class Veterinario implements Serializable {
 
 	private String telefono;
 
+	//bi-directional many-to-one association to CuentaVeterinario
+	@ManyToOne
+	@JoinColumn(name="cuenta_veterinaria")
+	private CuentaVeterinario cuentaVeterinario;
+
 	//bi-directional many-to-one association to EspecialidadVeterinario
 	@ManyToOne
 	@JoinColumn(name="id_especialidad")
@@ -41,11 +46,6 @@ public class Veterinario implements Serializable {
 			}
 		)
 	private List<Intervencion> intervencions;
-
-	//bi-directional many-to-one association to CuentaVeterinario
-	@ManyToOne
-	@JoinColumn(name="cuenta_veterinaria")
-	private CuentaVeterinario cuentaVeterinario;
 
 	public Veterinario() {
 	}
@@ -82,6 +82,14 @@ public class Veterinario implements Serializable {
 		this.telefono = telefono;
 	}
 
+	public CuentaVeterinario getCuentaVeterinario() {
+		return this.cuentaVeterinario;
+	}
+
+	public void setCuentaVeterinario(CuentaVeterinario cuentaVeterinario) {
+		this.cuentaVeterinario = cuentaVeterinario;
+	}
+
 	public EspecialidadVeterinario getEspecialidadVeterinario() {
 		return this.especialidadVeterinario;
 	}
@@ -96,14 +104,6 @@ public class Veterinario implements Serializable {
 
 	public void setIntervencions(List<Intervencion> intervencions) {
 		this.intervencions = intervencions;
-	}
-
-	public CuentaVeterinario getCuentaVeterinario() {
-		return this.cuentaVeterinario;
-	}
-
-	public void setCuentaVeterinario(CuentaVeterinario cuentaVeterinario) {
-		this.cuentaVeterinario = cuentaVeterinario;
 	}
 
 }
