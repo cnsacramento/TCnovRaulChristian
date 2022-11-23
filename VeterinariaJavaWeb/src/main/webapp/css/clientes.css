@@ -34,6 +34,12 @@ h3 {
 	margin-bottom: 0.5rem;	
 }
 
+.crud article .selectform {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
 .crud article:nth-child(odd) {
 	background: #d9e6ed;
 }
