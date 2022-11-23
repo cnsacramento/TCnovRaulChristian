@@ -51,21 +51,21 @@ public class MascotasServlet extends HttpServlet {
 			case "edit": 
 					Mascota mascota = mascotaRepository.findById(Integer.parseInt(request.getParameter("id")));
 					request.setAttribute("mascota", mascota);
+					String[] split = mascota.getFechaNacimiento().toString().split(" ");
+					request.setAttribute("fechaNacimiento", split[0]);
 				break;
 			case "delete": 
 				if(mascotaRepository.delete(Integer.parseInt(request.getParameter("id")))) {
-					mascotas = mascotaRepository.findAll();
 					request.setAttribute("mensaje", "Se ha borrado la exitosamente");
-					request.setAttribute("mascotas", mascotas);
 				}else {
 					request.setAttribute("mensaje", "No ha sido posible borrar la mascota");
 				}
-				
 				break;
 			case "intervencion": 
 				break;	
 			}
 		}
+		mascotas = mascotaRepository.findAll();
 		request.setAttribute("mascotas", mascotas);
 		request.getRequestDispatcher("mascotas.jsp").forward(request, response);
 	}

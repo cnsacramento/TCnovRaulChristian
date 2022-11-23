@@ -33,7 +33,7 @@
 					<label for ="nombre">Nombre: </label> 
 					<input class="controls" type="text" name="nombre" value="${mascota.getNombre()}" placeholder="Nombre" required="required"> 
 					<label for ="fechaNacimiento">Fecha nacimiento: </label> 
-					<input class="controls" type="date" name="fechaNacimiento" value="${mascota.getFechaNacimiento()}" placeholder="Fecha_Nacimiento" required="required"> 
+					<input class="controls" type="date" name="fechaNacimiento" value="${fechaNacimiento}" placeholder="Fecha_Nacimiento" required="required"> 
 					<label for ="nombreMascota">Peso: </label> 
 					<input class="controls" type="text" name="peso" value="${mascota.getPeso()}" placeholder="Peso" required="required"> 
 					<label for ="especie"> Especie: </label> 
@@ -118,9 +118,7 @@
     </div>
     <c:if test="${not empty mensaje}">
 	    <script>
-	        window.addEventListener("load", function () {
 	            alert("${mensaje}");
-	        });
 	    </script>
 	</c:if>
 </body>
