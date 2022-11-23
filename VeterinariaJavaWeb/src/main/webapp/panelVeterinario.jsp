@@ -21,7 +21,7 @@
 			
 			<h1 class="h1-panel">Nombre del veterinario</h1>
 			
-			<a href="cliente.jsp">
+			<a href="ClientesServlet">
 				<div class="container-panel">
 					
 					<img src="../css/imagenes/cliente.png" alt="">
@@ -31,7 +31,7 @@
 				</div>
 			</a>
 			
-			<a href="mascotas.jsp">
+			<a href="MascotasServlet">
 				<div class="container-panel">
 					
 					<img src="../css/imagenes/cliente.png" alt="">
@@ -41,7 +41,7 @@
 				</div>
 			</a>
 			
-			<a href="intervencion.jsp">
+			<a href="IntervencionesServlet">
 				<div class="container-panel">
 					
 					<img src="../css/imagenes/cliente.png" alt="">
@@ -51,7 +51,7 @@
 				</div>
 			</a>
 			
-			<a href="veterinario.jsp">
+			<a href="VeterinariosServlet">
 				<div class="container-panel">
 					
 					<img src="../css/imagenes/cliente.png" alt="">
