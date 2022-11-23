@@ -44,7 +44,6 @@ public class MascotasServlet extends HttpServlet {
 				.getAttribute("entityManagerFactory");
 		MascotaRepository mascotaRepository = new MascotaRepository(entityManagerFactory);
 		List<Mascota> mascotas = new ArrayList<>();
-		mascotas = mascotaRepository.findAll();
 		
 		String metodo = request.getParameter("metodo");
 		if(metodo != null) {
@@ -54,7 +53,14 @@ public class MascotasServlet extends HttpServlet {
 					request.setAttribute("mascota", mascota);
 				break;
 			case "delete": 
-					
+				if(mascotaRepository.delete(Integer.parseInt(request.getParameter("id")))) {
+					mascotas = mascotaRepository.findAll();
+					request.setAttribute("mensaje", "Se ha borrado la exitosamente");
+					request.setAttribute("mascotas", mascotas);
+				}else {
+					request.setAttribute("mensaje", "No ha sido posible borrar la mascota");
+				}
+				
 				break;
 			case "intervencion": 
 				break;	
