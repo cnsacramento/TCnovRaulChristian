@@ -1,10 +1,15 @@
 @charset "UTF-8";
 
+h3 {
+	text-align: center;
+	padding: 1rem;
+}
+
 .crud {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
-	justify-content: space-around;
+	justify-content: space-evenly;
 }
 
 .crud article {
@@ -78,7 +83,7 @@ img{
 }
 
 .table td {
- 	word-break: break-all;
+ 	word-break: break-word;
 }
 
 .table thead th{ 

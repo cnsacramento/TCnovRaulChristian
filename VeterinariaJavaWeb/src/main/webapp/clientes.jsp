@@ -96,11 +96,7 @@
 				</label> <input type="submit" name="mostrar" value="Mostrar">
 
 			</form>
-
-		</article>
-
-		<article>
-
+			
 			<h3 class="text-center">Mostrar listado clientes</h3>
 
 			<form action="ClientesServlet" method="post">
@@ -129,6 +125,7 @@
 					<th>Correo</th>
 					<th>Teléfono</th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 
@@ -147,7 +144,11 @@
 								Opciones
 							</a>
 						</td>
-						
+						<td>
+							<a href="MascotaNuevaServlet?id=${cliente.getDni()}">
+								Añadir mascota
+							</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
