@@ -66,6 +66,15 @@ img:hover{
 	filter: opacity(1) drop-shadow(0 0 0 red); 
 }
 
+.contenedor{
+	display: flex;
+	flex-direction: row;
+}
+
+.formularios {
+	max-width: 15%;
+	padding: 2rem;
+}
 @media screen and (max-width: 600px) {
     .table {
         border: 0px;
