@@ -90,7 +90,12 @@ public class logServlet extends HttpServlet {
                 request.setAttribute("mensaje", "El correo introducido no es valido");
             }
 		}
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+		
+		if(request.getServletContext().getAttribute("usuario") != null){
+	        request.getRequestDispatcher("panelVeterinario.jsp").forward(request, response);
+		}else {
+	        request.getRequestDispatcher("login.jsp").forward(request, response);
+		}
 	}
 
 }

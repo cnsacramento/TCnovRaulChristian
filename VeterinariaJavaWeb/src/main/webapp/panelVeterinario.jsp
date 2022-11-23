@@ -31,7 +31,7 @@
 				</div>
 			</a>
 			
-			<a href="mascota.jsp">
+			<a href="mascotas.jsp">
 				<div class="container-panel">
 					
 					<img src="../css/imagenes/cliente.png" alt="">
