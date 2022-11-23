@@ -52,7 +52,7 @@
 					<label for ="fechaNacimiento">Fecha nacimiento: </label> 
 					<input class="controls" type="date" name="fechaNacimiento" value="${mascota.getFechaNacimiento()}" placeholder="Fecha_Nacimiento" required="required" readonly="readonly"> 
 					<label for ="nombreMascota">Peso: </label> 
-					<input class="controls" type="text" name="peso" value="${mascota.getPeso()}" placeholder="Peso" required="required"> 
+					<input class="controls" type="text" name="peso" value="${mascota.getPeso()}" placeholder="Peso" required="required" readonly="readonly"> 
 					<label for ="especie"> Especie: </label> 
 					<input class="controls" type="text" name="especie" value="${mascota.getEspecieMascota().getId()}" placeholder="ID_ESPECIE" required="required" readonly="readonly"> 
 					<label for ="cliente"> Cliente: </label>
