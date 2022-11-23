@@ -53,7 +53,7 @@
 			<form action="ClientesServlet" method="post">
 
 				<label for=""> <span>*DNI Cliente:</span> <input type="text"
-					name="dni" id="dni" required>
+					name="dni" id="dni" value="${cliente.getDni()}" required>
 				</label> <input type="submit" name="borrar" value="Borrar">
 			</form>
 
@@ -67,17 +67,17 @@
 
 				<label for=""> <span>*DNI:</span> <input type="text"
 					name="dni" id="dni" maxlength="9" pattern="[0-9]{7,8}[A-Za-z]"
-					required>
+					value="${cliente.getDni()}" required>
 				</label> <label for=""> <span>*Nombre:</span> <input type="text"
-					name="nombre" id="nombre" required>
+					name="nombre" id="nombre" value="${cliente.getNombre()}" required>
 				</label> <label for=""> <span>*Apellidos:</span> <input type="text"
-					name="apellidos" id="apellidos" required>
+					name="apellidos" id="apellidos" value="${cliente.getApellidos()}" required>
 				</label> <label for=""> <span>Dirección:</span> <input type="text"
-					name="direccion" id="direccion">
+					name="direccion" id="direccion" value="${cliente.getDireccion()}">
 				</label> <label for=""> <span>Correo:</span> <input type="text"
-					name="correo" id="correo">
+					name="correo" id="correo" value="${cliente.getCorreo()}">
 				</label> <label for=""> <span>*Teléfono:</span> <input type="text"
-					name="telefono" id="telefono" required></label>
+					name="telefono" id="telefono" value="${cliente.getTelefono()}" required></label>
 
 				<input type="submit" name="editar" id="editar" value="Editar">
 			</form>
@@ -91,7 +91,7 @@
 			<form action="ClientesServlet" method="post">
 
 				<label for=""> <span>*DNI:</span> <input type="text"
-					name="dni" id="dni" maxlength="9" pattern="[0-9]{7,8}[A-Za-z]"
+					name="dni" id="dni" maxlength="9" value="${cliente.getDni()}" pattern="[0-9]{7,8}[A-Za-z]"
 					required>
 				</label> <input type="submit" name="mostrar" value="Mostrar">
 
@@ -128,11 +128,13 @@
 					<th>Dirección</th>
 					<th>Correo</th>
 					<th>Teléfono</th>
+					<th></th>
 				</tr>
 			</thead>
 
 			<tbody>
 				<c:forEach var="cliente" items="${clientesList}">
+				<a href="/ClientesServlet?id=${cliente.getDni()}">
 					<tr>
 						<td data-label="DNI">${cliente.getDni()}</td>
 						<td data-label="Nombre">${cliente.getNombre()}</td>
@@ -140,6 +142,12 @@
 						<td data-label="Dirección">${cliente.getDireccion()}</td>
 						<td data-label="Correo">${cliente.getCorreo()}</td>
 						<td data-label="Teléfono">${cliente.getTelefono()}</td>
+						<td>
+							<a href="ClientesServlet?id=${cliente.getDni()}">
+								Opciones
+							</a>
+						</td>
+						
 					</tr>
 				</c:forEach>
 			</tbody>

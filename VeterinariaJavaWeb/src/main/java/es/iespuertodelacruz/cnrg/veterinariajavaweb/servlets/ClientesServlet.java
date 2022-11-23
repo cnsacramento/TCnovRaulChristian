@@ -41,6 +41,14 @@ public class ClientesServlet extends HttpServlet {
 				(EntityManagerFactory)request.getServletContext().getAttribute("entityManagerFactory");
 		ClienteRepository clienteRepository = new ClienteRepository(entityManagerFactory);
 		
+		if(request.getParameter("id") != null) {
+			Cliente cliente = clienteRepository.findById(request.getParameter("id"));
+			request.setAttribute("cliente", cliente);
+			List<Cliente> clientesList = clienteRepository.findAll();
+			request.setAttribute("clientesList", clientesList);
+			request.getRequestDispatcher("clientes.jsp").forward(request, response);
+		}
+		
 		
 		if(request.getParameter("agregar") != null) {
 			Cliente cliente = agregarCliente(request);	
