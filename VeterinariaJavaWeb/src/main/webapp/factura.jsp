@@ -61,11 +61,11 @@
 				<label for=""> <span>*ID:</span> <input class="text-end" type="number"
 					name="id" id="id" value="${factura.getId()}" required>
 				</label> <label for=""> <span>*Fecha:</span> <input type="date"
-					name="fecha" id="fecha" value="${factura.getFecha()}">
+					name="fecha" id="fecha" value='${factura.getFecha().toString().split(" ")[0]}'>
 				</label> <label for=""> <span>Coste:</span> <input type="number" step="0.01"
 					name="coste" id="coste" value="${factura.getCoste()}">
 				</label> <label for=""> <span>*Detalles:</span> 
-				<textarea name="detalles" id="detalles">${factura.getDetalles()}</textarea></label>
+				<textarea name="detalles" id="detalles">${factura.getFecha().toString()}</textarea></label>
 
 				<input type="submit" name="btnFactura" id="btnFactura" value="Editar">
 			</form>
