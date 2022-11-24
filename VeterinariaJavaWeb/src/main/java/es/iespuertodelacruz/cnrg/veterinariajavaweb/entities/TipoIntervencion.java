@@ -13,46 +13,57 @@ import java.util.List;
 @Table(name="tipo_intervencion")
 @NamedQuery(name="TipoIntervencion.findAll", query="SELECT t FROM TipoIntervencion t")
 public class TipoIntervencion implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private String tipo;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
 
-	//bi-directional many-to-one association to Intervencion
-	@OneToMany(mappedBy="tipoIntervencion")
-	private List<Intervencion> intervencions;
+    private String tipo;
 
-	public TipoIntervencion() {
-	}
+    //bi-directional many-to-one association to Intervencion
+    @OneToMany(mappedBy="tipoIntervencion")
+    private List<Intervencion> intervencions;
 
-	public String getTipo() {
-		return this.tipo;
-	}
+    public TipoIntervencion() {
+    }
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public List<Intervencion> getIntervencions() {
-		return this.intervencions;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setIntervencions(List<Intervencion> intervencions) {
-		this.intervencions = intervencions;
-	}
+    public String getTipo() {
+        return this.tipo;
+    }
 
-	public Intervencion addIntervencion(Intervencion intervencion) {
-		getIntervencions().add(intervencion);
-		intervencion.setTipoIntervencion(this);
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
-		return intervencion;
-	}
+    public List<Intervencion> getIntervencions() {
+        return this.intervencions;
+    }
 
-	public Intervencion removeIntervencion(Intervencion intervencion) {
-		getIntervencions().remove(intervencion);
-		intervencion.setTipoIntervencion(null);
+    public void setIntervencions(List<Intervencion> intervencions) {
+        this.intervencions = intervencions;
+    }
 
-		return intervencion;
-	}
+    public Intervencion addIntervencion(Intervencion intervencion) {
+        getIntervencions().add(intervencion);
+        intervencion.setTipoIntervencion(this);
+
+        return intervencion;
+    }
+
+    public Intervencion removeIntervencion(Intervencion intervencion) {
+        getIntervencions().remove(intervencion);
+        intervencion.setTipoIntervencion(null);
+
+        return intervencion;
+    }
 
 }

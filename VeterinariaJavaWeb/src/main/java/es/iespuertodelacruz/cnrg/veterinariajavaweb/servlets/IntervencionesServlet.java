@@ -235,7 +235,6 @@ public class IntervencionesServlet extends HttpServlet {
 		TipoIntervencion tipoIntervencion = new TipoIntervencion();
 		tipoIntervencion.setId(Integer.parseInt(request.getParameter("id")));
 		tipoIntervencion.setTipo(request.getParameter("tipo"));
-		tipoIntervencion.setTipo(request.getParameter("tipo"));
 
 		return tipoIntervencionRepository.update(tipoIntervencion);
 	}
