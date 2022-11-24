@@ -111,7 +111,7 @@
 					<input class="controls" type="number" name="especie" value="" placeholder="ID_ESPECIE" required="required"> 
 					<label for ="cliente"> Cliente: </label>
 					<input class="controls" type="text" name="cliente" value="" placeholder="DNI_CLIENTE" required="required"> 
-					<input class="buttons" type="submit" name="boton" value="Crear">
+					<input class="buttons" type="submit" name="boton" value="Crear Mascota">
 				</form><br>
 		    </div>
 	    </div>

@@ -34,7 +34,7 @@ img{
 }
 
 .table td{
-	word-break: break-all;
+	word-break: break-word;
 }
 
 .table th, .table td {

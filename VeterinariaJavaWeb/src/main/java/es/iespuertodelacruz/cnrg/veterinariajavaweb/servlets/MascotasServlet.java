@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.Request;
+
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.ClienteRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.EspecieMascotaRepository;
@@ -40,19 +43,33 @@ public class MascotasServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
-				.getAttribute("entityManagerFactory");
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext().getAttribute("entityManagerFactory");
+		EspecieMascotaRepository especieRepository = new EspecieMascotaRepository(entityManagerFactory);
 		MascotaRepository mascotaRepository = new MascotaRepository(entityManagerFactory);
+		
 		List<Mascota> mascotas = new ArrayList<>();
+		List<EspecieMascota> especies  = new ArrayList<>();
 		
 		String metodo = request.getParameter("metodo");
 		if(metodo != null) {
 			switch(metodo) {
+			case "save":
+				request.setAttribute("clienteDni", request.getParameter("clienteDni"));   
+				
+				if(!request.getParameter("especieId").isEmpty()) {
+					request.setAttribute("especieId", request.getParameter("especieId"));   
+				}
+				especies = especieRepository.findAll();
+				request.setAttribute("especies", especies);
+				request.getRequestDispatcher("crearMascota.jsp").forward(request, response);
+				break;
 			case "edit": 
 					Mascota mascota = mascotaRepository.findById(Integer.parseInt(request.getParameter("id")));
 					request.setAttribute("mascota", mascota);
 					String[] split = mascota.getFechaNacimiento().toString().split(" ");
 					request.setAttribute("fechaNacimiento", split[0]);
+					mascotas = mascotaRepository.findAll();
+					request.setAttribute("mascotas", mascotas);
 				break;
 			case "delete": 
 				if(mascotaRepository.delete(Integer.parseInt(request.getParameter("id")))) {
@@ -60,13 +77,14 @@ public class MascotasServlet extends HttpServlet {
 				}else {
 					request.setAttribute("mensaje", "No ha sido posible borrar la mascota");
 				}
+				mascotas = mascotaRepository.findAll();
+				request.setAttribute("mascotas", mascotas);
 				break;
 			case "intervencion": 
 				break;	
 			}
 		}
-		mascotas = mascotaRepository.findAll();
-		request.setAttribute("mascotas", mascotas);
+
 		request.getRequestDispatcher("mascotas.jsp").forward(request, response);
 	}
 
@@ -83,6 +101,7 @@ public class MascotasServlet extends HttpServlet {
 
 		String proceso = request.getParameter("boton");
 		List<Mascota> mascotas = null;
+		List<EspecieMascota> especies = null;
 		
 		if (proceso.equals("Buscar") && !request.getParameter("idMascota").isEmpty() ) {
 			
@@ -96,7 +115,7 @@ public class MascotasServlet extends HttpServlet {
 				ex.printStackTrace();
 			}
 			
-		}else if(proceso.equals("Crear")) {
+		}else if(proceso.equals("Crear Mascota")) {
 				try {
 					SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 					String[] split = request.getParameter("fechaNacimiento").split("-");
@@ -132,15 +151,34 @@ public class MascotasServlet extends HttpServlet {
 			}catch(Exception ex) {
 				ex.printStackTrace();
 			}
+		}else if(proceso.equals("Crear Especie")) {
+			EspecieMascota especie = new EspecieMascota();
+			especie.setNombre(request.getParameter("nombre"));
+			if(request.getParameter("peligrosa").equals("Si")) {
+				especie.setPeligrosa((byte)1);
+			}else {
+				especie.setPeligrosa((byte)0);
+			}
+			especieRepository.save(especie);
+			especies = especieRepository.findAll();
+		}else if(proceso.equals("editEspecie")) {
 			
-		}else {
+		}else if(proceso.equals("deletEspecie")) {
+			
+		}else if(proceso.equals("setEspecie")) {
+			
 		}
 		
-		if(mascotas == null) {
-			 mascotas = mascotaRepository.findAll();
+		if(especies != null) {
+			request.setAttribute("especies", especies);
+			request.getRequestDispatcher("crearMascota.jsp").forward(request, response);
+		}else {
+			if(mascotas == null) {
+				 mascotas = mascotaRepository.findAll();
+			}
+			request.setAttribute("mascotas", mascotas);
+			request.getRequestDispatcher("mascotas.jsp").forward(request, response);
 		}
-		request.setAttribute("mascotas", mascotas);
-		request.getRequestDispatcher("mascotas.jsp").forward(request, response);
 	}
 
 }
