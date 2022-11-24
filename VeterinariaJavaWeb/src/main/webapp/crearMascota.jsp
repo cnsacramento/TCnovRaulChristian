@@ -25,51 +25,73 @@
 		</form><br>
 	</div>
 	<div class ="contenedor">
-	
-		<div class = "formularios">    
-		    <div class="container">
-		    	<form action="mascotasServlet" method="POST">
-					<label for ="nombre">Nombre: </label> 
-					<input class="controls" type="text" name="nombre" value="" placeholder="Nombre"> 
-					<select class="controls" name="peligrosa">
-						<option>No</option>
-						<option>Si</option>
-					</select>
-					<input class="buttons" type="submit" name="boton" value="Crear Especie">
-				</form><br>
+		<c:if test="${empty especie}">
+			<div class = "formularios">    
+			    <div class="container">
+			    	<form action="mascotasServlet" method="POST">
+						<label for ="nombre">Nombre: </label> 
+						<input class="controls" type="text" name="nombre" value="" placeholder="Nombre"> 
+						<label for ="nombre">Peligrosa: </label> 
+						<select class="controls" name="peligrosa">
+							<option>No</option>
+							<option>Si</option>
+						</select>
+						<input class="buttons" type="submit" name="boton" value="Crear Especie">
+					</form>
+			    </div>
 		    </div>
-	    </div>
-	
+		</c:if>
+			
+		<c:if test="${not empty especie}">
+			<div class = "formularios">    
+			    <div class="container">
+			    	<form action="mascotasServlet" method="POST">
+			    		<label for ="nombre">ID: </label> 
+						<input class="controls" type="text" name="id" value="${especie.getId()}" placeholder="Nombre"> 
+						<label for ="nombre">Nombre: </label> 
+						<input class="controls" type="text" name="nombre" value="${especie.getNombre()}" placeholder="Nombre"> 
+						<label for ="nombre">Peligrosa: </label> 
+						<select class="controls" name="peligrosa">
+							<option>No</option>
+							<option>Si</option>
+						</select>
+						<input class="buttons" type="submit" name="boton" value="Editar Especie">
+					</form>
+			    </div>
+	    	</div>
+		</c:if>
+		
 	
 		<div class="container">
-	        <table class="table">
-	            <caption>Seleccione la especie:</caption>
-	            <thead>
-	
-	                <tr>
-	                    <th>ID</th>
-	                    <th>Nombre</th>
-	                    <th>Peligrosa</th>
-	                </tr>
-	            </thead>
-	            <tbody>
-	            	<c:forEach var ="especie" items="${especies}">
-						<tr onclick="MascotasServlet?metodo=save?&clienteDni=${clienteDni}&especieId=${especie.getId()}">
-		                    <td data-label="ID">${especie.getId()}</td>
-		                    <td data-label="Nombre">${especie.getNombre()}</td>
-		                    <td data-label="Peligrosa">${especie.getPeligrosa()}</td>
-		                    <td data-label="Opciones">
-								<div class="imagenes">
-									<a href="MascotasServlet?metodo=editEspecie&id=${especie.getId()}" id="btnOpciones"><img alt="editEspecie" src="css/images/edit.svg"></a>
-									<a href="MascotasServlet?metodo=deleteEspecie&id=${especie.getId()}" id="btnOpciones"><img alt="deleteEspecie" src="css/images/delete.svg"></a>
-									<a href="MascotasServlet?metodo=setEspecie&id=${especie.getId()}" id="btnOpciones"><img alt="crearMascota" src="css/images/intervencion.svg"></a>
-								</div>
-							</td>
-	                	</tr>
-	            	</c:forEach>
-	            </tbody>
-	        </table>
-	    </div>
+			<div class="wrapper">
+		        <table class="table">
+		            <caption>Seleccione la especie:</caption>
+		            <thead>
+		                <tr>
+		                    <th>ID</th>
+		                    <th>Nombre</th>
+		                    <th>Peligrosa</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		            	<c:forEach var ="especie" items="${especies}">
+							<tr onclick="MascotasServlet?metodo=save?&clienteDni=${clienteDni}&especieId=${especie.getId()}">
+			                    <td data-label="ID">${especie.getId()}</td>
+			                    <td data-label="Nombre">${especie.getNombre()}</td>
+			                    <td data-label="Peligrosa">${especie.getPeligrosa()}</td>
+			                    <td data-label="Opciones">
+									<div class="imagenes">
+										<a href="MascotasServlet?metodo=editEspecie&especieId=${especie.getId()}" id="btnOpciones"><img alt="editEspecie" src="css/images/edit.svg"></a>
+										<a href="MascotasServlet?metodo=deleteEspecie&especieId=${especie.getId()}" id="btnOpciones"><img alt="deleteEspecie" src="css/images/delete.svg"></a>
+										<a href="MascotasServlet?metodo=save&especieId=${especie.getId()}&clienteDni=${clienteDni}" id="btnOpciones"><img alt="crearMascota" src="css/images/intervencion.svg"></a>
+									</div>
+								</td>
+		                	</tr>
+		            	</c:forEach>
+		            </tbody>
+		        </table>
+	    	</div>
+	    	</div>
 		
 		<c:if test="${empty especieId}">
 		    <div class = "formularios">    

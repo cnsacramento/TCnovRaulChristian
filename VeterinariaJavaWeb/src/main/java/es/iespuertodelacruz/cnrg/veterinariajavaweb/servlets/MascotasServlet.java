@@ -54,7 +54,9 @@ public class MascotasServlet extends HttpServlet {
 		if(metodo != null) {
 			switch(metodo) {
 			case "save":
-				request.setAttribute("clienteDni", request.getParameter("clienteDni"));   
+				if(!request.getParameter("clienteDni").isEmpty()) {
+					request.getServletContext().setAttribute("clienteDni", request.getParameter("clienteDni"));
+				}
 				
 				if(!request.getParameter("especieId").isEmpty()) {
 					request.setAttribute("especieId", request.getParameter("especieId"));   
@@ -81,7 +83,25 @@ public class MascotasServlet extends HttpServlet {
 				request.setAttribute("mascotas", mascotas);
 				break;
 			case "intervencion": 
-				break;	
+				break;
+			case "editEspecie":
+				EspecieMascota especie = especieRepository.findById(Integer.parseInt(request.getParameter("especieId")));
+				request.setAttribute("especie", especie);
+				especies = especieRepository.findAll();
+				request.setAttribute("especies", especies);
+				request.getRequestDispatcher("crearMascota.jsp").forward(request, response);
+				break;
+				
+			case "deleteEspecie":
+				if(especieRepository.delete(Integer.parseInt(request.getParameter("especieId")))){
+					request.setAttribute("mensaje", "Se ha borrado la exitosamente");
+				}else {
+					request.setAttribute("mensaje", "No ha sido posible borrar la mascota");
+				}
+				especies = especieRepository.findAll();
+				request.setAttribute("especies", especies);
+				request.getRequestDispatcher("crearMascota.jsp").forward(request, response);
+				break;
 			}
 		}
 
@@ -103,7 +123,7 @@ public class MascotasServlet extends HttpServlet {
 		List<Mascota> mascotas = null;
 		List<EspecieMascota> especies = null;
 		
-		if (proceso.equals("Buscar") && !request.getParameter("idMascota").isEmpty() ) {
+		if (proceso.equals("Buscar") && !request.getParameter("idMascota").isEmpty()) {
 			
 			try {
 				int id = Integer.parseInt(request.getParameter("idMascota"));
@@ -161,12 +181,21 @@ public class MascotasServlet extends HttpServlet {
 			}
 			especieRepository.save(especie);
 			especies = especieRepository.findAll();
-		}else if(proceso.equals("editEspecie")) {
-			
-		}else if(proceso.equals("deletEspecie")) {
-			
-		}else if(proceso.equals("setEspecie")) {
-			
+		}else if(proceso.equals("Editar Especie")) {
+			try {
+				EspecieMascota especie = new EspecieMascota();
+				especie.setId(Integer.parseInt(request.getParameter("id")));
+				especie.setNombre(request.getParameter("nombre"));
+				if(request.getParameter("peligrosa").equals("Si")) {
+					especie.setPeligrosa((byte)1);
+				}else {
+					especie.setPeligrosa((byte)0);
+				}
+				especieRepository.update(especie);
+				especies = especieRepository.findAll();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 		
 		if(especies != null) {

@@ -6,6 +6,11 @@
     margin: auto;
 }
 
+.wrapper{
+	height: 50vh;
+	overflow:auto;
+}
+
 img{
 	 max-width: 1.5rem;
 	 max-height: 1.5rem;
@@ -18,6 +23,7 @@ img{
     margin: 0;
     padding: 0;
     table-layout: fixed;
+    white-space: nowrap;
 }
 
 .table caption {
@@ -33,7 +39,7 @@ img{
     border: 1px solid #ddd;
 }
 
-.table td{
+.table td{	
 	word-break: break-word;
 }
 
