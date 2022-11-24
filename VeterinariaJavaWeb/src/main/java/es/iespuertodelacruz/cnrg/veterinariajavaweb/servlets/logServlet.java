@@ -56,7 +56,7 @@ public class logServlet extends HttpServlet {
 				CuentaVeterinario cv = cvRepository.findById(correo);
 				if(cv.getContrasenia().equals(contra)) {
 					 request.setAttribute("mensaje", "Se ha iniciado sesión correctamente");
-					 request.getServletContext().setAttribute("usuario", cv);
+					 request.getSession().setAttribute("usuario", cv);
 				}else {
 	                request.setAttribute("mensaje", "El correo y la contrasenia no coinciden");
 				}
@@ -91,7 +91,7 @@ public class logServlet extends HttpServlet {
             }
 		}
 		
-		if(request.getServletContext().getAttribute("usuario") != null){
+		if(request.getSession().getAttribute("usuario") != null){
 	        request.getRequestDispatcher("panelVeterinario.jsp").forward(request, response);
 		}else {
 	        request.getRequestDispatcher("login.jsp").forward(request, response);

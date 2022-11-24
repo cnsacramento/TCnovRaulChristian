@@ -18,8 +18,8 @@
 		</header>
 		
 		<section class="section-panel">
-			
-			<h1 class="h1-panel">Nombre del veterinario</h1>
+
+			<h1 class="h1-panel">${usuario.getCorreo()}</h1>
 			
 			<a href="ClientesServlet">
 				<div class="container-panel">
@@ -51,7 +51,7 @@
 				</div>
 			</a>
 			
-			<a href="VeterinarioServlet">
+			<a href="VeterinarioServlet?metodo=">
 				<div class="container-panel">
 					
 					<img src="../css/imagenes/cliente.png" alt="">

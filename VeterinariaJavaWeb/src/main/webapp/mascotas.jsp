@@ -70,7 +70,7 @@
 		                <tr>
 		                    <th>ID</th>
 		                    <th>Nombre</th>
-		                    <th>Fecha Nacimiento</th>
+		                    <th>Nacimiento</th>
 		                    <th>Peso</th>
 		                    <th>Especie</th>
 		                    <th>Dueño</th>
@@ -82,7 +82,7 @@
 							<tr>
 			                    <td data-label="ID">${mascota.getId()}</td>
 			                    <td data-label="Nombre">${mascota.getNombre()}</td>
-			                    <td data-label="Fecha Nacimiento">${mascota.getFechaNacimiento()}</td>
+			                    <td data-label=Nacimiento">${mascota.getFechaNacimiento().toString().split(" ")[0]}</td>
 			                    <td data-label="Peso">${mascota.getPeso()}</td>
 			                    <td data-label="Especie">${mascota.getEspecieMascota().getNombre()}</td>
 								<td data-label="DNI Dueño">${mascota.getCliente().getDni()}</td>
