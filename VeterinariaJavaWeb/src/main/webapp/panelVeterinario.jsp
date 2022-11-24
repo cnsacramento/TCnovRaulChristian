@@ -34,7 +34,7 @@
 			<a href="MascotasServlet">
 				<div class="container-panel">
 					
-					<img src="../css/imagenes/cliente.png" alt="">
+					<img src="../css/imagenes/mascota.png" alt="">
 					
 					<p>Mascota</p>
 					
@@ -44,7 +44,7 @@
 			<a href="IntervencionesServlet">
 				<div class="container-panel">
 					
-					<img src="../css/imagenes/cliente.png" alt="">
+					<img src="../css/imagenes/intervencion.png" alt="">
 					
 					<p>Intervención</p>
 					
@@ -54,7 +54,7 @@
 			<a href="VeterinariosServlet">
 				<div class="container-panel">
 					
-					<img src="../css/imagenes/cliente.png" alt="">
+					<img src="../css/imagenes/veterinario.png" alt="">
 					
 					<p>Veterinario</p>
 					
@@ -64,7 +64,7 @@
 			<a href="FacturasServlet">
 				<div class="container-panel">
 					
-					<img src="../css/imagenes/cliente.png" alt="">
+					<img src="../css/imagenes/factura.svg" alt="">
 					
 					<p>Facturas</p>
 					
