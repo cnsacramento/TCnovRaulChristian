@@ -14,7 +14,7 @@
 	<body>
 	
 		<header class="header-panel-veterinario">
-			<a href="login.jsp">Cerrar sesión</a>
+			<a href="index.jsp">Cerrar sesión</a>
 		</header>
 		
 		<section class="section-panel">

@@ -66,6 +66,13 @@ public class VeterinarioServlet extends HttpServlet {
 				break;
 				
 			case "deleteVeterinario": 
+				try {
+					if(!veterinarioRepository.delete(request.getParameter("veterinarioId"))){
+						request.setAttribute("mensaje", "No ha sido posible");
+					}else {
+						request.setAttribute("mensaje", "Se ha borrado correctamente");
+					}
+				}catch(Exception ex) {}
 				break;
 				
 			case "editEspecialidad": 
