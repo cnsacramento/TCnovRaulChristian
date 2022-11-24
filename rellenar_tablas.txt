@@ -1,0 +1,97 @@
+DELETE FROM reserva;
+DELETE FROM equipo_intervencion;
+DELETE FROM intervencion;
+DELETE FROM factura;
+DELETE FROM tipo_intervencion;
+DELETE FROM veterinario;
+DELETE FROM especialidad_veterinario;
+DELETE FROM cuenta_veterinario;
+DELETE FROM mascota;
+DELETE FROM especie_mascota;
+DELETE FROM cliente;
+DELETE FROM tipo_restriccion_dia;
+
+
+
+
+INSERT INTO cuenta_veterinario VALUES('primercorreo@gmail.com', '1234');
+INSERT INTO cuenta_veterinario VALUES('segundocorreo@gmail.com', '1q2w3e4r');
+INSERT INTO cuenta_veterinario VALUES('tercercorreo@gmail.com', '4321');
+INSERT INTO cuenta_veterinario VALUES('cuartocorreo@gmail.com', '4r3e2w1q');
+INSERT INTO cuenta_veterinario VALUES('quintocorreo@gmail.com', 'PR0GR4M4');
+
+ALTER TABLE especialidad_veterinario AUTO_INCREMENT = 1;
+
+INSERT INTO especialidad_veterinario(nombre) VALUES('Cirujano');
+INSERT INTO especialidad_veterinario(nombre) VALUES('Pediatra');
+INSERT INTO especialidad_veterinario(nombre) VALUES('Enfermero');
+INSERT INTO especialidad_veterinario(nombre) VALUES('Doctor');
+
+INSERT INTO veterinario VALUES('12345678A', 'PrimerVeterinario', 'PrimerApellido PrimerApellido', '922122345', 'primercorreo@gmail.com', 1);
+INSERT INTO veterinario VALUES('87654321Z', 'SegundoVeterinario', 'SegundoApellido SegundoApellido', '911122345', 'segundocorreo@gmail.com', 2);
+INSERT INTO veterinario VALUES('12345678B', 'TercerVeterinario', 'TercerApellido TercerApellido', '933122345', 'tercercorreo@gmail.com', 3);
+INSERT INTO veterinario VALUES('87654321Y', 'CuartoVeterinario', 'CuartoApellido CuartoApellido', '944122345', 'cuartocorreo@gmail.com', 4);
+INSERT INTO veterinario VALUES('12345678C', 'Quinto Veterinario', 'QuintoApellido QuintoApellido', '955122345', 'quintocorreo@gmail.com', 1);
+
+INSERT INTO cliente VALUES ('12345678Z', 'Primer Cliente', 'Apellido1', 'Primera dirección del cliente', 'primercorreo@gmail.com', '911222333');
+INSERT INTO cliente VALUES ('87456123A', 'Segundo Cliente', 'Apellido2', 'Segunda dirección del cliente', null, '922333444');
+INSERT INTO cliente VALUES ('12345678B', 'Tercer Cliente', 'Apellido3', null, 'tercercorreo@gmail.com', '933555444');
+INSERT INTO cliente VALUES ('87456123C', 'Cuarto Cliente', 'Apellido4', null, null, '900111222');
+INSERT INTO cliente VALUES ('12345678G', 'Quinto Cliente', 'Apellido5', 'C/Del cliente quinto', 'segundocorreo@gmail.com', '99999993');
+
+ALTER TABLE especie_mascota AUTO_INCREMENT = 1;
+
+INSERT INTO especie_mascota(nombre, peligrosa) VALUES('Perro', FALSE);
+INSERT INTO especie_mascota(nombre, peligrosa) VALUES('Gato', FALSE);
+INSERT INTO especie_mascota(nombre, peligrosa) VALUES('Tigre', TRUE);
+INSERT INTO especie_mascota(nombre, peligrosa) VALUES('Oso', TRUE);
+INSERT INTO especie_mascota(nombre, peligrosa) VALUES('Hamster', TRUE);
+
+ALTER TABLE mascota AUTO_INCREMENT = 1;
+
+INSERT INTO mascota(nombre,fecha_nacimiento,peso,dni_cliente,id_especie) VALUES('MascotaPrimera', now(), 2.91, '12345678Z', 1);
+INSERT INTO mascota(nombre,fecha_nacimiento,peso,dni_cliente,id_especie) VALUES('MascotaSegunda', now(), 200.91, '12345678Z', 2);
+INSERT INTO mascota(nombre,fecha_nacimiento,peso,dni_cliente,id_especie) VALUES('MascotaTercera', now(), 13.23, '12345678B', 3);
+INSERT INTO mascota(nombre,fecha_nacimiento,peso,dni_cliente,id_especie) VALUES('MascotaCuarta', now(), 0.12, '12345678Z', 5);
+INSERT INTO mascota(nombre,fecha_nacimiento,peso,dni_cliente,id_especie) VALUES('MascotaQuinta', now(), 245.91, '12345678G', 4);
+
+ALTER TABLE tipo_intervencion AUTO_INCREMENT = 1;
+
+INSERT INTO tipo_intervencion(tipo) VALUES ('Cirugía');
+INSERT INTO tipo_intervencion(tipo) VALUES ('Consulta');
+INSERT INTO tipo_intervencion(tipo) VALUES ('Estética');
+INSERT INTO tipo_intervencion(tipo) VALUES ('Pre-operatorio');
+
+INSERT INTO tipo_restriccion_dia VALUES('laboral', '8:0:0', '15:0:0', 60);
+
+ALTER TABLE factura AUTO_INCREMENT = 1;
+
+INSERT INTO factura(fecha, coste, detalles) VALUES (now(), 13.9, 'Se cortó las uñas');
+INSERT INTO factura(fecha, coste, detalles) VALUES (now(), 25.87, 'Se cortó el pelo');
+INSERT INTO factura(fecha, coste, detalles) VALUES (now(), 10, 'Consulta periódica');
+INSERT INTO factura(fecha, coste, detalles) VALUES (now(), 224.9, 'Se operó la pata');
+
+ALTER TABLE intervencion AUTO_INCREMENT = 1;
+
+INSERT INTO intervencion(asunto,descripcion,id_tipo_intervencion,id_mascota,id_factura) VALUES('Asunto1','Descripción blabla',1,1,1);
+INSERT INTO intervencion(asunto,descripcion,id_tipo_intervencion,id_mascota,id_factura) VALUES('Asunto2','Descripción hehehe',2,3,2);
+INSERT INTO intervencion(asunto,descripcion,id_tipo_intervencion,id_mascota,id_factura) VALUES('Asunto3','Descripción taratara',3,2,3);
+INSERT INTO intervencion(asunto,descripcion,id_tipo_intervencion,id_mascota,id_factura) VALUES('Asunto4','Descripción bipbopbip',4,4,4);
+
+INSERT INTO equipo_intervencion VALUES(1, '12345678A');
+INSERT INTO equipo_intervencion VALUES(2, '87654321Y');
+INSERT INTO equipo_intervencion VALUES(3, '87654321Y');
+INSERT INTO equipo_intervencion VALUES(4, '12345678B');
+INSERT INTO equipo_intervencion VALUES(4, '12345678A');
+
+ALTER TABLE reserva AUTO_INCREMENT = 1;
+
+INSERT INTO reserva(fecha_inicio,fecha_fin,id_intervencion,id_restriccion_dia) VALUES('2022-12-01','2022-12-01',1,'laboral');
+INSERT INTO reserva(fecha_inicio,fecha_fin,id_intervencion,id_restriccion_dia) VALUES('2022-12-02','2022-12-02',1,'laboral');
+INSERT INTO reserva(fecha_inicio,fecha_fin,id_intervencion,id_restriccion_dia) VALUES('2022-12-03','2022-12-03',1,'laboral');
+INSERT INTO reserva(fecha_inicio,fecha_fin,id_intervencion,id_restriccion_dia) VALUES('2022-12-04','2022-12-04',1,'laboral');
+INSERT INTO reserva(fecha_inicio,fecha_fin,id_intervencion,id_restriccion_dia) VALUES('2022-12-04 09:00:00','2022-12-04 10:00:00',1,'laboral');
+
+
+
+

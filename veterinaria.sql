@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 19-11-2022 a las 12:00:06
--- Versión del servidor: 8.0.28
--- Versión de PHP: 8.0.16
+-- Servidor: localhost:3306
+-- Tiempo de generación: 23-11-2022 a las 18:13:50
+-- Versión del servidor: 8.0.31-0ubuntu0.22.04.1
+-- Versión de PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,17 @@ CREATE TABLE `cliente` (
   `telefono` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`dni`, `nombre`, `apellidos`, `direccion`, `correo`, `telefono`) VALUES
+('12345678B', 'Tercer Cliente', 'Apellido3', NULL, 'tercercorreo@gmail.com', '933555444'),
+('12345678G', 'Quinto Cliente', 'Apellido5', 'C/Del cliente quinto', 'segundocorreo@gmail.com', '99999993'),
+('12345678Z', 'Primer Cliente', 'Apellido1', 'Primera dirección del cliente', 'primercorreo@gmail.com', '911222333'),
+('87456123A', 'Segundo Cliente', 'Apellido2', 'Segunda dirección del cliente', NULL, '922333444'),
+('87456123C', 'Cuarto Cliente', 'Apellido4', NULL, NULL, '900111222');
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +57,17 @@ CREATE TABLE `cuenta_veterinario` (
   `correo` varchar(100) NOT NULL,
   `contrasenia` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `cuenta_veterinario`
+--
+
+INSERT INTO `cuenta_veterinario` (`correo`, `contrasenia`) VALUES
+('cuartocorreo@gmail.com', '4r3e2w1q'),
+('primercorreo@gmail.com', '1234'),
+('quintocorreo@gmail.com', 'PR0GR4M4'),
+('segundocorreo@gmail.com', '1q2w3e4r'),
+('tercercorreo@gmail.com', '4321');
 
 -- --------------------------------------------------------
 
@@ -58,6 +80,17 @@ CREATE TABLE `equipo_intervencion` (
   `dni_veterinario` char(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `equipo_intervencion`
+--
+
+INSERT INTO `equipo_intervencion` (`id_intervencion`, `dni_veterinario`) VALUES
+(1, '12345678A'),
+(4, '12345678A'),
+(4, '12345678B'),
+(2, '87654321Y'),
+(3, '87654321Y');
+
 -- --------------------------------------------------------
 
 --
@@ -68,6 +101,16 @@ CREATE TABLE `especialidad_veterinario` (
   `id` int NOT NULL,
   `nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `especialidad_veterinario`
+--
+
+INSERT INTO `especialidad_veterinario` (`id`, `nombre`) VALUES
+(1, 'Cirujano'),
+(4, 'Doctor'),
+(3, 'Enfermero'),
+(2, 'Pediatra');
 
 -- --------------------------------------------------------
 
@@ -81,6 +124,17 @@ CREATE TABLE `especie_mascota` (
   `peligrosa` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `especie_mascota`
+--
+
+INSERT INTO `especie_mascota` (`id`, `nombre`, `peligrosa`) VALUES
+(1, 'Perro', 0),
+(2, 'Gato', 0),
+(3, 'Tigre', 1),
+(4, 'Oso', 1),
+(5, 'Hamster', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -93,6 +147,16 @@ CREATE TABLE `factura` (
   `coste` decimal(6,2) DEFAULT NULL,
   `detalles` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `factura`
+--
+
+INSERT INTO `factura` (`id`, `fecha`, `coste`, `detalles`) VALUES
+(1, '2022-11-24 00:09:44', '13.90', 'Se cortó las uñas'),
+(2, '2022-11-24 00:09:44', '25.87', 'Se cortó el pelo'),
+(3, '2022-11-24 00:09:44', '10.00', 'Consulta periódica'),
+(4, '2022-11-24 00:09:44', '224.90', 'Se operó la pata');
 
 -- --------------------------------------------------------
 
@@ -109,6 +173,16 @@ CREATE TABLE `intervencion` (
   `id_factura` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `intervencion`
+--
+
+INSERT INTO `intervencion` (`id`, `asunto`, `descripcion`, `id_tipo_intervencion`, `id_mascota`, `id_factura`) VALUES
+(1, 'Asunto1', 'Descripción blabla', 1, 1, 1),
+(2, 'Asunto2', 'Descripción hehehe', 2, 3, 2),
+(3, 'Asunto3', 'Descripción taratara', 3, 2, 3),
+(4, 'Asunto4', 'Descripción bipbopbip', 4, 4, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -124,6 +198,17 @@ CREATE TABLE `mascota` (
   `id_especie` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `mascota`
+--
+
+INSERT INTO `mascota` (`id`, `nombre`, `fecha_nacimiento`, `peso`, `dni_cliente`, `id_especie`) VALUES
+(1, 'MascotaPrimera', '2022-11-24 00:09:44', '2.91', '12345678Z', 1),
+(2, 'MascotaSegunda', '2022-11-24 00:09:44', '200.91', '12345678Z', 2),
+(3, 'MascotaTercera', '2022-11-24 00:09:44', '13.23', '12345678B', 3),
+(4, 'MascotaCuarta', '2022-11-24 00:09:44', '0.12', '12345678Z', 5),
+(5, 'MascotaQuinta', '2022-11-24 00:09:44', '245.91', '12345678G', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -138,6 +223,17 @@ CREATE TABLE `reserva` (
   `id_restriccion_dia` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `reserva`
+--
+
+INSERT INTO `reserva` (`id`, `fecha_inicio`, `fecha_fin`, `id_intervencion`, `id_restriccion_dia`) VALUES
+(1, '2022-12-01 00:00:00', '2022-12-01 00:00:00', 1, 'laboral'),
+(2, '2022-12-02 00:00:00', '2022-12-02 00:00:00', 1, 'laboral'),
+(3, '2022-12-03 00:00:00', '2022-12-03 00:00:00', 1, 'laboral'),
+(4, '2022-12-04 00:00:00', '2022-12-04 00:00:00', 1, 'laboral'),
+(5, '2022-12-04 09:00:00', '2022-12-04 10:00:00', 1, 'laboral');
+
 -- --------------------------------------------------------
 
 --
@@ -149,6 +245,15 @@ CREATE TABLE `tipo_intervencion` (
   `tipo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `tipo_intervencion`
+--
+
+INSERT INTO `tipo_intervencion` (`id`, `tipo`) VALUES
+(1, 'Cirugía'),
+(2, 'Consulta'),
+(3, 'Estética'),
+(4, 'Pre-operatorio');
 
 -- --------------------------------------------------------
 
@@ -162,6 +267,13 @@ CREATE TABLE `tipo_restriccion_dia` (
   `hora_cierre` time NOT NULL,
   `intervalo_tiempo` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_restriccion_dia`
+--
+
+INSERT INTO `tipo_restriccion_dia` (`tipo`, `hora_apertura`, `hora_cierre`, `intervalo_tiempo`) VALUES
+('laboral', '08:00:00', '15:00:00', 60);
 
 -- --------------------------------------------------------
 
@@ -177,6 +289,17 @@ CREATE TABLE `veterinario` (
   `cuenta_veterinaria` varchar(100) NOT NULL,
   `id_especialidad` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `veterinario`
+--
+
+INSERT INTO `veterinario` (`dni`, `nombre`, `apellidos`, `telefono`, `cuenta_veterinaria`, `id_especialidad`) VALUES
+('12345678A', 'PrimerVeterinario', 'PrimerApellido PrimerApellido', '922122345', 'primercorreo@gmail.com', 1),
+('12345678B', 'TercerVeterinario', 'TercerApellido TercerApellido', '933122345', 'tercercorreo@gmail.com', 3),
+('12345678C', 'Quinto Veterinario', 'QuintoApellido QuintoApellido', '955122345', 'quintocorreo@gmail.com', 1),
+('87654321Y', 'CuartoVeterinario', 'CuartoApellido CuartoApellido', '944122345', 'cuartocorreo@gmail.com', 4),
+('87654321Z', 'SegundoVeterinario', 'SegundoApellido SegundoApellido', '911122345', 'segundocorreo@gmail.com', 2);
 
 --
 -- Índices para tablas volcadas
@@ -201,7 +324,8 @@ ALTER TABLE `cuenta_veterinario`
 -- Indices de la tabla `equipo_intervencion`
 --
 ALTER TABLE `equipo_intervencion`
-  ADD PRIMARY KEY(`id_intervencion`,`dni_veterinario`);
+  ADD PRIMARY KEY (`id_intervencion`,`dni_veterinario`),
+  ADD KEY `equipo_intervencion_ibfk_2` (`dni_veterinario`);
 
 --
 -- Indices de la tabla `especialidad_veterinario`
@@ -214,7 +338,8 @@ ALTER TABLE `especialidad_veterinario`
 -- Indices de la tabla `especie_mascota`
 --
 ALTER TABLE `especie_mascota`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `factura`
@@ -277,43 +402,43 @@ ALTER TABLE `veterinario`
 -- AUTO_INCREMENT de la tabla `especialidad_veterinario`
 --
 ALTER TABLE `especialidad_veterinario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `especie_mascota`
 --
 ALTER TABLE `especie_mascota`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `intervencion`
 --
 ALTER TABLE `intervencion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `mascota`
 --
 ALTER TABLE `mascota`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_intervencion`
 --
 ALTER TABLE `tipo_intervencion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
