@@ -39,7 +39,7 @@ public class Intervencion implements Serializable {
 	private TipoIntervencion tipoIntervencion;
 
 	//bi-directional many-to-many association to Veterinario
-	@ManyToMany(mappedBy="intervencions")
+	@ManyToMany(mappedBy="intervencions", fetch = FetchType.EAGER)
 	private List<Veterinario> veterinarios;
 
 	//bi-directional many-to-one association to Reserva

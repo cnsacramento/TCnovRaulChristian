@@ -40,7 +40,7 @@ public class ClientesServlet extends HttpServlet {
 		EntityManagerFactory entityManagerFactory = 
 				(EntityManagerFactory)request.getServletContext().getAttribute("entityManagerFactory");
 		ClienteRepository clienteRepository = new ClienteRepository(entityManagerFactory);
-		
+				
 		if(request.getParameter("id") != null) {
 			Cliente cliente = clienteRepository.findById(request.getParameter("id"));
 			request.setAttribute("cliente", cliente);
@@ -49,50 +49,7 @@ public class ClientesServlet extends HttpServlet {
 			request.getRequestDispatcher("clientes.jsp").forward(request, response);
 		}
 		
-		
-		if(request.getParameter("agregar") != null) {
-			Cliente cliente = agregarCliente(request);	
-			
-			List<Cliente> clientesList = Arrays.asList(cliente);
-			request.setAttribute("clientesList", clientesList);
-			request.getRequestDispatcher("clientes.jsp").forward(request, response);
-		}
-
-		if(request.getParameter("borrar") != null) {
-			
-			borrarCliente(request);
-			List<Cliente> clientesList = clienteRepository.findAll();
-			request.setAttribute("clientesList", clientesList);
-			request.getRequestDispatcher("clientes.jsp").forward(request, response);
-		}
-		
-		if(request.getParameter("editar") != null) {
-			editarCliente(request);
-			List<Cliente> clientesList = clienteRepository.findAll();
-			request.setAttribute("clientesList", clientesList);
-			request.getRequestDispatcher("clientes.jsp").forward(request, response);
-		}
-		
-		
-		if(request.getParameter("mostrar") != null) {
-			Cliente cliente = mostrarCliente(request);	
-			
-			List<Cliente> clientesList = Arrays.asList(cliente);
-			request.setAttribute("clientesList", clientesList);
-			request.getRequestDispatcher("clientes.jsp").forward(request, response);
-		}
-		
-		if(request.getParameter("mostrartodos") != null) {
-			List<Cliente> clientesList = clienteRepository.findAll();
-			
-			request.setAttribute("clientesList", clientesList);
-			request.getRequestDispatcher("clientes.jsp").forward(request, response);
-		}
-		
-
 		List<Cliente> clientesList = clienteRepository.findAll();
-		
-		
 		request.setAttribute("clientesList", clientesList);
 		request.getRequestDispatcher("clientes.jsp").forward(request, response);
 	}
@@ -178,8 +135,53 @@ public class ClientesServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		EntityManagerFactory entityManagerFactory = 
+				(EntityManagerFactory)request.getServletContext().getAttribute("entityManagerFactory");
+		ClienteRepository clienteRepository = new ClienteRepository(entityManagerFactory);
+				
+		
+		if(request.getParameter("agregar") != null) {
+			Cliente cliente = agregarCliente(request);	
+			
+			List<Cliente> clientesList = Arrays.asList(cliente);
+			request.setAttribute("clientesList", clientesList);
+			request.getRequestDispatcher("clientes.jsp").forward(request, response);
+		}
+
+		if(request.getParameter("borrar") != null) {
+			
+			borrarCliente(request);
+			List<Cliente> clientesList = clienteRepository.findAll();
+			request.setAttribute("clientesList", clientesList);
+			request.getRequestDispatcher("clientes.jsp").forward(request, response);
+		}
+		
+		if(request.getParameter("editar") != null) {
+			editarCliente(request);
+			List<Cliente> clientesList = clienteRepository.findAll();
+			request.setAttribute("clientesList", clientesList);
+			request.getRequestDispatcher("clientes.jsp").forward(request, response);
+		}
+		
+		
+		if(request.getParameter("mostrar") != null) {
+			Cliente cliente = mostrarCliente(request);	
+			
+			List<Cliente> clientesList = Arrays.asList(cliente);
+			request.setAttribute("clientesList", clientesList);
+			request.getRequestDispatcher("clientes.jsp").forward(request, response);
+		}
+		
+		if(request.getParameter("mostrartodos") != null) {
+			List<Cliente> clientesList = clienteRepository.findAll();
+			
+			request.setAttribute("clientesList", clientesList);
+			request.getRequestDispatcher("clientes.jsp").forward(request, response);
+		}
+		
+
+		List<Cliente> clientesList = clienteRepository.findAll();
 	}
 
 }

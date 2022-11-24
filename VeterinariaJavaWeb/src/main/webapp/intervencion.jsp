@@ -43,7 +43,7 @@
 					</select>
 				</div>
 				 
-				</label> <label for=""> <span>*ID mascota:</span> <input type="text"
+				<label for=""> <span>*ID mascota:</span> <input type="text"
 					name="idmascota" id="idmascota">
 				</label> <label for=""> <span>*ID factura:</span> <input type="text"
 					name="correo" id="correo">
@@ -147,12 +147,17 @@
 			<tbody>
 				<c:forEach var="intervencion" items="${intervencionesList}">
 					<tr>
-						<td data-label="DNI">${intervencion.getId()}</td>
+						<td data-label="ID">${intervencion.getId()}</td>
 						<td data-label="Asunto">${intervencion.getAsunto()}</td>
 						<td data-label="Descripcion">${intervencion.getDescripcion()}</td>
+						<td data-label="Tipo">${intervencion.getTipoIntervencion().getTipo()}</td>
 						<td data-label="Mascota">${intervencion.getMascota().getId()}</td>
 						<td data-label="Factura">${intervencion.getFactura().getId()}</td>
-						<td data-label="Equipo">${intervencion.getVeterinarios()}</td>
+						<td data-label="Equipo">
+							<c:forEach var="veterinario" items="${intervencion.getVeterinarios()}">
+								<span>${veterinario.getDni()}</span>
+							</c:forEach>
+						</td>
 						<td>
 							<a href="IntervencionesServlet?id=${intervencion.getId()}">
 								Opciones
