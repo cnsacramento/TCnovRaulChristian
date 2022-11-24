@@ -30,23 +30,23 @@
 
 				<label for=""> <span>*Asunto:</span> <input type="text"
 					name="asunto" id="asunto" maxlength="30" required>
-				</label> <label for=""> <span>*Descripción:</span> <input type="text"
-					name="descripcion" id="descripcion" required>
-				</label> 
-				
+				</label> <label for=""> <span>*Descripción:</span> <textarea
+						name="descripcion" id="descripcion" required></textarea>
+				</label>
+
 				<div class="selectform">
-					<label for=""> <span>*Tipo intervención:</span></label> 
-					<select name="tipointervencion">
-						<c:forEach var="tipo" items="${tipointervencionList}">
-							<option value="${tipointervencionList.getTipo()}">${tipointervencionList.getNombre()}</option>
+					<label for=""> <span>*Tipo intervención:</span></label> <select
+						name="tipointervencion">
+						<c:forEach var="tipoIntervencion" items="${tipoIntervencionList}">
+							<option value="${tipoIntervencion.getTipo()}">${tipoIntervencion.getTipo()}</option>
 						</c:forEach>
 					</select>
 				</div>
-				 
-				<label for=""> <span>*ID mascota:</span> <input type="text"
+
+				<label for=""> <span>*ID mascota:</span> <input type="number"
 					name="idmascota" id="idmascota">
-				</label> <label for=""> <span>*ID factura:</span> <input type="text"
-					name="correo" id="correo">
+				</label> <label for=""> <span>*ID factura:</span> <input type="number"
+					name="factura" id="factura">
 				</label> <label for=""> <span>*Equipo:</span> <input type="text"
 					name="telefono" id="telefono" required>
 
@@ -60,8 +60,9 @@
 			<h3 class="text-center">Eliminar intervención</h3>
 			<form action="IntervencionesServlet" method="post">
 
-				<label for=""> <span>*ID Intervención:</span> <input type="text"
-					name="dni" id="dni" value="${intervencion.getId()}" required>
+				<label for=""> <span>*ID Intervención:</span> <input
+					type="number" name="id" id="id" value="${intervencion.getId()}"
+					required>
 				</label> <input type="submit" name="eliminar" value="Eliminar">
 			</form>
 
@@ -73,30 +74,36 @@
 
 			<form action="IntervencionesServlet" method="post">
 
-				
-				<label for=""> <span>*Asunto:</span> <input type="text"
-					name="asunto" id="asunto" maxlength="30" required>
-				</label> <label for=""> <span>*Descripción:</span> <input type="text"
-					name="descripcion" id="descripcion" required>
+				<label for=""> <span>*ID Intervención:</span> <input
+					type="number" name="id" id="id" value="${intervencion.getId()}"
+					required>
 				</label> 
 				
+				<label for=""> <span>*Asunto:</span> <input type="text"
+					name="asunto" id="asunto" maxlength="30"
+					value="${intervencion.getAsunto()}" required>
+				</label> <label for=""> <span>*Descripción:</span> <textarea
+						name="descripcion" id="descripcion" required>${intervencion.getDescripcion()}</textarea>
+				</label>
+
 				<div class="selectform">
-					<label for=""> <span>*Tipo intervención:</span></label> 
-					<select name="tipointervencion">
-						<c:forEach var="tipo" items="${tipointervencionList}">
-							<option value="${tipointervencionList.getTipo()}">${tipointervencionList.getNombre()}</option>
+					<label for=""> <span>*Tipo intervención:</span></label> <select
+						name="tipointervencion">
+						<c:forEach var="tipoIntervencion" items="${tipoIntervencionList}">
+							<option value="${tipoIntervencion.getTipo()}">${tipoIntervencion.getTipo()}</option>
 						</c:forEach>
 					</select>
 				</div>
-				
-				<label for=""> <span>*ID mascota:</span> <input type="text"
-					name="idmascota" id="idmascota">
-				</label> <label for=""> <span>*ID factura:</span> <input type="text"
-					name="correo" id="correo">
-				</label> <label for=""> <span>*Equipo:</span> <input type="text"
-					name="equipo" id="equipo" required></label>
 
-				<input type="submit" name="editar" id="editar" value="Editar">
+				<label for=""> <span>*ID mascota:</span> <input type="number"
+					name="idmascota" id="idmascota"
+					value="${intervencion.getMascota().getId()}">
+				</label> <label for=""> <span>*ID factura:</span> <input type="text"
+					name="factura" id="factura"
+					value="${intervencion.getFactura().getId()}">
+				</label> <label for=""> <span>*Equipo:</span> <input type="text"
+					name="equipo" id="equipo" required></label> <input type="submit"
+					name="editar" id="editar" value="Editar">
 			</form>
 
 		</article>
@@ -107,12 +114,12 @@
 
 			<form action="IntervencionesServlet" method="post">
 
-				<label for=""> <span>*ID:</span> <input type="text"
+				<label for=""> <span>*ID:</span> <input type="number"
 					name="id" id="id" value="${intervencion.getId()}" required>
 				</label> <input type="submit" name="mostrar" value="Mostrar">
 
 			</form>
-			
+
 			<h3 class="text-center">Mostrar listado</h3>
 
 			<form action="IntervencionesServlet" method="post">
@@ -153,16 +160,13 @@
 						<td data-label="Tipo">${intervencion.getTipoIntervencion().getTipo()}</td>
 						<td data-label="Mascota">${intervencion.getMascota().getId()}</td>
 						<td data-label="Factura">${intervencion.getFactura().getId()}</td>
-						<td data-label="Equipo">
-							<c:forEach var="veterinario" items="${intervencion.getVeterinarios()}">
+						<td data-label="Equipo"><c:forEach var="veterinario"
+								items="${intervencion.getVeterinarios()}">
 								<span>${veterinario.getDni()}</span>
-							</c:forEach>
-						</td>
-						<td>
-							<a href="IntervencionesServlet?id=${intervencion.getId()}">
-								Opciones
-							</a>
-						</td>
+							</c:forEach></td>
+						<td><a
+							href="IntervencionesServlet?id=${intervencion.getId()}">
+								Opciones </a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
