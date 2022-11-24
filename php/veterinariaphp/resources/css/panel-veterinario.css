@@ -1,0 +1,88 @@
+:root {
+	--color-principal: blue;
+	--color-secundario: green;
+	--color-terciario: white;
+}
+
+p {
+	color: white;
+	text-decoration: underline;
+}
+
+.header-panel-veterinario {
+	display: flex;
+	justify-content: flex-end;
+	padding: 1rem 3rem;
+}
+
+.header-panel-veterinario a {
+	border: 0.3rem #017bab solid;
+	border-radius: 0.5rem;
+	padding: 0.3rem 1rem;
+	text-decoration: none;
+	color: black;
+}
+
+.section-panel {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	padding: 2rem;
+}
+
+.section-panel .h1-panel {
+	padding: 2rem 2rem 0.2rem 2rem;
+	flex: 0 0 100%;
+}
+
+.section-panel {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom: 2rem;
+}
+
+.section-panel a {
+	text-decoration: none;
+	color: black;
+}
+
+.section-panel a .container-panel {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 1rem;
+	padding: 1rem 2rem;
+	background: #017bab;
+	border-radius: 1rem;
+}
+
+.section-panel a .container-panel img {
+	width: 5rem;
+	height: 5rem;
+	padding-bottom: 0.8rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
