@@ -108,9 +108,11 @@ public class IntervencionesServlet extends HttpServlet {
 		if (request.getParameter("mostrar") != null) {
 			
 			Intervencion intervencion = mostrarIntervencion(request);
-
-			List<Intervencion> intervencionesList = Arrays.asList(intervencion);
-			request.setAttribute("intervencionesList", intervencionesList);
+			if(intervencion != null) {
+				List<Intervencion> intervencionesList = Arrays.asList(intervencion);
+				request.setAttribute("intervencionesList", intervencionesList);
+			}
+			
 			cargarTipoIntervencion(request);
 			request.getRequestDispatcher("intervencion.jsp").forward(request, response);
 		}
@@ -150,8 +152,10 @@ public class IntervencionesServlet extends HttpServlet {
 				break;		
 			case "Mostrar": 
 				tipoIntervencion = mostrarTipoIntervencion(request);
-				tipointervencionList = Arrays.asList(tipoIntervencion);
-				request.setAttribute("tipointervencionList", tipointervencionList);
+				if(tipoIntervencion != null) {
+					tipointervencionList = Arrays.asList(tipoIntervencion);
+					request.setAttribute("tipointervencionList", tipointervencionList);
+				}
 				cargarTipoIntervencion(request);
 				request.getRequestDispatcher("intervencion.jsp").forward(request, response);
 				break;
