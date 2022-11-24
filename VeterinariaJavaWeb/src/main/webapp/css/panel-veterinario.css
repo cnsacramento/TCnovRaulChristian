@@ -6,6 +6,10 @@
 	--color-terciario: white;
 }
 
+p {
+	color: white;
+	text-decoration: underline;
+}
 
 .header-panel-veterinario {
 	display: flex; 
@@ -14,7 +18,7 @@
 }
 
 .header-panel-veterinario a {
-	border: 0.3rem green solid;
+	border: 0.3rem #017bab solid;
 	border-radius: 0.5rem;
 	padding: 0.3rem 1rem;
 	text-decoration: none;
@@ -53,7 +57,7 @@
 	align-items: center;
 	margin: 1rem;
 	padding: 1rem 2rem;
-	background: green;
+	background: #017bab;
 	border-radius: 1rem;
 }
 

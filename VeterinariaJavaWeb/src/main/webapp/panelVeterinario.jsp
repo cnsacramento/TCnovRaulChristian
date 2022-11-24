@@ -60,6 +60,16 @@
 					
 				</div>
 			</a>
+			
+			<a href="FacturasServlet">
+				<div class="container-panel">
+					
+					<img src="../css/imagenes/cliente.png" alt="">
+					
+					<p>Facturas</p>
+					
+				</div>
+			</a>
 		
 		</section>
 		
