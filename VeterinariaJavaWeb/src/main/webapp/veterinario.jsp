@@ -182,7 +182,7 @@
 	
     <c:if test="${not empty mensaje}">
 	    <script>
-	            alert("${mensaje}");
+	      	alert("${mensaje}");
 	    </script>
 	</c:if>
 </body>
