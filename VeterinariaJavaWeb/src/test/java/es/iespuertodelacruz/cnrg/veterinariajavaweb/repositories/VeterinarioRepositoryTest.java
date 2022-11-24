@@ -35,7 +35,7 @@ class VeterinarioRepositoryTest {
 		veterinarioRepository = new VeterinarioRepository(entityManagerFactory);
 		cuentaVeterinarioRepository = new CuentaVeterinarioRepository(entityManagerFactory);
 		especialidadVeterinarioRepository = new EspecialidadVeterinarioRepository(entityManagerFactory);
-		
+		 
 		
 		cuenta1 = new CuentaVeterinario();
 		cuenta1.setCorreo("correo1@gmail.com");
