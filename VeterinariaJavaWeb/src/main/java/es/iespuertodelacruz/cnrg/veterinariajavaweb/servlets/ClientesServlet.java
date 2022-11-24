@@ -1,7 +1,6 @@
 package es.iespuertodelacruz.cnrg.veterinariajavaweb.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -180,8 +179,6 @@ public class ClientesServlet extends HttpServlet {
 			request.getRequestDispatcher("clientes.jsp").forward(request, response);
 		}
 		
-
-		List<Cliente> clientesList = clienteRepository.findAll();
 	}
 
 }

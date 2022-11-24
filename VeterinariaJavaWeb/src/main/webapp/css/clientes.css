@@ -5,6 +5,7 @@ h3 {
 	padding: 1rem;
 }
 
+
 .crud {
 	display: flex;
 	flex-wrap: wrap;
@@ -27,6 +28,14 @@ h3 {
 	flex-direction: row;
 	justify-content: flex-end;
 	margin: 0.4rem;
+}
+
+.crud article form .text-end {
+	text-align: end;
+}
+
+.crud article form input[type=number] {
+	text-align: end;
 }
 
 .crud article form input[type=submit] {
