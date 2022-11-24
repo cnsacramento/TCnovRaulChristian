@@ -53,14 +53,16 @@ public class VeterinarioServlet extends HttpServlet {
 		switch(metodo) {			
 			case "editVeterinario": 
 				Veterinario veterinario = veterinarioRepository.findById(request.getParameter("veterinarioId"));
-				veterinario.setDni(request.getParameter("dni"));
-				veterinario.setNombre(request.getParameter("nombre"));
-				veterinario.setApellidos(request.getParameter("apellidos"));
-				veterinario.setEspecialidadVeterinario(especialidadRepository.findById(Integer.parseInt(request.getParameter("especialidad"))));
-				veterinario.setTelefono(request.getParameter("telefono"));
-				if(!veterinarioRepository.update(veterinario)) {
-					request.setAttribute("mensaje", "No se ha podido modificar el veterinario");
-				}
+				veterinario.setDni(veterinario.getDni());
+				veterinario.setNombre(veterinario.getNombre());
+				veterinario.setApellidos(veterinario.getApellidos());
+				veterinario.setEspecialidadVeterinario(veterinario.getEspecialidadVeterinario());
+				veterinario.setTelefono(veterinario.getTelefono());
+				
+				request.setAttribute("veterinario", veterinario);
+//				if(!veterinarioRepository.update(veterinario)) {
+//					request.setAttribute("mensaje", "No se ha podido modificar el veterinario");
+//				}
 				break;
 				
 			case "deleteVeterinario": 
@@ -130,7 +132,23 @@ public class VeterinarioServlet extends HttpServlet {
 				}catch(Exception ex) {
 					ex.printStackTrace();
 				}
-			break;
+				break;
+				
+			case "Actualizar Veterinario":
+				
+				Veterinario original = veterinarioRepository.findById(request.getParameter("dni"));
+				
+				Veterinario veterinario = new Veterinario();
+				veterinario.setDni(request.getParameter("dni"));
+				veterinario.setNombre(request.getParameter("nombre"));
+				veterinario.setApellidos(request.getParameter("apellidos"));
+				veterinario.setEspecialidadVeterinario(especialidadRepository.findById(Integer.parseInt(request.getParameter("especialidad"))));
+				veterinario.setTelefono(request.getParameter("telefono"));
+				veterinario.setCuentaVeterinario(original.getCuentaVeterinario());
+				if(!veterinarioRepository.update(veterinario)){
+					request.setAttribute("mensaje", "No se ha podido actualizar el veterinario");
+				}
+				break;
 				
 			case "Editar Especialidad": 
 				try {
@@ -148,8 +166,13 @@ public class VeterinarioServlet extends HttpServlet {
 				break;
 		}
 		
+		if(metodo.equals("Encontrar")){
+			veterinarios = veterinarioRepository.findByName(request.getParameter("nombreVeterinario"));
+		}else {
+			veterinarios = veterinarioRepository.findAll();
+		}
+		
 		especialidades = especialidadRepository.findAll();
-		veterinarios = veterinarioRepository.findAll();
 		request.setAttribute("especialidades", especialidades);
 		request.setAttribute("veterinarios", veterinarios);
 		request.getRequestDispatcher("veterinario.jsp").forward(request, response);

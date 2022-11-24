@@ -66,10 +66,8 @@
 							<input class="controls" type="text" name="nombre" value="${veterinario.getNombre()}" placeholder="Nombre"> 
 							<input class="controls" type="text" name="apellidos" value="${veterinario.getApellidos() }" placeholder="Apellidos"> 
 							<input class="controls" type="text" name="telefono" value="${veterinario.getTelefono() }" placeholder="Telefono"> 
-							<a href="#tableEspecialidades">
-								<input class="controls" type="text" name="especialidad" value="${veterinario.getEspecialidadVeterinario().getNombre()}" placeholder="seleccione una especialidad" required="required"> 
-							</a>
-							<input class="buttons" type="submit" name="boton" value="Crear Veterinario">
+							<input class="controls" type="text" name="especialidad" value="${veterinario.getEspecialidadVeterinario().getId()}" placeholder="seleccione una especialidad" required="required"> 
+							<input class="buttons" type="submit" name="boton" value="Actualizar Veterinario">
 						</form><br>
 				    </div>
 			    </div>
@@ -79,7 +77,7 @@
 			<div class ="container">
 				<form action="veterinarioServlet" method="POST">
 					<label for ="nombreEspecie"> </label> 
-					<input class="controls" type="text" name="nombreEspecie" value="" placeholder="Nombre de la especie"> 
+					<input class="controls" type="text" name="nombreVeterinario" value="" placeholder="Nombre"> 
 					<input class="buttons" type="submit" name="boton" value="Encontrar">
 				</form><br>
 			</div>
@@ -107,9 +105,8 @@
 				                    <td data-label="Peligrosa">${veterinario.getEspecialidadVeterinario().getNombre()}</td>
 				                    <td data-label="Opciones">
 										<div class="imagenes">
-											<a href="VeterinarioServlet?metodo=editVeterinario&veterinarioId=${veterinario.getId()}" id="btnOpciones"><img alt="editEspecie" src="css/images/edit.svg"></a>
-											<a href="VeterinarioServlet?metodo=deleteVeterinario&especieId=${veterinario.getId()}" id="btnOpciones"><img alt="deleteEspecie" src="css/images/delete.svg"></a>
-											<a href="VeterinarioServlet?metodo=save&especieId=${veterinario.getId()}&clienteDni=${clienteDni}" id="btnOpciones"><img alt="crearMascota" src="css/images/intervencion.svg"></a>
+											<a href="VeterinarioServlet?metodo=editVeterinario&veterinarioId=${veterinario.getDni()}" id="btnOpciones"><img alt="editEspecie" src="css/images/edit.svg"></a>
+											<a href="VeterinarioServlet?metodo=deleteVeterinario&veterinarioId=${veterinario.getDni()}" id="btnOpciones"><img alt="deleteEspecie" src="css/images/delete.svg"></a>
 										</div>
 									</td>
 			                	</tr>
@@ -148,38 +145,36 @@
 			</c:if>
 		
    		 <div class ="container">
-			<form action="veterinarioServlet" method="POST">
-				<input class="controls" type="text" name="nombreEspecie" value="" placeholder="Nombre de la especie"> 
-				<input class="buttons" type="submit" name="boton" value="Encontrar">
-			</form>
 	
 		<div class="container">
 			<div class="wrapper">
-		        <table class="table" id="tableEspecialidades">
-		            <caption>Seleccione la especialidad:</caption>
-		            <thead>
-		                <tr>
-		                    <th>ID</th>
-		                    <th>Nombre</th>
-		                    <th></th>
-		                </tr>
-		            </thead>
-		            <tbody>
-		            	<c:forEach var ="especialidad" items="${especialidades}">
-							<tr>
-			                    <td data-label="ID">${especialidad.getId()}</td>
-			                    <td data-label="Nombre">${especialidad.getNombre()}</td>
-			                    <td data-label="Opciones">
-									<div class="imagenes">
-										<a href="veterinarioServlet?metodo=editEspecialidad&especialidad=${especialidad.getId()}" id="btnOpciones"><img alt="editEspecie" src="css/images/edit.svg"></a>
-										<a href="veterinarioServlet?metodo=deleteEspecialidad&especialidad=${especialidad.getId()}" id="btnOpciones"><img alt="deleteEspecie" src="css/images/delete.svg"></a>
-										<a href="veterinarioServlet?metodo=asignarEspecialidad&especialidad=${especialidad.getId()}" id="btnOpciones"><img alt="crearMascota" src="css/images/intervencion.svg"></a>
-									</div>
-								</td>
-		                	</tr>
-		            	</c:forEach>
-		            </tbody>
-		        </table>
+			        <table class="table" id="tableEspecialidades">
+			            <caption>Seleccione la especialidad:</caption>
+			            <thead>
+			                <tr>
+			                    <th>ID</th>
+			                    <th>Nombre</th>
+			                    <th></th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			            	<c:forEach var ="especialidad" items="${especialidades}">
+								<tr>
+				                    <td data-label="ID">${especialidad.getId()}</td>
+				                    <td data-label="Nombre">${especialidad.getNombre()}</td>
+				                    <td data-label="Opciones">
+										<div class="imagenes">
+											<a href="veterinarioServlet?metodo=editEspecialidad&especialidad=${especialidad.getId()}" id="btnOpciones"><img alt="editEspecie" src="css/images/edit.svg"></a>
+											<a href="veterinarioServlet?metodo=deleteEspecialidad&especialidad=${especialidad.getId()}" id="btnOpciones"><img alt="deleteEspecie" src="css/images/delete.svg"></a>
+											<c:if test="${empty veterinario}">
+												<a href="veterinarioServlet?metodo=asignarEspecialidad&especialidad=${especialidad.getId()}" id="btnOpciones"><img alt="crearMascota" src="css/images/intervencion.svg"></a>
+											</c:if>
+										</div>
+									</td>
+			                	</tr>
+			            	</c:forEach>
+			            </tbody>
+			        </table>
 	    	</div>
 	    </div>
 	</div>

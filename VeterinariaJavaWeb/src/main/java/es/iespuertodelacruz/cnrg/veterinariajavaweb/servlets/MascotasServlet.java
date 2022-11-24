@@ -128,7 +128,7 @@ public class MascotasServlet extends HttpServlet {
 			
 			try {
 				int id = Integer.parseInt(request.getParameter("idMascota"));
-				mascotas = new ArrayList<>();
+				mascotas = new ArrayList<>(); 
 				if (mascotaRepository.findById(id) != null) {
 					mascotas.add(mascotaRepository.findById(id));
 				}
