@@ -11,15 +11,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mindrot.jbcrypt.BCrypt;
+
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.CuentaVeterinario;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecialidadVeterinario;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Veterinario;
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.CuentaVeterinarioRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.EspecialidadVeterinarioRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.VeterinarioRepository;
 
 /**
  * Servlet implementation class VeterinarioServlet
  */
-@WebServlet("/VeterinarioServlet")
+@WebServlet({"/VeterinarioServlet","/veterinarioServlet"})
 public class VeterinarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,18 +43,24 @@ public class VeterinarioServlet extends HttpServlet {
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext().getAttribute("entityManagerFactory");
 		VeterinarioRepository veterinarioRepository = new VeterinarioRepository(entityManagerFactory);
 		EspecialidadVeterinarioRepository especialidadRepository = new EspecialidadVeterinarioRepository(entityManagerFactory);
+		CuentaVeterinarioRepository cuentaRepository = new CuentaVeterinarioRepository(entityManagerFactory);
 		
 		List<Veterinario> veterinarios = new ArrayList<>();
 		List<EspecialidadVeterinario> especialidades = new ArrayList<>();
 		
 		String metodo = request.getParameter("metodo");
 		
-		switch(metodo) {
-			case "saveVeterinario":
-				
-				break;
-			
-			case "updateVeterinario": 
+		switch(metodo) {			
+			case "editVeterinario": 
+				Veterinario veterinario = veterinarioRepository.findById(request.getParameter("veterinarioId"));
+				veterinario.setDni(request.getParameter("dni"));
+				veterinario.setNombre(request.getParameter("nombre"));
+				veterinario.setApellidos(request.getParameter("apellidos"));
+				veterinario.setEspecialidadVeterinario(especialidadRepository.findById(Integer.parseInt(request.getParameter("especialidad"))));
+				veterinario.setTelefono(request.getParameter("telefono"));
+				if(!veterinarioRepository.update(veterinario)) {
+					request.setAttribute("mensaje", "No se ha podido modificar el veterinario");
+				}
 				break;
 				
 			case "deleteVeterinario": 
@@ -58,9 +68,18 @@ public class VeterinarioServlet extends HttpServlet {
 				
 			case "editEspecialidad": 
 				try {
-					EspecialidadVeterinario especialidad = especialidadRepository.findById(Integer.parseInt(request.getParameter("editEspecialidad")));
+					EspecialidadVeterinario especialidad = especialidadRepository.findById(Integer.parseInt(request.getParameter("especialidad")));
 					request.setAttribute("especialidad", especialidad);
 				}catch(Exception ex) {}
+				break;
+				
+			case "deleteEspecialidad": 
+				if(!especialidadRepository.delete(Integer.parseInt(request.getParameter("especialidad")))) {
+					request.setAttribute("mensaje", "No ha sido posible borrar la especialidad");
+				}
+				break;
+			case "asignarEspecialidad":
+				request.setAttribute("especialidadAsignada", request.getParameter("especialidad"));
 				break;
 		}
 		
@@ -75,6 +94,66 @@ public class VeterinarioServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext().getAttribute("entityManagerFactory");
+		VeterinarioRepository veterinarioRepository = new VeterinarioRepository(entityManagerFactory);
+		EspecialidadVeterinarioRepository especialidadRepository = new EspecialidadVeterinarioRepository(entityManagerFactory);
+		CuentaVeterinarioRepository cuentaRepository = new CuentaVeterinarioRepository(entityManagerFactory);
+
+		List<Veterinario> veterinarios = new ArrayList<>();
+		List<EspecialidadVeterinario> especialidades = new ArrayList<>();
+		
+		String metodo = request.getParameter("boton");
+		
+		switch(metodo) {
+		
+			case "Crear Veterinario": 
+				try {
+				CuentaVeterinario cuenta = new CuentaVeterinario();
+				cuenta.setCorreo(request.getParameter("correo"));
+				String hashpw = BCrypt.hashpw(request.getParameter("contrasenia"),  BCrypt.gensalt());
+				cuenta.setContrasenia(hashpw);
+				
+				if(cuentaRepository.save(cuenta) != null){
+					Veterinario veterinario = new Veterinario();
+					veterinario.setDni(request.getParameter("dni"));
+					veterinario.setNombre(request.getParameter("nombre"));
+					veterinario.setApellidos(request.getParameter("apellidos"));
+					veterinario.setEspecialidadVeterinario(especialidadRepository.findById(Integer.parseInt(request.getParameter("especialidad"))));
+					veterinario.setTelefono(request.getParameter("telefono"));
+					veterinario.setCuentaVeterinario(cuenta);
+					veterinarioRepository.save(veterinario);
+				}else {
+					request.setAttribute("mensaje", "No se ha podido crear la cuenta del veterinario");
+				}
+
+				}catch(Exception ex) {
+					ex.printStackTrace();
+				}
+			break;
+				
+			case "Editar Especialidad": 
+				try {
+					EspecialidadVeterinario especialidad = new EspecialidadVeterinario();
+					especialidad.setId(Integer.parseInt(request.getParameter("id")));
+					especialidad.setNombre(request.getParameter("nombre"));
+					especialidadRepository.update(especialidad);
+				}catch(Exception ex) {}
+				break;
+				
+			case "Crear Especialidad": 
+				EspecialidadVeterinario especialidad = new EspecialidadVeterinario();
+				especialidad.setNombre(request.getParameter("nombre"));
+				especialidadRepository.save(especialidad);
+				break;
+		}
+		
+		especialidades = especialidadRepository.findAll();
+		veterinarios = veterinarioRepository.findAll();
+		request.setAttribute("especialidades", especialidades);
+		request.setAttribute("veterinarios", veterinarios);
+		request.getRequestDispatcher("veterinario.jsp").forward(request, response);
+		
 		
 	}
 
