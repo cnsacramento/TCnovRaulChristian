@@ -144,7 +144,7 @@
 							</a>
 						</td>
 						<td>
-							<a href="MascotasServlet?clienteDni=${cliente.getDni()}">
+							<a href="MascotasServlet?metodo=save&clienteDni=${cliente.getDni()}&especieId=">
 								Mascotas
 							</a>
 						</td>
