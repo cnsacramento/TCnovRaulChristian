@@ -166,9 +166,10 @@ public class ClientesServlet extends HttpServlet {
 		
 		if(request.getParameter("mostrar") != null) {
 			Cliente cliente = mostrarCliente(request);	
-			
-			List<Cliente> clientesList = Arrays.asList(cliente);
-			request.setAttribute("clientesList", clientesList);
+			if(cliente != null) {
+				List<Cliente> clientesList = Arrays.asList(cliente);
+				request.setAttribute("clientesList", clientesList);
+			}
 			request.getRequestDispatcher("clientes.jsp").forward(request, response);
 		}
 		
