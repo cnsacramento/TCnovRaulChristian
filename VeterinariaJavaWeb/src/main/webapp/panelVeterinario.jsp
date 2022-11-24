@@ -51,7 +51,7 @@
 				</div>
 			</a>
 			
-			<a href="VeterinariosServlet">
+			<a href="VeterinarioServlet">
 				<div class="container-panel">
 					
 					<img src="../css/imagenes/cliente.png" alt="">
