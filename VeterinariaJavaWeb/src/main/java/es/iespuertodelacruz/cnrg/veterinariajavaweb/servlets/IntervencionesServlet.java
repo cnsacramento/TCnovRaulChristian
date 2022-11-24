@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Cliente;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Intervencion;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoIntervencion;
-import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.ClienteRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.IntervencionRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.TipoIntervencionRepository;
 
@@ -48,14 +46,32 @@ public class IntervencionesServlet extends HttpServlet {
 			Intervencion intervencion = intervencionRepository.findById(Integer.parseInt(request.getParameter("id")));
 			request.setAttribute("intervencion", intervencion);
 		}
-
+		
+		
 		TipoIntervencionRepository tipoIntervencionRepository = new TipoIntervencionRepository(entityManagerFactory);
-		List<TipoIntervencion> tipoIntervencionList = tipoIntervencionRepository.findAll();
-		request.setAttribute("tipoIntervencionList", tipoIntervencionList);
-
+		
+		if (request.getParameter("idtipo") != null) {
+			TipoIntervencion tipoIntervencion = tipoIntervencionRepository.findById(Integer.parseInt(request.getParameter("idtipo")));
+			request.setAttribute("tipoIntervencion", tipoIntervencion);
+		}
+		
+		List<TipoIntervencion>tipointervencionList = tipoIntervencionRepository.findAll();
+		cargarTipoIntervencion(request);
+		request.setAttribute("tipointervencionList", tipointervencionList);
+		cargarTipoIntervencion(request);
 		List<Intervencion> intervencionesList = intervencionRepository.findAll();
 		request.setAttribute("intervencionesList", intervencionesList);
 		request.getRequestDispatcher("intervencion.jsp").forward(request, response);
+	}
+	
+	private void cargarTipoIntervencion(HttpServletRequest request) {
+		
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
+				.getAttribute("entityManagerFactory");
+		IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
+		TipoIntervencionRepository tipoIntervencionRepository = new TipoIntervencionRepository(entityManagerFactory);
+		List<TipoIntervencion> tipoIntervencionList = tipoIntervencionRepository.findAll();
+		request.setAttribute("tipoIntervencionList", tipoIntervencionList);
 	}
 	
 	
@@ -77,6 +93,7 @@ public class IntervencionesServlet extends HttpServlet {
 			borrarIntervencion(request);
 			List<Intervencion> intervencionesList = intervencionRepository.findAll();
 			request.setAttribute("intervencionesList", intervencionesList);
+			cargarTipoIntervencion(request);
 			request.getRequestDispatcher("intervencion.jsp").forward(request, response);
 		}
 
@@ -84,6 +101,7 @@ public class IntervencionesServlet extends HttpServlet {
 			editarIntervencion(request);
 			List<Intervencion> intervencionesList = intervencionRepository.findAll();
 			request.setAttribute("intervencionesList", intervencionesList);
+			cargarTipoIntervencion(request);
 			request.getRequestDispatcher("intervencion.jsp").forward(request, response);
 		}
 
@@ -93,15 +111,58 @@ public class IntervencionesServlet extends HttpServlet {
 
 			List<Intervencion> intervencionesList = Arrays.asList(intervencion);
 			request.setAttribute("intervencionesList", intervencionesList);
+			cargarTipoIntervencion(request);
 			request.getRequestDispatcher("intervencion.jsp").forward(request, response);
 		}
 
-		if (request.getParameter("mostrartodos") != null) {
+		if (request.getParameter("mostrartodas") != null) {
 			List<Intervencion> intervencionesList = intervencionRepository.findAll();
-
+			cargarTipoIntervencion(request);
 			request.setAttribute("intervencionesList", intervencionesList);
 			request.getRequestDispatcher("intervencion.jsp").forward(request, response);
 		}
+		
+		TipoIntervencionRepository tipoIntervencionRepository = new TipoIntervencionRepository(entityManagerFactory);
+		List<TipoIntervencion> tipointervencionList = null;
+		TipoIntervencion tipoIntervencion = null;
+		
+		switch(request.getParameter("btntipo")) {
+			case "Crear":
+				tipoIntervencion = crearTipoIntervencion(request);
+				tipointervencionList = Arrays.asList(tipoIntervencion);
+				request.setAttribute("tipointervencionList", tipointervencionList);
+				cargarTipoIntervencion(request);
+				request.getRequestDispatcher("intervencion.jsp").forward(request, response);
+				break;
+			case "Editar":
+				editarTipoIntervencion(request);
+				tipointervencionList = tipoIntervencionRepository.findAll();
+				request.setAttribute("tipointervencionList", tipointervencionList);
+				cargarTipoIntervencion(request);
+				request.getRequestDispatcher("intervencion.jsp").forward(request, response);
+				break;
+			case "Eliminar":
+				borrarTipoIntervencion(request);
+				tipointervencionList = tipoIntervencionRepository.findAll();
+				request.setAttribute("tipointervencionList", tipointervencionList);
+				cargarTipoIntervencion(request);
+				request.getRequestDispatcher("intervencion.jsp").forward(request, response);
+				break;		
+			case "Mostrar": 
+				tipoIntervencion = mostrarTipoIntervencion(request);
+				tipointervencionList = Arrays.asList(tipoIntervencion);
+				request.setAttribute("tipointervencionList", tipointervencionList);
+				cargarTipoIntervencion(request);
+				request.getRequestDispatcher("intervencion.jsp").forward(request, response);
+				break;
+			case "Mostrar todos": 
+				tipointervencionList = tipoIntervencionRepository.findAll();
+				cargarTipoIntervencion(request);
+				request.setAttribute("tipointervencionList", tipointervencionList);
+				request.getRequestDispatcher("intervencion.jsp").forward(request, response);
+				break;
+		}
+		
 	}
 
 	private Intervencion agregarIntervencion(HttpServletRequest request) { // TODO redirigir para los horarios
@@ -109,6 +170,7 @@ public class IntervencionesServlet extends HttpServlet {
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
 				.getAttribute("entityManagerFactory");
 		IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
+		cargarTipoIntervencion(request);
 		
 		return null;
 		
@@ -121,6 +183,7 @@ public class IntervencionesServlet extends HttpServlet {
 		IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
 
 		String id = request.getParameter("id");
+		cargarTipoIntervencion(request);
 
 		return intervencionRepository.delete(Integer.parseInt(id));
 	}
@@ -130,10 +193,11 @@ public class IntervencionesServlet extends HttpServlet {
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
 				.getAttribute("entityManagerFactory");
 		IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
+		cargarTipoIntervencion(request);
 
 		return intervencionRepository.update(null);
 	}
-
+	
 	private Intervencion mostrarIntervencion(HttpServletRequest request) {
 
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
@@ -141,8 +205,58 @@ public class IntervencionesServlet extends HttpServlet {
 		IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
 
 		String id = request.getParameter("id");
+		cargarTipoIntervencion(request);
 
 		return intervencionRepository.findById(Integer.parseInt(id));
+	}
+	
+	private TipoIntervencion crearTipoIntervencion(HttpServletRequest request) {
+
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
+				.getAttribute("entityManagerFactory");
+		TipoIntervencionRepository tipoIntervencionRepository = new TipoIntervencionRepository(entityManagerFactory);
+		
+		TipoIntervencion tipoIntervencion = new TipoIntervencion();
+		tipoIntervencion.setTipo(request.getParameter("tipo"));
+
+		return tipoIntervencionRepository.save(tipoIntervencion);
+	}
+	
+	private boolean editarTipoIntervencion(HttpServletRequest request) {
+
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
+				.getAttribute("entityManagerFactory");
+		TipoIntervencionRepository tipoIntervencionRepository = new TipoIntervencionRepository(entityManagerFactory);
+		
+		TipoIntervencion tipoIntervencion = new TipoIntervencion();
+		tipoIntervencion.setId(Integer.parseInt(request.getParameter("id")));
+		tipoIntervencion.setTipo(request.getParameter("tipo"));
+		tipoIntervencion.setTipo(request.getParameter("tipo"));
+
+		return tipoIntervencionRepository.update(tipoIntervencion);
+	}
+	
+	private boolean borrarTipoIntervencion(HttpServletRequest request) {
+
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
+				.getAttribute("entityManagerFactory");
+		TipoIntervencionRepository tipoIntervencionRepository = new TipoIntervencionRepository(entityManagerFactory);
+		
+		String id = request.getParameter("id");
+
+		return tipoIntervencionRepository.delete(Integer.parseInt(id));
+	}
+
+	private TipoIntervencion mostrarTipoIntervencion(HttpServletRequest request) {
+
+		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
+				.getAttribute("entityManagerFactory");
+		TipoIntervencionRepository tipoIntervencionRepository = new TipoIntervencionRepository(entityManagerFactory);
+
+		String id = request.getParameter("id");
+		cargarTipoIntervencion(request);
+
+		return tipoIntervencionRepository.findById(Integer.parseInt(id));
 	}
 
 }
