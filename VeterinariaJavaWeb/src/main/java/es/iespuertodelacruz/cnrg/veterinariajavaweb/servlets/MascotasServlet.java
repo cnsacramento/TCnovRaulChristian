@@ -104,7 +104,8 @@ public class MascotasServlet extends HttpServlet {
 				break;
 			}
 		}
-
+		mascotas = mascotaRepository.findAll();
+		request.setAttribute("mascotas", mascotas);
 		request.getRequestDispatcher("mascotas.jsp").forward(request, response);
 	}
 
@@ -196,6 +197,8 @@ public class MascotasServlet extends HttpServlet {
 			}catch(Exception ex) {
 				ex.printStackTrace();
 			}
+		}else if(proceso.equals("Encontrar")) {
+			especies = especieRepository.findByName(request.getParameter("nombreEspecie"));
 		}
 		
 		if(especies != null) {

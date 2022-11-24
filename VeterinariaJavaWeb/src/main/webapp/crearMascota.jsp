@@ -19,9 +19,9 @@
 	
 	<div class ="container">
 		<form action="mascotasServlet" method="POST">
-			<label for ="idMascota"> </label> 
-			<input class="controls" type="text" name="idMascota" value="" placeholder="ID"> 
-			<input class="buttons" type="submit" name="boton" value="Buscar">
+			<label for ="nombreEspecie"> </label> 
+			<input class="controls" type="text" name="nombreEspecie" value="" placeholder="Nombre de la especie"> 
+			<input class="buttons" type="submit" name="boton" value="Encontrar">
 		</form><br>
 	</div>
 	<div class ="contenedor">
@@ -71,6 +71,7 @@
 		                    <th>ID</th>
 		                    <th>Nombre</th>
 		                    <th>Peligrosa</th>
+		                    <th></th>
 		                </tr>
 		            </thead>
 		            <tbody>
@@ -91,7 +92,7 @@
 		            </tbody>
 		        </table>
 	    	</div>
-	    	</div>
+	    </div>
 		
 		<c:if test="${empty especieId}">
 		    <div class = "formularios">    
