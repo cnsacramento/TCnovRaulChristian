@@ -16,9 +16,6 @@ public class TipoIntervencion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-
 	private String tipo;
 
 	//bi-directional many-to-one association to Intervencion
@@ -26,14 +23,6 @@ public class TipoIntervencion implements Serializable {
 	private List<Intervencion> intervencions;
 
 	public TipoIntervencion() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getTipo() {
