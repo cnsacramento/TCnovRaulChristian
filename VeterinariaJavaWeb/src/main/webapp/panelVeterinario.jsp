@@ -14,12 +14,12 @@
 	<body>
 	
 		<header class="header-panel-veterinario">
-			<a href="login.jsp">Cerrar sesión</a>
+			<a href="index.jsp">Cerrar sesión</a>
 		</header>
 		
 		<section class="section-panel">
-			
-			<h1 class="h1-panel">Nombre del veterinario</h1>
+
+			<h1 class="h1-panel">${usuario.getCorreo()}</h1>
 			
 			<a href="ClientesServlet">
 				<div class="container-panel">
@@ -51,7 +51,7 @@
 				</div>
 			</a>
 			
-			<a href="VeterinariosServlet">
+			<a href="VeterinarioServlet?metodo=">
 				<div class="container-panel">
 					
 					<img src="../css/imagenes/veterinario.png" alt="">

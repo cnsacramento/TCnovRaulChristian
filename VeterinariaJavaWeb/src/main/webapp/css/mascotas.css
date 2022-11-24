@@ -1,14 +1,60 @@
 @charset "UTF-8";
 
+
+
+h3 {
+	text-align: center;
+	padding: 1rem;
+}
+
+.crud {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: space-evenly;
+}
+
+.crud article {
+	padding: 1rem 1rem;
+	border-radius: 1rem;
+}
+
+.crud article form {
+	display: flex;
+	flex-direction: column;
+}
+
+.crud article form label {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin: 0.4rem;
+}
+
+.crud article form input[type=submit] {
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;	
+}
+
+.crud article .selectform {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.crud article:nth-child(odd) {
+	background: #d9e6ed;
+}
+
+ .crud article:nth-child(even) {
+	background: #d0e0e0;
+}
+
+
 .container {
     width: 100%;
     max-width: 1000px;
     margin: auto;
-}
-
-.wrapper{
-	height: 50vh;
-	overflow:auto;
 }
 
 img{
@@ -20,10 +66,9 @@ img{
     width: 100%;
     border: 1px solid #ccc;
     border-collapse: collapse;
-    margin: 0;
+    margin: 0rem 0rem 6rem 0rem;
     padding: 0;
     table-layout: fixed;
-    white-space: nowrap;
 }
 
 .table caption {
@@ -39,14 +84,14 @@ img{
     border: 1px solid #ddd;
 }
 
-.table td{	
-	word-break: break-word;
-}
-
 .table th, .table td {
     font-size: 16px;
     padding: 8px;
     text-align: center;
+}
+
+.table td {
+ 	word-break: break-word;
 }
 
 .table thead th{ 

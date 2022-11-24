@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.RollbackException;
 
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoRestriccionDia;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Veterinario;
 
@@ -99,6 +100,17 @@ public class VeterinarioRepository implements ICrud<Veterinario, String> {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		List<Veterinario> lista = entityManager.createNamedQuery("Veterinario.findAll", Veterinario.class).getResultList();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return lista;
+	}
+	
+	
+	public List<Veterinario> findByName(String name){
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		String query = "SELECT veterinario.* FROM veterinario WHERE nombre Like '" + name+"%'";
+		List<Veterinario> lista = entityManager.createNativeQuery(query, Veterinario.class).getResultList();
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		return lista;

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.CuentaVeterinario;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.CuentaVeterinarioRepository;
 
@@ -54,9 +56,9 @@ public class logServlet extends HttpServlet {
 			
 			if(cvRepository.findById(correo) != null) {
 				CuentaVeterinario cv = cvRepository.findById(correo);
-				if(cv.getContrasenia().equals(contra)) {
+				if(BCrypt.checkpw(contra, cv.getContrasenia())) {
 					 request.setAttribute("mensaje", "Se ha iniciado sesión correctamente");
-					 request.getServletContext().setAttribute("usuario", cv);
+					 request.getSession().setAttribute("usuario", cv);
 				}else {
 	                request.setAttribute("mensaje", "El correo y la contrasenia no coinciden");
 				}
@@ -69,7 +71,7 @@ public class logServlet extends HttpServlet {
             //COMPROBACION DE CORREO
             Pattern pattern = Pattern
                     .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+                            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"); 
      
             Matcher mather = pattern.matcher(correo);
      
@@ -91,10 +93,10 @@ public class logServlet extends HttpServlet {
             }
 		}
 		
-		if(request.getServletContext().getAttribute("usuario") != null){
+		if(request.getSession().getAttribute("usuario") != null){
 	        request.getRequestDispatcher("panelVeterinario.jsp").forward(request, response);
 		}else {
-	        request.getRequestDispatcher("login.jsp").forward(request, response);
+	        request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}
 

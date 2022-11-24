@@ -76,7 +76,7 @@
 		            </thead>
 		            <tbody>
 		            	<c:forEach var ="especie" items="${especies}">
-							<tr onclick="MascotasServlet?metodo=save?&clienteDni=${clienteDni}&especieId=${especie.getId()}">
+							<tr>
 			                    <td data-label="ID">${especie.getId()}</td>
 			                    <td data-label="Nombre">${especie.getNombre()}</td>
 			                    <td data-label="Peligrosa">${especie.getPeligrosa()}</td>
