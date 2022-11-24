@@ -162,3 +162,8 @@ header nav a:hover{
   #form-login a:hover {
     text-decoration: underline;
   }
+  
+  .contenedorVertical{
+  	display: flex;
+	flex-direction: column;
+  }

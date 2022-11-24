@@ -79,6 +79,7 @@ img:hover{
 .contenedor{
 	display: flex;
 	flex-direction: row;
+	
 }
 
 .formularios {
