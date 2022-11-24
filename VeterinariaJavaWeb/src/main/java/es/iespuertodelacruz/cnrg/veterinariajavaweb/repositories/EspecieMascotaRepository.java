@@ -108,5 +108,15 @@ public class EspecieMascotaRepository implements ICrud<EspecieMascota, Integer>{
 		entityManager.close();
 		return lista;
 	}
+	
+	public List<EspecieMascota> findByName(String name){
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		String query = "SELECT especie_mascota.* FROM especie_mascota WHERE nombre Like '" + name+"%'";
+		List<EspecieMascota> lista = entityManager.createNativeQuery(query, EspecieMascota.class).getResultList();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return lista;
+	}
 
 }

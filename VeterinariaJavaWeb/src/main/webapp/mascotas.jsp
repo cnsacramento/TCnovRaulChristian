@@ -52,7 +52,7 @@
 					<label for ="fechaNacimiento">Fecha nacimiento: </label> 
 					<input class="controls" type="date" name="fechaNacimiento" value="${mascota.getFechaNacimiento()}" placeholder="Fecha_Nacimiento" required="required" readonly="readonly"> 
 					<label for ="nombreMascota">Peso: </label> 
-					<input class="controls" type="text" name="peso" value="${mascota.getPeso()}" placeholder="Peso" required="required"> 
+					<input class="controls" type="text" name="peso" value="${mascota.getPeso()}" placeholder="Peso" required="required" readonly="readonly"> 
 					<label for ="especie"> Especie: </label> 
 					<input class="controls" type="text" name="especie" value="${mascota.getEspecieMascota().getId()}" placeholder="ID_ESPECIE" required="required" readonly="readonly"> 
 					<label for ="cliente"> Cliente: </label>
@@ -63,39 +63,41 @@
 		</div>
 	
 		<div class="container">
-	        <table class="table">
-	            <caption>Mascotas</caption>
-	            <thead>
-	                <tr>
-	                    <th>ID</th>
-	                    <th>Nombre</th>
-	                    <th>Fecha Nacimiento</th>
-	                    <th>Peso</th>
-	                    <th>Especie</th>
-	                    <th>Dueño</th>
-	                    <th></th>
-	                </tr>
-	            </thead>
-	            <tbody>
-	            	<c:forEach var ="mascota" items="${mascotas}">
-						<tr>
-		                    <td data-label="ID">${mascota.getId()}</td>
-		                    <td data-label="Nombre">${mascota.getNombre()}</td>
-		                    <td data-label="Fecha Nacimiento">${mascota.getFechaNacimiento()}</td>
-		                    <td data-label="Peso">${mascota.getPeso()}</td>
-		                    <td data-label="Especie">${mascota.getEspecieMascota().getNombre()}</td>
-							<td data-label="DNI Dueño">${mascota.getCliente().getDni()}</td>
-							<td data-label="Opciones">
-								<div class="imagenes">
-									<a href="MascotasServlet?metodo=edit&id=${mascota.getId()}" id="btnOpciones"><img alt="editMascota" src="css/images/edit.svg"></a>
-									<a href="MascotasServlet?metodo=delete&id=${mascota.getId()}" id="btnOpciones"><img alt="deleteMascota" src="css/images/delete.svg"></a>
-									<a href="MascotasServlet?metodo=intervencion&id=${mascota.getId()}" id="btnOpciones"><img alt="Intervencion" src="css/images/intervencion.svg"></a>
-								</div>
-							</td>
-	                	</tr>
-	            	</c:forEach>
-	            </tbody>
-	        </table>
+			<div class = "wrapper">
+		        <table class="table">
+		            <caption>Mascotas</caption>
+		            <thead>
+		                <tr>
+		                    <th>ID</th>
+		                    <th>Nombre</th>
+		                    <th>Fecha Nacimiento</th>
+		                    <th>Peso</th>
+		                    <th>Especie</th>
+		                    <th>Dueño</th>
+		                    <th></th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		            	<c:forEach var ="mascota" items="${mascotas}">
+							<tr>
+			                    <td data-label="ID">${mascota.getId()}</td>
+			                    <td data-label="Nombre">${mascota.getNombre()}</td>
+			                    <td data-label="Fecha Nacimiento">${mascota.getFechaNacimiento()}</td>
+			                    <td data-label="Peso">${mascota.getPeso()}</td>
+			                    <td data-label="Especie">${mascota.getEspecieMascota().getNombre()}</td>
+								<td data-label="DNI Dueño">${mascota.getCliente().getDni()}</td>
+								<td data-label="Opciones">
+									<div class="imagenes">
+										<a href="MascotasServlet?metodo=edit&id=${mascota.getId()}" id="btnOpciones"><img alt="editMascota" src="css/images/edit.svg"></a>
+										<a href="MascotasServlet?metodo=delete&id=${mascota.getId()}" id="btnOpciones"><img alt="deleteMascota" src="css/images/delete.svg"></a>
+										<a href="MascotasServlet?metodo=intervencion&id=${mascota.getId()}" id="btnOpciones"><img alt="Intervencion" src="css/images/intervencion.svg"></a>
+									</div>
+								</td>
+		                	</tr>
+		            	</c:forEach>
+		            </tbody>
+		        </table>
+			</div>
 	    </div>
 	    
 	    <div class = "formularios">    
@@ -111,7 +113,7 @@
 					<input class="controls" type="number" name="especie" value="" placeholder="ID_ESPECIE" required="required"> 
 					<label for ="cliente"> Cliente: </label>
 					<input class="controls" type="text" name="cliente" value="" placeholder="DNI_CLIENTE" required="required"> 
-					<input class="buttons" type="submit" name="boton" value="Crear">
+					<input class="buttons" type="submit" name="boton" value="Crear Mascota">
 				</form><br>
 		    </div>
 	    </div>
