@@ -52,4 +52,5 @@ class Mascota extends Model
     {
         return $this->belongsTo('App\Models\EspecieMascota', 'id_especie');
     }
+
 }
