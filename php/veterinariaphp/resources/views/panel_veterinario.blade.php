@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <title>Panel Veterinario</title>
     <meta name="description" content="Panel de acciones para el veterinario">
-    <link rel="stylesheet" href="{{asset('css/panel-veterinario.css')}}" type="text/css">
+    <link rel="stylesheet" href="css/panel-veterinario.css" type="text/css">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
         <a href="ClientesServlet">
             <div class="container-panel">
 
-                <img src="../css/imagenes/cliente.png" alt="">
+                <img src="images/cliente.png" alt="">
 
                 <p>Cliente</p>
 
@@ -32,7 +32,7 @@
         <a href="MascotasServlet">
             <div class="container-panel">
 
-                <img src="../css/imagenes/mascota.png" alt="">
+                <img src="images/mascota.png" alt="">
 
                 <p>Mascota</p>
 
@@ -42,7 +42,7 @@
         <a href="IntervencionesServlet">
             <div class="container-panel">
 
-                <img src="../css/imagenes/intervencion.png" alt="">
+                <img src="images/intervencion.png" alt="">
 
                 <p>Intervención</p>
 
@@ -52,7 +52,7 @@
         <a href="VeterinarioServlet?metodo=">
             <div class="container-panel">
 
-                <img src="../css/imagenes/veterinario.png" alt="">
+                <img src="images/veterinario.png" alt="">
 
                 <p>Veterinario</p>
 
@@ -62,7 +62,7 @@
         <a href="FacturasServlet">
             <div class="container-panel">
 
-                <img src="../css/imagenes/factura.svg" alt="">
+                <img src="images/factura.svg" alt="">
 
                 <p>Facturas</p>
 

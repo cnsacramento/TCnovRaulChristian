@@ -1,0 +1,169 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+   	background: white;
+}
+
+h1{font-size: 3em;}
+h2{font-size: 2.5em;}
+h3{font-size: 2em;}
+p{font-size: 1.25em;}
+
+.colorLetras{color: rgb(212, 34, 212);}
+
+.buttons{
+    border: 3px solid rgba(100,100,100,0.1);
+    font-weight: bold;
+    background-size: 370px;
+    margin-bottom: 20px;
+    padding: 10px 35px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    color:white;
+    background-image: linear-gradient(to left,  rgb(26, 95, 180), rgb(38, 162, 105), rgb(26, 95, 180) );
+    box-shadow: 5px 10px 12px #000;
+}
+
+.buttons:hover{
+    background-image: linear-gradient(to left, rgb(26, 95, 180), rgb(26, 95, 180), rgb(26, 95, 180) );
+    box-shadow: 3px 5px 10px #000;
+}
+
+.container{
+    max-width: 1400px;
+    margin:auto;
+}
+
+header{
+	padding: 2rem 2rem;
+}
+
+#relleno {
+    min-height: 1px;
+
+}
+
+.container img{
+    height: 80px;
+    margin-right: 10px;
+}
+
+header nav{
+    display: flex;
+    text-align: center;
+    font-weight: 600;
+    justify-content: flex-end;
+    padding-bottom: 5px;
+
+}
+
+header nav a{
+    padding: 5px 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+    border: 0.3rem indigo solid;
+    padding: 0rem 1rem;
+    border-radius: 0.6rem;
+}
+
+header nav a:hover{
+    padding: 5px 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+    border: 0.3rem indigo solid;
+    padding: 0rem 1rem;
+    border-radius: 0.6rem;
+}
+
+#hero{
+	display: flex;
+    flex-direction: column ;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+<!--LOGIN REGISTER-->
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+  #header{
+      position: relative;
+  }
+
+  #form-login {
+    width: 400px;
+    height: 340px;
+    background: rgb(241, 242, 255);
+    margin: auto;
+    margin-top: 180px;
+    box-shadow: 7px 13px 37px #000;
+    padding: 20px 30px;
+    border: 2px solid #f6f5f4;
+    border-top: 4px solid #017bab;
+    color: black;
+  }
+
+  #form-login h5 {
+    margin: 0;
+    text-align: center;
+    height: 40px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid;
+    font-size: 20px;
+  }
+
+  .controls {
+    width: 100%;
+    border: 1px solid #017bab;
+    margin-bottom: 15px;
+    padding: 11px 10px;
+    color: white;
+    background: #111;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .buttons {
+    width: 100%;
+    height: 40px;
+    background: #017bab;
+    border: none;
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  #form-login p{
+    height: 40px;
+    text-align: center;
+    border-bottom: 1px solid;
+  }
+
+  #form-login a {
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  #form-login a:hover {
+    text-decoration: underline;
+  }
+
+  .contenedorVertical{
+  	display: flex;
+	flex-direction: column;
+  }
