@@ -19,7 +19,7 @@
 
         <h1 class="h1-panel">${usuario.getCorreo()}</h1>
 
-        <a href="ClientesServlet">
+        <a href="clientes">
             <div class="container-panel">
 
                 <img src="images/cliente.png" alt="">
