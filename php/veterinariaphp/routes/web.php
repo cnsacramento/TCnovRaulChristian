@@ -48,8 +48,21 @@ Route::get('/clientes/opciones', [App\Http\Controllers\ClientesController::class
 
 Route::get('/intervenciones', [App\Http\Controllers\IntervencionController::class, 'index']);
 
+Route::post('/intervenciones/mostrar-intervenciones', [App\Http\Controllers\IntervencionController::class, 'index']);
+
 Route::get('/intervenciones/opciones', [App\Http\Controllers\IntervencionController::class, 'opciones']);
 
 // Tipos Intervenciones
 
+Route::post('/intervenciones/crear-tipo', [App\Http\Controllers\IntervencionController::class, 'crearTipoIntervencion']);
+
+Route::post('/intervenciones/editar-tipo', [App\Http\Controllers\IntervencionController::class, 'editarTipoIntervencion']);
+
+Route::post('/intervenciones/eliminar-tipo', [App\Http\Controllers\IntervencionController::class, 'eliminarTipoIntervencion']);
+
+Route::post('intervenciones/mostrar-tipo', [App\Http\Controllers\IntervencionController::class, 'mostrarTipoIntervencion']);
+
+Route::post('intervenciones/mostrar-tipos', [App\Http\Controllers\IntervencionController::class, 'mostrarTiposIntervenciones']);
+
 Route::get('/intervenciones/opciones-tipo', [App\Http\Controllers\IntervencionController::class, 'opcionesTipoIntervencion']);
+

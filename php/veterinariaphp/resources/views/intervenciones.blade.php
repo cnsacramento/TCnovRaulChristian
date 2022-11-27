@@ -24,7 +24,7 @@
             <h3 class="text-center">Crear intervención</h3>
 
             <form action="/intervencion/crear" method="post">
-
+                @csrf
                 <label for=""> <span>*Asunto:</span> <input type="text" name="asunto" id="asunto"
                         maxlength="30" required>
                 </label> <label for=""> <span>*Descripción:</span>
@@ -55,7 +55,7 @@
             <h3 class="text-center">Editar intervención</h3>
 
             <form action="/intervenciones/editar-intervencion" method="post">
-
+                @csrf
                 <label for=""> <span>*ID Intervención:</span> <input type="number" name="id"
                         id="id" value="@if(isset($intervencion)){{ $intervencion->id }}@endif" required>
                 </label> <label for=""> <span>*Asunto:</span> <input type="text" name="asunto"
@@ -89,7 +89,7 @@
 
             <h3 class="text-center">Eliminar intervención</h3>
             <form action="/intervenciones/eliminar" method="post">
-
+                @csrf
                 <label for=""> <span>*ID Intervención:</span> <input type="number" name="id"
                         id="id" value="@if(isset($intervencion)){{ $intervencion->id }}@endif"
                         required>
@@ -99,7 +99,7 @@
             <h3 class="text-center">Mostrar Intervención</h3>
 
             <form action="/intervenciones/mostrar-intervencion" method="post">
-
+                @csrf
                 <label for=""> <span>*ID:</span> <input type="number" name="id" id="id"
                         value="@if(isset($intervencion)){{ $intervencion->id }}@endif" required>
                 </label> <input type="submit" name="mostrar" value="Mostrar">
@@ -108,8 +108,8 @@
 
             <h3 class="text-center">Mostrar listado</h3>
 
-            <form action="/intervenciones/mostrar-todas" method="post">
-
+            <form action="/intervenciones/mostrar-intervenciones" method="post">
+                @csrf
                 <input type="submit" name="mostrartodas" value="Mostrar todos">
 
             </form>
@@ -121,7 +121,7 @@
             <h3 class="text-center">Crear tipo intervención</h3>
 
             <form action="/intervenciones/crear-tipo" method="post">
-
+                @csrf
                 <label for=""> <span>*Tipo:</span> <input type="text" name="tipo" id="tipo"
                         maxlength="30" required>
                 </label> <input type="submit" name="btntipo" value="Crear">
@@ -129,20 +129,20 @@
 
             <h3 class="text-center">Editar tipo intervención</h3>
             <form action="/intervenciones/editar-tipo" method="post">
-
+                @csrf
                 <label for=""> <span>*ID Tipo Intervención:</span> <input type="number" name="id"
-                        id="id" value="@if(isset($tipoIntervencion)){{ $tipoIntervencion->id }}@endif"
+                        id="id" value="@if(isset($tipoIntervencionOpciones)){{ $tipoIntervencionOpciones->id }}@endif"
                         required>
                 </label> <label for=""> <span>*Tipo:</span>
-                    <input type="text" value="@if(isset($tipoIntervencion)){{ $tipoIntervencion->tipo }}@endif" name="tipo" id="tipo" maxlength="30" required>
+                    <input type="text" value="@if(isset($tipoIntervencionOpciones)){{ $tipoIntervencionOpciones->tipo }}@endif" name="tipo" id="tipo" maxlength="30" required>
                 </label> <input type="submit" name="btntipo" value="Editar">
             </form>
 
             <h3 class="text-center">Eliminar tipo intervención</h3>
             <form action="/intervenciones/eliminar-tipo" method="post">
-
+                @csrf
                 <label for=""> <span>*ID Tipo Intervención:</span> <input type="number" name="id"
-                        id="id" value="@if(isset($tipoIntervencion)){{ $tipoIntervencion->id }}@endif"
+                        id="id" value="@if(isset($tipoIntervencionOpciones)){{ $tipoIntervencionOpciones->id }}@endif"
                         required>
                 </label> <input type="submit" name="btntipo" value="Eliminar">
             </form>
@@ -155,9 +155,9 @@
             <h3 class="text-center">Mostrar tipo intervención</h3>
 
             <form action="/intervenciones/mostrar-tipo" method="post">
-
+                @csrf
                 <label for=""> <span>*ID:</span> <input type="number" name="id" id="id"
-                        value="@if(isset($tipoIntervencion)){{ $tipoIntervencion->id }}@endif" required>
+                        value="@if(isset($tipoIntervencionOpciones)){{ $tipoIntervencionOpciones->id }}@endif" required>
                 </label> <input type="submit" name="btntipo" value="Mostrar">
 
             </form>
@@ -165,7 +165,7 @@
             <h3 class="text-center">Mostrar listado</h3>
 
             <form action="/intervenciones/mostrar-tipos" method="post">
-
+                @csrf
                 <input type="submit" name="btntipo" value="Mostrar todos">
 
             </form>

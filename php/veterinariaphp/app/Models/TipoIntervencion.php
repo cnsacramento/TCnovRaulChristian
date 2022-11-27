@@ -11,9 +11,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TipoIntervencion extends Model
 {
+
+    public $timestamps = false;
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'tipo_intervencion';
