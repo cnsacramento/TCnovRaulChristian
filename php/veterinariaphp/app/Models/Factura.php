@@ -13,9 +13,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Factura extends Model
 {
+
+    public $timestamps = false;
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'factura';

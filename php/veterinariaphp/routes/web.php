@@ -66,6 +66,18 @@ Route::post('intervenciones/mostrar-tipos', [App\Http\Controllers\IntervencionCo
 
 Route::get('/intervenciones/opciones-tipo', [App\Http\Controllers\IntervencionController::class, 'opcionesTipoIntervencion']);
 
-// Factura
+// Facturas
 
 Route::get('/facturas', [App\Http\Controllers\FacturaController::class, 'index']);
+
+Route::post('/facturas/crear', [App\Http\Controllers\FacturaController::class, 'save']);
+
+Route::post('/facturas/editar', [App\Http\Controllers\FacturaController::class, 'update']);
+
+Route::post('/facturas/eliminar', [App\Http\Controllers\FacturaController::class, 'delete']);
+
+Route::post('/facturas/mostrar', [App\Http\Controllers\FacturaController::class, 'findById']);
+
+Route::post('/facturas/mostrar-todas', [App\Http\Controllers\FacturaController::class, 'index']);
+
+Route::get('/facturas/opciones', [App\Http\Controllers\FacturaController::class, 'opciones']);
