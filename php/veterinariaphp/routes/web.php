@@ -43,3 +43,13 @@ Route::post('/clientes/find', [App\Http\Controllers\ClientesController::class, '
 Route::post('/clientes/mostrartodos', [App\Http\Controllers\ClientesController::class, 'index']);
 
 Route::get('/clientes/opciones', [App\Http\Controllers\ClientesController::class, 'opciones']);
+
+// Intervenciones
+
+Route::get('/intervenciones', [App\Http\Controllers\IntervencionController::class, 'index']);
+
+Route::get('/intervenciones/opciones', [App\Http\Controllers\IntervencionController::class, 'opciones']);
+
+// Tipos Intervenciones
+
+Route::get('/intervenciones/opciones-tipo', [App\Http\Controllers\IntervencionController::class, 'opcionesTipoIntervencion']);

@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Intervencion extends Model
 {
+
+    public $timestamps = false;
     /**
      * The table associated with the model.
      *
@@ -58,7 +60,7 @@ class Intervencion extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function mascotum()
+    public function mascota()
     {
         return $this->belongsTo('App\Models\Mascota', 'id_mascota');
     }

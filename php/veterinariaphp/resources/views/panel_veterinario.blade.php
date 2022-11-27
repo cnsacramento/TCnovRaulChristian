@@ -39,7 +39,7 @@
             </div>
         </a>
 
-        <a href="IntervencionesServlet">
+        <a href="intervenciones">
             <div class="container-panel">
 
                 <img src="images/intervencion.png" alt="">
