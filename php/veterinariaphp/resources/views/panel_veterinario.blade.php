@@ -59,7 +59,7 @@
             </div>
         </a>
 
-        <a href="FacturasServlet">
+        <a href="facturas">
             <div class="container-panel">
 
                 <img src="images/factura.svg" alt="">

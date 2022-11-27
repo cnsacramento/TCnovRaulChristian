@@ -66,3 +66,6 @@ Route::post('intervenciones/mostrar-tipos', [App\Http\Controllers\IntervencionCo
 
 Route::get('/intervenciones/opciones-tipo', [App\Http\Controllers\IntervencionController::class, 'opcionesTipoIntervencion']);
 
+// Factura
+
+Route::get('/facturas', [App\Http\Controllers\FacturaController::class, 'index']);
