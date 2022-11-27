@@ -35,8 +35,12 @@ class FacturaController extends Controller
     {
         $id = $request->id;
         $factura = Factura::find($id);
-        $factura->delete();
-        $factura->refresh();
+
+        if($factura != null) {
+            $factura->delete();
+            $factura->refresh();
+        }
+
 
         $facturas = Factura::all();
         return view('facturas', compact('facturas'));
@@ -47,6 +51,11 @@ class FacturaController extends Controller
         $id = $request->id;
 
         $factura = Factura::find($id);
+
+        if($factura == null) {
+            return view('facturas');
+        }
+
         $factura->fecha = $request->fecha;
         $factura->coste = $request->coste;
         $factura->detalles = $request->detalles;
@@ -62,6 +71,9 @@ class FacturaController extends Controller
     {
         $id = $request->id;
         $factura = Factura::find($id);
+
+        if($factura == null) return view('facturas');
+
         $facturas = collect([$factura]);
         return view('facturas', compact('facturas'));
     }
