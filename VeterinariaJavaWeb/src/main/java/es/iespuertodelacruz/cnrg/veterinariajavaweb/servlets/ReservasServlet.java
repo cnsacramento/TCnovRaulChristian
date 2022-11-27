@@ -70,8 +70,8 @@ public class ReservasServlet extends HttpServlet {
 		
 		Timestamp fechaCierreInput = new Timestamp(calendar.getTime().getTime());
 		
-		request.setAttribute("fechaInicioInput", new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").format(fechaInicioInput));
-		request.setAttribute("fechaCierreInput", new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").format(fechaCierreInput));
+		request.setAttribute("fechaInicioInput", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(fechaInicioInput));
+		request.setAttribute("fechaCierreInput", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(fechaCierreInput));
 		
 		
 	
@@ -222,9 +222,9 @@ public class ReservasServlet extends HttpServlet {
 			
 			reserva.setId(Integer.parseInt("id"));
 			String strFechaInicio  = request.getParameter("fechaInicio");
-			Date fechaInicio = new SimpleDateFormat("yyyy-mm-dd").parse(strFechaInicio);
+			Date fechaInicio = new SimpleDateFormat("yyyy-MM-dd").parse(strFechaInicio);
 			String strFechaFin  = request.getParameter("fechaFin");
-			Date fechaFin = new SimpleDateFormat("yyyy-mm-dd").parse(strFechaFin);
+			Date fechaFin = new SimpleDateFormat("yyyy-MM-dd").parse(strFechaFin);
 			
 			reserva.setFechaInicio(new Timestamp(fechaInicio.getTime()));
 			reserva.setFechaFin(new Timestamp(fechaFin.getTime()));

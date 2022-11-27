@@ -132,7 +132,7 @@ public class FacturasServlet extends HttpServlet {
 			Factura factura = new Factura();
 			
 			String strFecha = request.getParameter("fecha");
-			Date fecha = new SimpleDateFormat("yyyy-mm-dd").parse(strFecha);
+			Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(strFecha);
 			factura.setId(Integer.parseInt(request.getParameter("id")));
 			factura.setFecha(new Timestamp(fecha.getTime()));
 			factura.setCoste(Double.parseDouble(request.getParameter("coste")));

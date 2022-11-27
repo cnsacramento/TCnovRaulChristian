@@ -5,12 +5,18 @@ h3 {
 	padding: 1rem;
 }
 
-
 .crud {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
 	justify-content: space-evenly;
+}
+
+.crud .column {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: space-evenly;
 }
 
 .crud article {

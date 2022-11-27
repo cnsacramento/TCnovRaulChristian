@@ -1,12 +1,14 @@
 package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.RollbackException;
 
-import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Reserva;
 
 public class ReservaRepository implements ICrud<Reserva, Integer> {
@@ -102,6 +104,27 @@ public class ReservaRepository implements ICrud<Reserva, Integer> {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		List<Reserva> lista = entityManager.createNamedQuery("Reserva.findAll", Reserva.class)
+				.getResultList();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return lista;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Reserva> encontrarCitasDeUnDia(Timestamp fechaApertura, Timestamp fechaCierre) {
+		
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		String query = "SELECT * FROM reserva"
+				+ " WHERE fecha_inicio"
+				+ " BETWEEN :fechaApertura AND :fechaCierre"
+				+ " ORDER BY fecha_inicio ASC";
+				
+		List<Reserva> lista = entityManager.createNativeQuery(query, Reserva.class)
+				.setParameter("fechaApertura", fechaApertura)
+				.setParameter("fechaCierre", fechaCierre)
 				.getResultList();
 		entityManager.getTransaction().commit();
 		entityManager.close();

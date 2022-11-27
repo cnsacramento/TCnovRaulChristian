@@ -1,8 +1,12 @@
 package es.iespuertodelacruz.cnrg.veterinariajavaweb.servlets;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
@@ -12,8 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Intervencion;
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Reserva;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoIntervencion;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.IntervencionRepository;
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.ReservaRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.TipoIntervencionRepository;
 
 /**
@@ -87,7 +93,67 @@ public class IntervencionesServlet extends HttpServlet {
 				.getAttribute("entityManagerFactory");
 		IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
 
+				
+		switch(request.getParameter("fechaIntervencion")) {
+			case "Crear":
+				request.setAttribute("bloqueoFecha", false);
+				request.setAttribute("bloqueoHora", true);
+				request.setAttribute("bloqueoDatos", true);
+				request.setAttribute("bloqueoFactura", true);
+				request.getRequestDispatcher("fechaIntervencion.jsp").forward(request, response);
+				break;
+			case "Escoger fecha":
+				try {
+					String fechaSeleccionada = request.getParameter("fecha");
+					request.getSession().setAttribute("fecha", fechaSeleccionada);
+					request.setAttribute("bloqueoFecha", true);
+					request.setAttribute("bloqueoHora", false);
+					request.setAttribute("bloqueoDatos", true);
+					request.setAttribute("bloqueoFactura", true);
+					ReservaRepository reservaRepository = new ReservaRepository(entityManagerFactory);
+					
+					String strFecha = request.getParameter("fecha");
+					Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(strFecha);
+					Timestamp fechaApertura = new Timestamp(fecha.getTime() + (8*60*60*1000) );
+					request.setAttribute("fechaApertura", fechaApertura);
+					Timestamp fechaCierre = new Timestamp(fecha.getTime() + (16*60*60*1000));
+										
+					List<Reserva> reservas = reservaRepository.encontrarCitasDeUnDia(fechaApertura, fechaCierre);
+					
+					TreeMap<Integer, Boolean> sesiones = new TreeMap<>();
+					
+					sesiones.put(8, false);
+					sesiones.put(9, false);
+					sesiones.put(10, false);
+					sesiones.put(11, false);
+					sesiones.put(12, false);
+					sesiones.put(13, false);
+					sesiones.put(14, false);
+					sesiones.put(15, false);
+					sesiones.put(16, false);
+					
+					for(Reserva reserva : reservas) {
+						
+					}
+					
+//					System.out.println("//////////////////////////////////////////////7");
+//					System.out.println("Longitud -> " + fes.get(2).getFechaInicio()  );
+//					System.out.println("//////////////////////////////////////////////7");
 
+					
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				}
+				
+				request.getRequestDispatcher("fechaIntervencion.jsp").forward(request, response);
+				break;
+			default:
+				break;
+		}
+		
+		
+		
+		
 		if (request.getParameter("borrar") != null) {
 
 			borrarIntervencion(request);
@@ -128,7 +194,8 @@ public class IntervencionesServlet extends HttpServlet {
 		List<TipoIntervencion> tipointervencionList = null;
 		TipoIntervencion tipoIntervencion = null;
 		
-		switch(request.getParameter("btntipo")) {
+		if(request.getParameter("btnTipo") != null) {
+			switch(request.getParameter("btntipo")) {
 			case "Crear":
 				tipoIntervencion = crearTipoIntervencion(request);
 				tipointervencionList = Arrays.asList(tipoIntervencion);
@@ -166,19 +233,13 @@ public class IntervencionesServlet extends HttpServlet {
 				request.getRequestDispatcher("intervencion.jsp").forward(request, response);
 				break;
 		}
+		}
+		
+		
+		
 		
 	}
 
-	private Intervencion agregarIntervencion(HttpServletRequest request) { // TODO redirigir para los horarios
-
-		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
-				.getAttribute("entityManagerFactory");
-		IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
-		cargarTipoIntervencion(request);
-		
-		return null;
-		
-	}
 
 	private boolean borrarIntervencion(HttpServletRequest request) {
 

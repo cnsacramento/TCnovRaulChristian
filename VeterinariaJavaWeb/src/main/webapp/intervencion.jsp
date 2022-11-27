@@ -27,30 +27,7 @@
 			<h3 class="text-center">Crear intervención</h3>
 
 			<form action="IntervencionesServlet" method="post">
-
-				<label for=""> <span>*Asunto:</span> <input type="text"
-					name="asunto" id="asunto" maxlength="30" required>
-				</label> <label for=""> <span>*Descripción:</span> <textarea
-						name="descripcion" id="descripcion" required></textarea>
-				</label>
-
-				<div class="selectform">
-					<label for=""> <span>*Tipo intervención:</span></label> <select
-						name="tipointervencion">
-						<c:forEach var="tipoIntervencion" items="${tipoIntervencionList}">
-							<option value="${tipoIntervencion.getTipo()}">${tipoIntervencion.getTipo()}</option>
-						</c:forEach>
-					</select>
-				</div>
-
-				<label for=""> <span>*ID mascota:</span> <input
-					type="number" name="idmascota" id="idmascota">
-				</label> <label for=""> <span>*ID factura:</span> <input
-					type="number" name="factura" id="factura">
-				</label> <label for=""> <span>*Equipo:</span> <input type="text"
-					name="equipo" id="equipo" required>
-
-				</label> <input type="submit" name="crear" value="Continuar">
+				<input type="submit" name="fechaIntervencion" value="Crear">
 			</form>
 
 		</article>
