@@ -47,10 +47,10 @@
 					<form action="IntervencionesServlet" method="post">
 
 						<div class="selectform">
-							<label for=""> <span>Horas disponibles</span></label> <select
-								name="horasDisponibles">
-								<c:forEach var="horas" items="horasDisponibles">
-									<option value="${horas}">${horas}</option>
+							<label for=""> <span>Horas disponibles</span></label> 
+							<select	name="hora">
+								<c:forEach var="hora" items="${horasLibres}">
+									<option value="${hora}">${hora}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -59,6 +59,28 @@
 					</form>
 
 					<a href="IntervencionesServlet">Volver</a>
+				</article>
+			</c:if>
+			
+			<c:if test="${!bloqueoHora}">
+				<article>
+
+					<h3 class="text-center">Escoge la cantidad de sesiones</h3>
+
+					<form action="IntervencionesServlet" method="post">
+
+						<div class="selectform">
+							<label for=""> <span>Sesiones disponibles</span></label> 
+							<select	name="hora">
+								<c:forEach var="sesion" items="${sesionesDisponibles}">
+									<option value="${sesion}">${sesionesDisponibles}</option>
+								</c:forEach>
+							</select>
+						</div>
+						
+						<input type="submit" name="fechaIntervencion" value="Escoger sesiones">
+					</form>
+
 				</article>
 			</c:if>
 
@@ -77,11 +99,12 @@
 						</label>
 
 						<div class="selectform">
-							<label for=""> <span>*Tipo intervención:</span></label> <select
+							<label for=""> <span>*Tipo intervención:</span></label>
+							 <select
 								name="tipointervencion">
 								<c:forEach var="tipoIntervencion"
 									items="${tipoIntervencionList}">
-									<option value="${tipoIntervencion.getTipo()}">${tipoIntervencion.getTipo()}</option>
+									<option value="${tipoIntervencion.getId()}">${tipoIntervencion.getTipo()}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -103,10 +126,10 @@
 
 					<h3 class="text-center">Crear factura</h3>
 
-					<form action="FacturasServlet" method="post">
+					<form action="IntervencionesServlet" method="post">
 
 						<label for=""> <span>*Fecha:</span> <input type="date"
-							name="fecha" id="fecha">
+							name="fechafactura" id="fecha">
 						</label> <label for=""> <span>Coste:</span> <input
 							class="text-end" type="number" step="0.01" name="coste"
 							id="coste">
