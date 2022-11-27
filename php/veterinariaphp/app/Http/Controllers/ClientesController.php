@@ -78,7 +78,7 @@ class ClientesController extends Controller
         $cliente = Cliente::find($dni);
         $clientes = collect([$cliente]);
         return view('clientes', compact('clientes'));
-
+ 
     }
 
 
