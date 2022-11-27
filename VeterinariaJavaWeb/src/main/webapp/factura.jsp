@@ -65,7 +65,7 @@
 				</label> <label for=""> <span>Coste:</span> <input type="number" step="0.01"
 					name="coste" id="coste" value="${factura.getCoste()}">
 				</label> <label for=""> <span>*Detalles:</span> 
-				<textarea name="detalles" id="detalles">${factura.getFecha().toString()}</textarea></label>
+				<textarea name="detalles" id="detalles"></textarea></label>
 
 				<input type="submit" name="btnFactura" id="btnFactura" value="Editar">
 			</form>
