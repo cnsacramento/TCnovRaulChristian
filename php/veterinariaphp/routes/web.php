@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Panel Veterinario
+
+Route::get('/', function() {
+    return view('panel_veterinario');
+});
+
+// Clientes
+
+Route::get('/clientes', [App\Http\Controllers\ClientesController::class, 'index']);
+
+Route::post('/clientes/agregar', [App\Http\Controllers\ClientesController::class, 'save']);
+
+Route::post('/clientes/borrar', [App\Http\Controllers\ClientesController::class, 'delete']);
+
+Route::post('/clientes/editar', [App\Http\Controllers\ClientesController::class, 'update']);
+
+Route::post('/clientes/find', [App\Http\Controllers\ClientesController::class, 'findById']);
+
+Route::post('/clientes/mostrartodos', [App\Http\Controllers\ClientesController::class, 'index']);
+
+Route::get('/clientes/opciones', [App\Http\Controllers\ClientesController::class, 'opciones']);

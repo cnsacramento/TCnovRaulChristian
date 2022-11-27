@@ -1,0 +1,165 @@
+h3 {
+	text-align: center;
+	padding: 1rem;
+}
+
+.crud {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: space-evenly;
+}
+
+.crud article {
+	padding: 1rem 1rem;
+	border-radius: 1rem;
+}
+
+.crud article form {
+	display: flex;
+	flex-direction: column;
+}
+
+.crud article form label {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin: 0.4rem;
+}
+
+.crud article form input[type=submit] {
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;
+}
+
+.crud article .selectform {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.crud article:nth-child(odd) {
+	background: #d9e6ed;
+}
+
+ .crud article:nth-child(even) {
+	background: #d0e0e0;
+}
+
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+img{
+	 max-width: 1.5rem;
+	 max-height: 1.5rem;
+	}
+
+.table {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0rem 0rem 6rem 0rem;
+    padding: 0;
+    table-layout: fixed;
+}
+
+.table caption {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 8px 0px;
+}
+
+.table tr {
+
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+}
+
+.table th, .table td {
+    font-size: 16px;
+    padding: 8px;
+    text-align: center;
+}
+
+.table td {
+ 	word-break: break-word;
+}
+
+.table thead th{
+    text-transform: uppercase;
+    background-color: #ddd;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+.container{
+	margin-top: 1rem;
+}
+
+.table .imagenes{
+	display: flex;
+   	width: 10%;
+}
+
+img{
+	filter: opacity(0.4) drop-shadow(0 0 0 red);
+}
+
+img:hover{
+	filter: opacity(1) drop-shadow(0 0 0 red);
+}
+
+.contenedor{
+	display: flex;
+	flex-direction: row;
+}
+
+.formularios {
+	max-width: 15%;
+	padding: 2rem;
+}
+@media screen and (max-width: 600px) {
+    .table {
+        border: 0px;
+    }
+    .table caption {
+        font-size: 22px;
+    }
+    .table thead {
+        display: none;
+    }
+    .table tr {
+        margin-bottom: 8px;
+        border-bottom: 4px solid #ddd;
+        display: block;
+    }
+    .table th, .table td {
+        font-size: 12px;
+    }
+    .table td {
+        display: block;
+        border-bottom: 1px solid #ddd;
+        text-align: right;
+    }
+    .table  td:last-child {
+        border-bottom: 0px;
+    }
+    .table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+        float: left;
+    }
+    .table .imagenes{
+    	display: block;
+   		width: 100%;
+	}
+}
