@@ -304,13 +304,7 @@ public class IntervencionesServlet extends HttpServlet {
 					Intervencion intervencionGuardada = intervencionRepository.save(intervencion);
 					
 					reserva.setIntervencion(intervencionGuardada);
-					for(Veterinario veterinario2 : veterinarios) {
-						System.out.println("////////// VETERINARIOS /////////");
-						System.out.println(veterinario2.getDni());
-						System.out.println("///////////////////");
-					}
-
-					
+										
 					eliminarDatosSesion(request);
 					cargarTipoIntervencion(request);
 					List<Intervencion> intervencionesList = Arrays.asList(intervencionGuardada);
@@ -367,7 +361,7 @@ public class IntervencionesServlet extends HttpServlet {
 		List<TipoIntervencion> tipointervencionList = null;
 		TipoIntervencion tipoIntervencion = null;
 
-		if (request.getParameter("btnTipo") != null) {
+		if (request.getParameter("btntipo") != null) {
 			switch (request.getParameter("btntipo")) {
 			case "Crear":
 				tipoIntervencion = crearTipoIntervencion(request);
