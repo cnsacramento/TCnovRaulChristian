@@ -321,7 +321,7 @@ public class IntervencionesServlet extends HttpServlet {
 
 		}
 
-		if (request.getParameter("borrar") != null) {
+		if (request.getParameter("eliminar") != null) {
 
 			borrarIntervencion(request);
 			List<Intervencion> intervencionesList = intervencionRepository.findAll();
@@ -337,6 +337,7 @@ public class IntervencionesServlet extends HttpServlet {
 			cargarTipoIntervencion(request);
 			request.getRequestDispatcher("intervencion.jsp").forward(request, response);
 		}
+		
 
 		if (request.getParameter("mostrar") != null) {
 

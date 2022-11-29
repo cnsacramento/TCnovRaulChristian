@@ -26,6 +26,8 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(dao);
+            dao.getReservas().get(0).setIntervencion(dao);
+            entityManager.persist(dao.getReservas().get(0));
             entityManager.getTransaction().commit();
             return dao;
         } catch(Exception ex) {
