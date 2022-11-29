@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,12 +25,14 @@ import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Intervencion;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Reserva;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoIntervencion;
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.TipoRestriccionDia;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Veterinario;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.FacturaRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.IntervencionRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.MascotaRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.ReservaRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.TipoIntervencionRepository;
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.TipoRestriccionDiaRepository;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories.VeterinarioRepository;
 
 /**
@@ -102,22 +105,28 @@ public class IntervencionesServlet extends HttpServlet {
 		IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
 
 		if (request.getParameter("fechaIntervencion") != null) {
+
 			switch (request.getParameter("fechaIntervencion")) {
+
 			case "Crear":
-				request.setAttribute("bloqueoFecha", false);
-				request.setAttribute("bloqueoHora", true);
-				request.setAttribute("bloqueoDatos", true);
-				request.setAttribute("bloqueoFactura", true);
+
+				desbloquear("bloqueoFecha", request);
 				request.getRequestDispatcher("fechaIntervencion.jsp").forward(request, response);
 				break;
+
 			case "Escoger fecha":
+
 				try {
 					String fechaSeleccionada = request.getParameter("fecha");
+					
+					System.out.println("//////////////////");
+					System.out.println(fechaSeleccionada);
+					System.out.println("//////////////////");
+					
 					request.getSession().setAttribute("fecha", fechaSeleccionada);
-					request.setAttribute("bloqueoFecha", true);
-					request.setAttribute("bloqueoHora", false);
-					request.setAttribute("bloqueoDatos", true);
-					request.setAttribute("bloqueoFactura", true);
+
+					desbloquear("bloqueoHora", request);
+
 					ReservaRepository reservaRepository = new ReservaRepository(entityManagerFactory);
 
 					String strFecha = request.getParameter("fecha");
@@ -175,22 +184,39 @@ public class IntervencionesServlet extends HttpServlet {
 
 			case "Escoger hora":
 				String hora = request.getParameter("hora");
-				cargarTipoIntervencion(request);
+				int intHora = Integer.parseInt(hora);
+
+				@SuppressWarnings("unchecked")
+				TreeMap<Integer, Boolean> sesiones = (TreeMap<Integer, Boolean>) request.getSession()
+						.getAttribute("sesiones");
+
+				int cantidadSesiones = 1; // Dado que existe minimo 1 sesion
+				List<Integer> sesionesDisponibles = new ArrayList<>();
+				Iterator<Integer> iterator = sesiones.tailMap(intHora).keySet().iterator();
+				while (iterator.hasNext()) {
+					System.out.println("///////////////////////////////");
+					int key = iterator.next();
+					System.out.println("[" + key + "]" + "=>" + sesiones.get(key));
+					System.out.println("///////////////////////////////");
+					if (sesiones.get(key))
+						break;
+					sesionesDisponibles.add(cantidadSesiones++);
+				}
+				
+				request.setAttribute("sesionesDisponibles", sesionesDisponibles);
 				request.getSession().setAttribute("hora", hora);
-				request.setAttribute("bloqueoFecha", true);
-				request.setAttribute("bloqueoHora", true);
-				request.setAttribute("bloqueoDatos", false);
-				request.setAttribute("bloqueoFactura", true);
+				desbloquear("bloqueoSesiones", request);
+				request.getRequestDispatcher("fechaIntervencion.jsp").forward(request, response);
+				break;
+				
+			case "Escoger sesiones":
+				String numeroSesiones = request.getParameter("numeroSesiones");
+				request.getSession().setAttribute("numeroSesiones", numeroSesiones);
+				desbloquear("bloqueoDatos", request);
+				cargarTipoIntervencion(request);
 				request.getRequestDispatcher("fechaIntervencion.jsp").forward(request, response);
 				break;
 
-			case "Escoger sesiones":
-
-				String horaSesion = (String)request.getSession().getAttribute("hora");
-				
-				
-				break;
-				
 			case "Continuar":
 
 				String asunto = request.getParameter("asunto");
@@ -205,10 +231,7 @@ public class IntervencionesServlet extends HttpServlet {
 				request.getSession().setAttribute("idmascota", idMascota);
 				request.getSession().setAttribute("equipo", equipo);
 
-				request.setAttribute("bloqueoFecha", true);
-				request.setAttribute("bloqueoHora", true);
-				request.setAttribute("bloqueoDatos", true);
-				request.setAttribute("bloqueoFactura", false);
+				desbloquear("bloqueoFactura", request);
 				request.getRequestDispatcher("fechaIntervencion.jsp").forward(request, response);
 				break;
 
@@ -218,34 +241,20 @@ public class IntervencionesServlet extends HttpServlet {
 					Intervencion intervencion = new Intervencion();
 
 					String asuntoFinal = (String) request.getSession().getAttribute("asunto");
-					request.getSession().removeAttribute("asunto");
 					String descripcionFinal = (String) request.getSession().getAttribute("descripcion");
-					request.getSession().removeAttribute("descripcion");
-
-					intervencion.setAsunto(asuntoFinal);
-					intervencion.setDescripcion(descripcionFinal);
-
-					TipoIntervencionRepository tipoIntervencionRepository = new TipoIntervencionRepository(
-							entityManagerFactory);
-
-					int idTipoIntervencion = Integer
-							.parseInt((String) request.getSession().getAttribute("tipointervencion"));
-					request.getSession().removeAttribute("tipointervencion");
-
-					TipoIntervencion tipoIntervencionFinal = tipoIntervencionRepository.findById(idTipoIntervencion);
-					intervencion.setTipoIntervencion(tipoIntervencionFinal);
+					
+					TipoIntervencionRepository tipoIntervencionRepository = 
+							new TipoIntervencionRepository(entityManagerFactory);
+					int idTipoIntervencion = 
+							Integer.parseInt((String) request.getSession().getAttribute("tipointervencion"));
+					TipoIntervencion tipoIntervencionFinal = 
+							tipoIntervencionRepository.findById(idTipoIntervencion);
 
 					String idMascotaFinal = (String) request.getSession().getAttribute("idmascota");
-					request.getSession().removeAttribute("idmascota");
-
 					MascotaRepository mascotaRepository = new MascotaRepository(entityManagerFactory);
 					Mascota mascota = mascotaRepository.findById(Integer.parseInt(idMascotaFinal));
-
-					intervencion.setMascota(mascota);
-
+					
 					String equipoFinal = (String) request.getSession().getAttribute("equipo");
-					request.getSession().removeAttribute("equipo");
-
 					String[] equipoSplit = equipoFinal.split(",");
 
 					VeterinarioRepository veterinarioRepository = new VeterinarioRepository(entityManagerFactory);
@@ -255,32 +264,57 @@ public class IntervencionesServlet extends HttpServlet {
 						veterinario = veterinarioRepository.findById(strVeterinario);
 						veterinarios.add(veterinario);
 					}
-
-					intervencion.setVeterinarios(veterinarios);
-
+					
 					FacturaRepository facturaRepository = new FacturaRepository(entityManagerFactory);
 					Factura factura = new Factura();
-
 					String strFechaFactura = request.getParameter("fechafactura");
 					Date fechaFactura = new SimpleDateFormat("yyyy-MM-dd").parse(strFechaFactura);
 					Double coste = Double.parseDouble((String) request.getParameter("coste"));
 					String detallesFinal = (String) request.getParameter("detalles");
-
 					factura.setFecha(new Timestamp(fechaFactura.getTime()));
 					factura.setCoste(coste);
 					factura.setDetalles(detallesFinal);
-
 					Factura facturaGuardada = facturaRepository.save(factura);
-
-					intervencion.setFactura(facturaGuardada);
-
-					Intervencion intervencionGuardada = intervencionRepository.save(intervencion);
-
+					
+					TipoRestriccionDiaRepository tipoReservaRepository = new TipoRestriccionDiaRepository(entityManagerFactory);
+					TipoRestriccionDia tipoRestriccionDia = tipoReservaRepository.findById("laboral");
+					
 					ReservaRepository reservaRepository = new ReservaRepository(entityManagerFactory);
-					Reserva reserva = new Reserva();
-					// TODO Terminar con reserva
+					Reserva reserva = new Reserva();		
+					String fecha = (String)request.getSession().getAttribute("fecha");
+					String strHora = (String)request.getSession().getAttribute("hora");
+					String strFechaInicio = fecha + " " + strHora; 
+					Date fechaInicio = new SimpleDateFormat("yyyy-MM-dd HH").parse(strFechaInicio);
+					String strNumeroSesiones = (String)request.getSession().getAttribute("numeroSesiones");
+					int horaFin = Integer.parseInt(strHora) + Integer.parseInt(strNumeroSesiones);
+					String strFechaFin = fecha + " " + horaFin;
+					Date fechaFin = new SimpleDateFormat("yyyy-MM-dd HH").parse(strFechaFin);
+					reserva.setFechaInicio(new Timestamp(fechaInicio.getTime()));
+					reserva.setFechaFin( new Timestamp( fechaFin.getTime() ) );
+					reserva.setTipoRestriccionDia(tipoRestriccionDia);
+					List<Reserva> reservas = Arrays.asList(reserva);
+					
+					intervencion.setAsunto(asuntoFinal);
+					intervencion.setDescripcion(descripcionFinal);
+					intervencion.setTipoIntervencion(tipoIntervencionFinal);
+					intervencion.setMascota(mascota);
+					intervencion.setVeterinarios(veterinarios);
+					intervencion.setFactura(facturaGuardada);
+					intervencion.setReservas(reservas);
+					Intervencion intervencionGuardada = intervencionRepository.save(intervencion);
+					
+					reserva.setIntervencion(intervencionGuardada);
+					for(Veterinario veterinario2 : veterinarios) {
+						System.out.println("////////// VETERINARIOS /////////");
+						System.out.println(veterinario2.getDni());
+						System.out.println("///////////////////");
+					}
 
+					
+					eliminarDatosSesion(request);
 					cargarTipoIntervencion(request);
+					List<Intervencion> intervencionesList = Arrays.asList(intervencionGuardada);
+					request.setAttribute("intervencionesList", intervencionesList);
 					request.getRequestDispatcher("intervencion.jsp").forward(request, response);
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -458,4 +492,57 @@ public class IntervencionesServlet extends HttpServlet {
 		return tipoIntervencionRepository.findById(Integer.parseInt(id));
 	}
 
+	public void desbloquear(String bloqueo, HttpServletRequest request) {
+
+		switch (bloqueo) {
+		case "bloqueoFecha":
+			request.setAttribute("bloqueoFecha", false);
+			request.setAttribute("bloqueoHora", true);
+			request.setAttribute("bloqueoSesiones", true);
+			request.setAttribute("bloqueoDatos", true);
+			request.setAttribute("bloqueoFactura", true);
+			break;
+		case "bloqueoHora":
+			request.setAttribute("bloqueoFecha", true);
+			request.setAttribute("bloqueoHora", false);
+			request.setAttribute("bloqueoSesiones", true);
+			request.setAttribute("bloqueoDatos", true);
+			request.setAttribute("bloqueoFactura", true);
+			break;
+		case "bloqueoSesiones":
+			request.setAttribute("bloqueoFecha", true);
+			request.setAttribute("bloqueoHora", true);
+			request.setAttribute("bloqueoSesiones", false);
+			request.setAttribute("bloqueoDatos", true);
+			request.setAttribute("bloqueoFactura", true);
+			break;
+		case "bloqueoDatos":
+			request.setAttribute("bloqueoFecha", true);
+			request.setAttribute("bloqueoHora", true);
+			request.setAttribute("bloqueoSesiones", true);
+			request.setAttribute("bloqueoDatos", false);
+			request.setAttribute("bloqueoFactura", true);
+			break;
+		case "bloqueoFactura":
+			request.setAttribute("bloqueoFecha", true);
+			request.setAttribute("bloqueoHora", true);
+			request.setAttribute("bloqueoSesiones", true);
+			request.setAttribute("bloqueoDatos", true);
+			request.setAttribute("bloqueoFactura", false);
+			break;
+		}
+
+	}
+
+	public void eliminarDatosSesion(HttpServletRequest request) {
+		request.getSession().removeAttribute("asunto");
+		request.getSession().removeAttribute("descripcion");
+		request.getSession().removeAttribute("tipointervencion");
+		request.getSession().removeAttribute("idmascota");
+		request.getSession().removeAttribute("equipo");
+		request.getSession().removeAttribute("sesiones");
+		request.getSession().removeAttribute("numeroSesiones");
+		request.getSession().removeAttribute("fecha");
+		request.getSession().removeAttribute("hora");
+	}
 }

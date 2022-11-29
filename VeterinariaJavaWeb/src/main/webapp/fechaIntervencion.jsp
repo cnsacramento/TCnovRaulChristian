@@ -17,6 +17,7 @@
 </head>
 <body>
 
+
 	<div class="crud">
 
 		<div class="column">
@@ -35,7 +36,6 @@
 
 					</form>
 
-					<a href="IntervencionesServlet">Volver</a>
 				</article>
 			</c:if>
 
@@ -47,22 +47,21 @@
 					<form action="IntervencionesServlet" method="post">
 
 						<div class="selectform">
-							<label for=""> <span>Horas disponibles</span></label> 
-							<select	name="hora">
+							<label for=""> <span>Horas disponibles</span></label> <select
+								name="hora">
 								<c:forEach var="hora" items="${horasLibres}">
 									<option value="${hora}">${hora}</option>
 								</c:forEach>
 							</select>
 						</div>
-						
+
 						<input type="submit" name="fechaIntervencion" value="Escoger hora">
 					</form>
 
-					<a href="IntervencionesServlet">Volver</a>
 				</article>
 			</c:if>
-			
-			<c:if test="${!bloqueoHora}">
+
+			<c:if test="${!bloqueoSesiones}">
 				<article>
 
 					<h3 class="text-center">Escoge la cantidad de sesiones</h3>
@@ -70,15 +69,16 @@
 					<form action="IntervencionesServlet" method="post">
 
 						<div class="selectform">
-							<label for=""> <span>Sesiones disponibles</span></label> 
-							<select	name="hora">
+							<label for=""> <span>Sesiones disponibles</span></label> <select
+								name="numeroSesiones">
 								<c:forEach var="sesion" items="${sesionesDisponibles}">
-									<option value="${sesion}">${sesionesDisponibles}</option>
+									<option value="${sesion}">${sesion}</option>
 								</c:forEach>
 							</select>
 						</div>
-						
-						<input type="submit" name="fechaIntervencion" value="Escoger sesiones">
+
+						<input type="submit" name="fechaIntervencion"
+							value="Escoger sesiones">
 					</form>
 
 				</article>
@@ -99,8 +99,7 @@
 						</label>
 
 						<div class="selectform">
-							<label for=""> <span>*Tipo intervención:</span></label>
-							 <select
+							<label for=""> <span>*Tipo intervención:</span></label> <select
 								name="tipointervencion">
 								<c:forEach var="tipoIntervencion"
 									items="${tipoIntervencionList}">
@@ -145,6 +144,7 @@
 		</div>
 
 	</div>
+
 
 
 </body>
