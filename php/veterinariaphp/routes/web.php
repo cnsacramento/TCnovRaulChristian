@@ -85,3 +85,5 @@ Route::get('/facturas/opciones', [App\Http\Controllers\FacturaController::class,
 // Mascotas
 
 Route::get('/mascotas', [App\Http\Controllers\MascotaController::class, 'index']);
+
+Route::post('/mascotas/save', [App\Http\Controllers\MascotaController::class, 'save']);

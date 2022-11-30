@@ -103,11 +103,12 @@
 	    
 	    <div class = "formularios">    
 		    <div class="container">
-		    	<form action="mascotasServlet" method="POST">
+				<form action="mascotas/save" method="POST">
+					@csrf
 					<label for ="nombre">Nombre: </label> 
 					<input class="controls" type="text" name="nombre" value="" placeholder="Nombre" required="required"> 
 					<label for ="fechaNacimiento">Fecha nacimiento: </label> 
-					<input class="controls" type="date" name="fechaNacimiento" value="" placeholder="ID" required="required"> 
+					<input class="controls" type="date" name="fechaNacimiento" value="" placeholder="" required="required"> 
 					<label for ="nombreMascota">Peso: </label> 
 					<input class="controls" type="text" name="peso" value="" placeholder="Peso" required="required"> 
 					<label for ="especie"> Especie: </label> 

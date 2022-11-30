@@ -22,22 +22,15 @@ class MascotaController extends Controller
         try
         {
             DB::beginTransaction();
-            $id = $request->id ?? 0;
-            $nombre = $request->nombre ?? 0;
-            $fechaNacimiento = $request->fechaNacimiento ?? 0;
-            $peso = $request->peso ?? "";
-            $dniCliente = $request->dniCliente ?? "";
-            $especie = $request->especie ?? 0;
+            $mascota = new Mascota();
+            $mascota->nombre = $request->nombre;
+            $mascota->fechaNacimiento = $request->fechaNacimiento;
+            $mascota->peso = $request->peso;
 
-            $mascota = Mascota::find($id);
-            $mascota->nombre = $nombre;
-            $mascota->fechaNacimiento = $fechaNacimiento;
-            $mascota->peso = $peso;
+            $cliente = Cliente::find($request->dniCliente);
 
-            $cliente = Cliente::find($dniCliente);
-
-            $mascota->cliente()->associate($cliente);
-            $mascota->especie = $especie;
+            $mascota->cliente()->associate($request->cliente);
+            $mascota->especieMascotum()->associate($request->especie);
             $mascota->save();
 
             $cliente->refresh();
@@ -47,7 +40,6 @@ class MascotaController extends Controller
         {
             DB::rollBack();
         }
-
         $mascotas = Mascota::all();
         return view('mascotas', compact('mascotas'));
     }
