@@ -81,3 +81,7 @@ Route::post('/facturas/mostrar', [App\Http\Controllers\FacturaController::class,
 Route::post('/facturas/mostrar-todas', [App\Http\Controllers\FacturaController::class, 'index']);
 
 Route::get('/facturas/opciones', [App\Http\Controllers\FacturaController::class, 'opciones']);
+
+// Mascotas
+
+Route::get('/mascotas', [App\Http\Controllers\MascotaController::class, 'index']);
