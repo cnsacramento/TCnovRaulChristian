@@ -29,11 +29,7 @@
 			<form action="IntervencionesServlet" method="post">
 				<input type="submit" name="fechaIntervencion" value="Crear">
 			</form>
-
-		</article>
-
-		<article>
-
+			
 			<h3 class="text-center">Editar intervención</h3>
 
 			<form action="IntervencionesServlet" method="post">
@@ -41,7 +37,7 @@
 				<label for=""> <span>*ID Intervención:</span> <input
 					type="number" name="id" id="id" value="${intervencion.getId()}"
 					required>
-				</label> <label for=""> <span>*Asunto:</span> <input type="text"
+				</label> <label for=""> <span>*Asunto:</span> <input type="text" class="text-end"
 					name="asunto" id="asunto" maxlength="30"
 					value="${intervencion.getAsunto()}" required>
 				</label> <label for=""> <span>*Descripción:</span> <textarea
@@ -58,20 +54,16 @@
 				</div>
 
 				<label for=""> <span>*ID mascota:</span> <input
-					type="number" name="idmascota" id="idmascota"
+					type="number" class="text-end" name="idmascota" id="idmascota"
 					value="${intervencion.getMascota().getId()}">
-				</label> <label for=""> <span>*ID factura:</span> <input type="text"
+				</label> <label for=""> <span>*ID factura:</span> <input type="text" class="text-end"
 					name="factura" id="factura"
 					value="${intervencion.getFactura().getId()}">
 				</label> <label for=""> <span>*Equipo:</span> <input type="text"
 					name="equipo" id="equipo"></label> <input type="submit"
 					name="editar" id="editar" value="Editar">
 			</form>
-
-		</article>
-
-		<article>
-
+			
 			<h3 class="text-center">Eliminar intervención</h3>
 			<form action="IntervencionesServlet" method="post">
 
@@ -107,7 +99,7 @@
 
 			<form action="IntervencionesServlet" method="post">
 
-				<label for=""> <span>*Tipo:</span> <input type="text"
+				<label for=""> <span>*Tipo:</span> <input type="text" class="text-end"
 					name="tipo" id="tipo" maxlength="30" required>
 				</label> <input type="submit" name="btntipo" value="Crear">
 			</form>
@@ -118,7 +110,7 @@
 				<label for=""> <span>*ID Tipo Intervención:</span> <input
 					type="number" name="id" id="id" value="${tipoIntervencion.getId()}"
 					required>
-				</label> <label for=""> <span>*Tipo:</span> <input type="text"
+				</label> <label for=""> <span>*Tipo:</span> <input type="text" class="text-end"
 					name="tipo" id="tipo" maxlength="30" required>
 				</label> <input type="submit" name="btntipo" value="Editar">
 			</form>
@@ -131,12 +123,7 @@
 					required>
 				</label> <input type="submit" name="btntipo" value="Eliminar">
 			</form>
-
-		</article>
-
-
-		<article>
-
+			
 			<h3 class="text-center">Mostrar tipo intervención</h3>
 
 			<form action="IntervencionesServlet" method="post">

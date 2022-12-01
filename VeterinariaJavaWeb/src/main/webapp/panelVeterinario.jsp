@@ -26,7 +26,7 @@
 					
 					<img src="../css/imagenes/cliente.png" alt="">
 					
-					<p>Cliente</p>
+					<p>Clientes</p>
 					
 				</div>
 			</a>
@@ -36,7 +36,7 @@
 					
 					<img src="../css/imagenes/mascota.png" alt="">
 					
-					<p>Mascota</p>
+					<p>Mascotas</p>
 					
 				</div>
 			</a>
@@ -46,7 +46,7 @@
 					
 					<img src="../css/imagenes/intervencion.png" alt="">
 					
-					<p>Intervención</p>
+					<p>Intervenciones</p>
 					
 				</div>
 			</a>
@@ -56,7 +56,7 @@
 					
 					<img src="../css/imagenes/veterinario.png" alt="">
 					
-					<p>Veterinario</p>
+					<p>Veterinarios</p>
 					
 				</div>
 			</a>
@@ -64,9 +64,19 @@
 			<a href="FacturasServlet">
 				<div class="container-panel">
 					
-					<img src="../css/imagenes/factura.svg" alt="">
+					<img src="../css/imagenes/factura.png" alt="">
 					
 					<p>Facturas</p>
+					
+				</div>
+			</a>
+			
+			<a href="ReservasServlet">
+				<div class="container-panel">
+					
+					<img src="../css/imagenes/reserva.png" alt="">
+					
+					<p>Reservas</p>
 					
 				</div>
 			</a>

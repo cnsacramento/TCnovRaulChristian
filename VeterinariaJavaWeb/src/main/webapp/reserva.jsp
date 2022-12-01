@@ -22,182 +22,119 @@
 	</header>
 
 	<div class="crud">
+	
 		<article>
-
-			<h3 class="text-center">Crear reserva</h3>
+		
+		<h3 class="text-center">Editar reserva</h3>
 
 			<form action="ReservasServlet" method="post">
 
-				<label for=""> <span>*Fecha Inicio:</span> <input type="date" 
-					name="fechaInicio" id="fechaInicio" value="${reserva.getFechaInicio()}"></label>
-					<label for=""> 
-					<span>*Fecha Fin:</span> <input type="date" name="fechaFin" id="fechaFin" value="${reserva.getFechaFin()}">
+				<label for=""> <span>*ID:</span> <input class="text-end"
+					type="number" name="id" id="id" value="${reserva.getId()}" required>
 				</label> 
-				
-				<label for=""> <span>ID Intervención:</span> <input type="number"
-					name="idIntervencion" id="idIntervencion" value="${reserva.getIntervencion().getId()}">
-				</label> <label for=""> <span>Restricción día:</span> 
-				<textarea name="tipoRestriccion" id="tiporestriccion">${reserva.getTipoRestriccionDia().getTipo()}</textarea></label>
+				<label for=""> <span>Restricción día:</span> <textarea
+						name="tipoRestriccion" 
+						id="tipoRestriccion" required>${reserva.getTipoRestriccionDia().getTipo()}</textarea></label>
 
-				<input type="submit" name="btnReserva" id="btnReserva" value="Editar">
+				<input type="submit" name="fechaReserva" id="fechaReserva"
+					value="Crear">
 			</form>
 
-		</article>
+			<h3 class="text-center">Buscar reserva</h3>
 
-		<article>
+			<form action="ReservasServlet" method="post">
 
+				<label for=""> <span>*ID:</span> <input class="text-end"
+					type="number" name="id" id="id" value="${reserva.getId()}" required>
+				</label> <input type="submit" name="btnReserva" value="Mostrar">
+
+			</form>
+			
 			<h3 class="text-center">Eliminar reserva</h3>
 			<form action="ReservasServlet" method="post">
 
-				<label for=""> <span>*ID:</span> <input class="text-end" type="number"
-					name="id" id="id" value="${reserva.getId()}" required>
+				<label for=""> <span>*ID:</span> <input class="text-end"
+					type="number" name="id" id="id" value="${reserva.getId()}" required>
 				</label> <input type="submit" name="btnReserva" value="Borrar">
 			</form>
 
-		</article>
-
-		<article>
-
-			<h3 class="text-center">Editar reserva</h3>
-
-			<form action="ReservasServlet" method="post">
-
-				<label for=""> <span>*ID:</span> <input class="text-end" type="number"
-					name="id" id="id" value="${reserva.getId()}" required>
-				</label> <label for=""> <span>*Fecha Inicio:</span> <input type="date"
-					name="fechaInicio" id="fechaInicio" value="${reserva.getFechaInicio()}"></label>
-					<label for=""> 
-					<span>*Fecha Fin:</span> <input type="date" name="fechaFin" id="fechaFin" value="${reserva.getFechaFin()}">
-				</label> 
-				
-				<label for=""> <span>ID Intervención:</span> <input type="number"
-					name="idIntervencion" id="idIntervencion" value="${reserva.getIntervencion().getId()}">
-				</label> <label for=""> <span>Restricción día:</span> 
-				<textarea name="tipoRestriccion" id="tipoRestriccion">${reserva.getTipoRestriccionDia().getTipo()}</textarea></label>
-
-				<input type="submit" name="btnReserva" id="btnReserva" value="Editar">
-			</form>
-
-		</article>
-
-		<article>
-
-			<h3 class="text-center">Buscar reserva</h3>
-
-			<form action="ReservasServlet" method="post">
-
-				<label for=""> <span>*ID:</span> <input class="text-end" type="number"
-					name="id" id="id" value="${reserva.getId()}" required>
-				</label> <input type="submit" name="btnReserva" value="Mostrar">
-
-			</form>
-			
 			<h3 class="text-center">Mostrar listado</h3>
 
 			<form action="ReservasServlet" method="post">
 
-				<input type="submit" name="btnReserva"
-					value="Mostrar todas">
+				<input type="submit" name="btnReserva" value="Mostrar todas">
 
 			</form>
 
 		</article>
-		
-		<article>
 
-			<h3 class="text-center">Buscar reserva</h3>
-
-			<form action="ReservasServlet" method="post">
-
-				<label for=""> <span>*ID:</span> <input class="text-end" type="number"
-					name="id" id="id" value="${reserva.getId()}" required>
-				</label> <input type="submit" name="btnReserva" value="Mostrar">
-
-			</form>
-			
-			<h3 class="text-center">Mostrar listado</h3>
-
-			<form action="ReservasServlet" method="post">
-
-				<input type="submit" name="btnReserva"
-					value="Mostrar todas">
-
-			</form>
-
-		</article>
-		
 		<article>
 
 			<h3 class="text-center">Crear restriccion</h3>
 
 			<form action="ReservasServlet" method="post">
 
-				<label for=""> <span>Tipo:</span> <input type="text"
-					name="tipo" id="tipo"></label>
-				<label for=""> <span>*Hora apertura:</span> <input type="time" step="2"
-					name="horaApertura" id="horaApertura" value="${tipoRestriccionDia.getHoraApertura()}"></label>
-				<label for=""> <span>*Hora cierre:</span> <input type="time" step="2"
-					name="horaCierre" id="horaCierre" value="${tipoRestriccionDia.getHoraCierre()}"></label>				
-				
-				<label for=""> <span>Intervalo tiempo:</span> 
-				<input type="number" name="intervalo" id="intervalo">${tipoRestriccionDia.getIntervaloTiempo()}</label>
+				<label for=""> <span>*Tipo:</span> <input type="text" class="text-end"
+					name="tipo" id="tipo" required></label> <label for=""> <span>*Hora
+						apertura:</span> <input type="time" step="2" name="horaApertura"
+					id="horaApertura" ></label>
+				<label for=""> <span>*Hora cierre:</span> <input type="time"
+					step="2" name="horaCierre" id="horaCierre"
+					></label> <label
+					for=""> <span>Intervalo tiempo:</span> <input type="number"
+					name="intervalo" id="intervalo"></label>
 
-				<input type="submit" name="btnRestriccion" id="btnRestriccion" value="Crear">
+				<input type="submit" name="btnRestriccion" id="btnRestriccion"
+					value="Crear">
 			</form>
-
-		</article>
-		
-		<article>
 
 			<h3 class="text-center">Editar restriccion</h3>
 
 			<form action="ReservasServlet" method="post">
 
-				<label for=""> <span>Tipo:</span> <input type="text"
+				<label for=""> <span>Tipo:</span> <input type="text" class="text-end"
 					name="tipo" id="tipo" value="${tipoRestriccionDia.getTipo()}"></label>
-				<label for=""> <span>*Hora apertura:</span> <input type="time" step="2"
-					name="horaApertura" id="horaApertura" value="${tipoRestriccionDia.getHoraApertura()}"></label>
-				<label for=""> <span>*Hora cierre:</span> <input type="time" step="2"
-					name="horaCierre" id="horaCierre" value="${tipoRestriccionDia.getHoraCierre()}"></label>				
-				
-				<label for=""> <span>Intervalo tiempo:</span> 
-				<input type="number" name="intervalo" id="intervalo" value="${tipoRestriccionDia.getIntervaloTiempo()}"></label>
-
-				<input type="submit" name="btnRestriccion" id="btnRestriccion" value="Editar">
+				<label for=""> <span>*Hora apertura:</span> <input
+					type="time" step="2" name="horaApertura" id="horaApertura"
+					value="${tipoRestriccionDia.getHoraApertura()}"></label> <label
+					for=""> <span>*Hora cierre:</span> <input type="time"
+					step="2" name="horaCierre" id="horaCierre"
+					value="${tipoRestriccionDia.getHoraCierre()}"></label> <label
+					for=""> <span>Intervalo tiempo:</span> <input type="number"
+					name="intervalo" id="intervalo"
+					value="${tipoRestriccionDia.getIntervaloTiempo()}"></label> <input
+					type="submit" name="btnRestriccion" id="btnRestriccion"
+					value="Editar">
 			</form>
-
 		</article>
-		
-		<article>
 
-			<h3 class="text-center">Eliminar restriccion</h3>
-			<form action="ReservasServlet" method="post">
-
-				<label for=""> <span>*ID:</span> <input class="text-end" type="text"
-					name="tipo" id="tipo" value="${tipoRestriccionDia.getTipo()}" required>
-				</label> <input type="submit" name="btnRestriccion" value="Borrar">
-			</form>
-
-		</article>
-		
 		<article>
 
 			<h3 class="text-center">Buscar restricción</h3>
 
 			<form action="ReservasServlet" method="post">
 
-				<label for=""> <span>*Tipo:</span> <input class="text-end" type="text"
-					name="tipo" id="tipo" value="${tipoRestriccionDia.getTipo()}" required>
+				<label for=""> <span>*Tipo:</span> <input class="text-end"
+					type="text" name="tipo" id="tipo"
+					value="${tipoRestriccionDia.getTipo()}" required>
 				</label> <input type="submit" name="btnRestriccion" value="Mostrar">
 
 			</form>
 			
+			<h3 class="text-center">Eliminar restriccion</h3>
+			<form action="ReservasServlet" method="post">
+
+				<label for=""> <span>*ID:</span> <input class="text-end"
+					type="text" name="tipo" id="tipo"
+					value="${tipoRestriccionDia.getTipo()}" required>
+				</label> <input type="submit" name="btnRestriccion" value="Borrar">
+			</form>
+
 			<h3 class="text-center">Mostrar listado</h3>
 
 			<form action="ReservasServlet" method="post">
 
-				<input type="submit" name="btnRestriccion"
-					value="Mostrar todas">
+				<input type="submit" name="btnRestriccion" value="Mostrar todas">
 
 			</form>
 
@@ -230,17 +167,14 @@
 						<td data-label="FECHA FIN">${reserva.getFechaFin()}</td>
 						<td data-label="INTERVENCIÓN">${reserva.getIntervencion().getId()}</td>
 						<td data-label="RESTRICCIÓN DÍA">${reserva.getTipoRestriccionDia().getTipo()}</td>
-						<td>
-							<a href="ReservasServlet?id=${reserva.getId()}">
-								Opciones
-							</a>
-						</td>
+						<td><a href="ReservasServlet?id=${reserva.getId()}">
+								Opciones </a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 
 		</table>
-		
+
 		<table class="table">
 
 			<caption>Tipos de restricciones</caption>
@@ -256,17 +190,16 @@
 			</thead>
 
 			<tbody>
-				<c:forEach var="tipoRestriccionDia" items="${tipoRestriccionDiaList}">
+				<c:forEach var="tipoRestriccionDia"
+					items="${tipoRestriccionDiaList}">
 					<tr>
 						<td data-label="TIPO">${tipoRestriccionDia.getTipo()}</td>
 						<td data-label="HORA APERTURA">${tipoRestriccionDia.getHoraApertura()}</td>
 						<td data-label="HORA CIERRE">${tipoRestriccionDia.getHoraCierre()}</td>
 						<td data-label="INTERVALO DE TIEMPO">${tipoRestriccionDia.getIntervaloTiempo()}</td>
-						<td>
-							<a href="ReservasServlet?restriccion=${tipoRestriccionDia.getTipo()}">
-								Opciones
-							</a>
-						</td>
+						<td><a
+							href="ReservasServlet?restriccion=${tipoRestriccionDia.getTipo()}">
+								Opciones </a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

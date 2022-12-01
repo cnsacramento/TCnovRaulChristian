@@ -133,7 +133,7 @@ public class IntervencionesServlet extends HttpServlet {
 					Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(strFecha);
 					Timestamp fechaApertura = new Timestamp(fecha.getTime() + (8 * 60 * 60 * 1000));
 					request.setAttribute("fechaApertura", fechaApertura);
-					Timestamp fechaCierre = new Timestamp(fecha.getTime() + (16 * 60 * 60 * 1000));
+					Timestamp fechaCierre = new Timestamp(fecha.getTime() + (15 * 60 * 60 * 1000));
 
 					List<Reserva> reservas = reservaRepository.encontrarCitasDeUnDia(fechaApertura, fechaCierre);
 
@@ -146,8 +146,6 @@ public class IntervencionesServlet extends HttpServlet {
 					sesiones.put(12, false);
 					sesiones.put(13, false);
 					sesiones.put(14, false);
-					sesiones.put(15, false);
-					sesiones.put(16, false);
 
 					Calendar calendarInicio = new GregorianCalendar();
 					Calendar calendarFin = new GregorianCalendar();
