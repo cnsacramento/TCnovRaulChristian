@@ -35,7 +35,7 @@ public class Veterinario implements Serializable {
 	private EspecialidadVeterinario especialidadVeterinario;
 
 	//bi-directional many-to-many association to Intervencion
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 		name="equipo_intervencion"
 		, joinColumns={

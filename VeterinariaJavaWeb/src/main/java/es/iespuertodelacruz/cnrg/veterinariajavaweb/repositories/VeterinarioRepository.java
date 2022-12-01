@@ -61,6 +61,7 @@ public class VeterinarioRepository implements ICrud<Veterinario, String> {
 			veterinario.setTelefono(veterinarioOriginal.getTelefono());
 			veterinario.setCuentaVeterinario(veterinarioOriginal.getCuentaVeterinario());
 			veterinario.setEspecialidadVeterinario(veterinarioOriginal.getEspecialidadVeterinario());
+			veterinario.setIntervencions(veterinarioOriginal.getIntervencions());
             
 			entityManager.getTransaction().commit();
 		}catch(Exception ex) {

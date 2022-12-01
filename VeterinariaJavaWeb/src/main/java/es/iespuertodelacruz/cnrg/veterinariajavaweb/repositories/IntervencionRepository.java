@@ -4,6 +4,8 @@ import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Intervencion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import java.util.Arrays;
 import java.util.List;
 
 public class IntervencionRepository implements ICrud<Intervencion, Integer> {
@@ -28,6 +30,11 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
             entityManager.persist(dao);
             dao.getReservas().get(0).setIntervencion(dao);
             entityManager.persist(dao.getReservas().get(0));
+            
+            dao.getVeterinarios().forEach( veterinario -> {
+            	veterinario.getIntervencions().add(dao);
+            	entityManager.merge(veterinario);
+            });
             entityManager.getTransaction().commit();
             return dao;
         } catch(Exception ex) {

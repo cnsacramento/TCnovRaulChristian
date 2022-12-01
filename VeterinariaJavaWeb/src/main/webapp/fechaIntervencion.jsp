@@ -127,8 +127,8 @@
 
 					<form action="IntervencionesServlet" method="post">
 
-						<label for=""> <span>*Fecha:</span> <input type="date"
-							name="fechafactura" id="fecha">
+						<label for=""> <span>*Fecha:</span> <input type="date" min='<%=new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())%>'
+							name="fechafactura" id="fecha" value='<%=new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())%>'>
 						</label> <label for=""> <span>Coste:</span> <input
 							class="text-end" type="number" step="0.01" name="coste"
 							id="coste">
