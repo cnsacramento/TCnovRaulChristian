@@ -303,7 +303,7 @@ public class IntervencionesServlet extends HttpServlet {
 					intervencion.setReservas(reservas);
 					Intervencion intervencionGuardada = intervencionRepository.save(intervencion);
 					
-					reserva.setIntervencion(intervencionGuardada);
+					//reserva.setIntervencion(intervencionGuardada);
 										
 					eliminarDatosSesion(request);
 					cargarTipoIntervencion(request);
@@ -422,9 +422,49 @@ public class IntervencionesServlet extends HttpServlet {
 		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
 				.getAttribute("entityManagerFactory");
 		IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
+		
+		Intervencion intervencion = new Intervencion();
+		
+		intervencion.setId( Integer.parseInt(request.getParameter("id")) );
+		
+		intervencion.setAsunto( request.getParameter("asunto") );
+		intervencion.setDescripcion( request.getParameter("descripcion") );
+		
+		TipoIntervencionRepository tipoIntervencionRepository = 
+				new TipoIntervencionRepository(entityManagerFactory);
+		
+		TipoIntervencion tipoIntervencion = 
+				tipoIntervencionRepository.findById( Integer.parseInt(request.getParameter("tipointervencion")) );
+		
+		intervencion.setTipoIntervencion( tipoIntervencion );
+		
+		
+		MascotaRepository mascotaRepository = new MascotaRepository( entityManagerFactory );
+		Mascota mascota = mascotaRepository.findById( Integer.parseInt(request.getParameter("idmascota")) );
+		intervencion.setMascota( mascota );
+		
+		FacturaRepository facturaRepository = new FacturaRepository( entityManagerFactory );
+		Factura factura = facturaRepository.findById( Integer.parseInt(request.getParameter("factura")) );
+		intervencion.setFactura(factura);
+		
+		
+		
+		VeterinarioRepository veterinarioRepository = new VeterinarioRepository(entityManagerFactory);
+		Veterinario veterinario;
+		String equipo = request.getParameter("equipo");
+		String[] equipoSplit = equipo.split(",");
+		
+		List<Veterinario> veterinarios = new ArrayList<>();
+		for (String strVeterinario : equipoSplit) {
+			veterinario = veterinarioRepository.findById(strVeterinario);
+			veterinarios.add(veterinario);
+		}
+		intervencion.setVeterinarios(veterinarios);
+		
+		
 		cargarTipoIntervencion(request);
 
-		return intervencionRepository.update(null);
+		return intervencionRepository.update(intervencion);
 	}
 
 	private Intervencion mostrarIntervencion(HttpServletRequest request) {

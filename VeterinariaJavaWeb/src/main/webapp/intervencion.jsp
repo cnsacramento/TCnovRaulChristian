@@ -52,7 +52,7 @@
 					<label for=""> <span>*Tipo intervención:</span></label> <select
 						name="tipointervencion">
 						<c:forEach var="tipoIntervencion" items="${tipoIntervencionList}">
-							<option value="${tipoIntervencion.getTipo()}">${tipoIntervencion.getTipo()}</option>
+							<option value="${tipoIntervencion.getId()}">${tipoIntervencion.getTipo()}</option>
 						</c:forEach>
 					</select>
 				</div>
