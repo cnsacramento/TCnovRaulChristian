@@ -63,7 +63,7 @@ public class ReservaRepository implements ICrud<Reserva, Integer> {
 			reserva.setId(reservaOriginal.getId());
 			reserva.setFechaInicio(reservaOriginal.getFechaInicio());
 			reserva.setFechaFin(reservaOriginal.getFechaFin());
-			//reserva.setIntervencion(null);//CAMBIAR CUANDO SE CREE INTERVENCION
+			// reserva.setIntervencion(null);//CAMBIAR CUANDO SE CREE INTERVENCION
 			reserva.setTipoRestriccionDia(reservaOriginal.getTipoRestriccionDia());
 
 			entityManager.getTransaction().commit();
@@ -103,32 +103,27 @@ public class ReservaRepository implements ICrud<Reserva, Integer> {
 	public List<Reserva> findAll() {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		List<Reserva> lista = entityManager.createNamedQuery("Reserva.findAll", Reserva.class)
-				.getResultList();
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		return lista;
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<Reserva> encontrarCitasDeUnDia(Timestamp fechaApertura, Timestamp fechaCierre) {
-		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		
-		String query = "SELECT * FROM reserva"
-				+ " WHERE fecha_inicio"
-				+ " BETWEEN :fechaApertura AND :fechaCierre"
-				+ " ORDER BY fecha_inicio ASC";
-				
-		List<Reserva> lista = entityManager.createNativeQuery(query, Reserva.class)
-				.setParameter("fechaApertura", fechaApertura)
-				.setParameter("fechaCierre", fechaCierre)
-				.getResultList();
+		List<Reserva> lista = entityManager.createNamedQuery("Reserva.findAll", Reserva.class).getResultList();
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		return lista;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Reserva> encontrarCitasDeUnDia(Timestamp fechaApertura, Timestamp fechaCierre) {
+
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+
+		String query = "SELECT * FROM reserva" + " WHERE fecha_inicio" + " BETWEEN :fechaApertura AND :fechaCierre"
+				+ " ORDER BY fecha_inicio ASC";
+
+		List<Reserva> lista = entityManager.createNativeQuery(query, Reserva.class)
+				.setParameter("fechaApertura", fechaApertura).setParameter("fechaCierre", fechaCierre).getResultList();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return lista;
+	}
+
+	
 }

@@ -118,11 +118,7 @@ public class IntervencionesServlet extends HttpServlet {
 
 				try {
 					String fechaSeleccionada = request.getParameter("fecha");
-					
-					System.out.println("//////////////////");
-					System.out.println(fechaSeleccionada);
-					System.out.println("//////////////////");
-					
+									
 					request.getSession().setAttribute("fecha", fechaSeleccionada);
 
 					desbloquear("bloqueoHora", request);
@@ -192,10 +188,7 @@ public class IntervencionesServlet extends HttpServlet {
 				List<Integer> sesionesDisponibles = new ArrayList<>();
 				Iterator<Integer> iterator = sesiones.tailMap(intHora).keySet().iterator();
 				while (iterator.hasNext()) {
-					System.out.println("///////////////////////////////");
 					int key = iterator.next();
-					System.out.println("[" + key + "]" + "=>" + sesiones.get(key));
-					System.out.println("///////////////////////////////");
 					if (sesiones.get(key))
 						break;
 					sesionesDisponibles.add(cantidadSesiones++);
@@ -444,20 +437,6 @@ public class IntervencionesServlet extends HttpServlet {
 		FacturaRepository facturaRepository = new FacturaRepository( entityManagerFactory );
 		Factura factura = facturaRepository.findById( Integer.parseInt(request.getParameter("factura")) );
 		intervencion.setFactura(factura);
-		
-		
-		
-		VeterinarioRepository veterinarioRepository = new VeterinarioRepository(entityManagerFactory);
-		Veterinario veterinario;
-		String equipo = request.getParameter("equipo");
-		String[] equipoSplit = equipo.split(",");
-		
-		List<Veterinario> veterinarios = new ArrayList<>();
-		for (String strVeterinario : equipoSplit) {
-			veterinario = veterinarioRepository.findById(strVeterinario);
-			veterinarios.add(veterinario);
-		}
-		intervencion.setVeterinarios(veterinarios);
 		
 		
 		cargarTipoIntervencion(request);

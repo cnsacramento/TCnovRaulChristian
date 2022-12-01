@@ -59,8 +59,7 @@
 				</label> <label for=""> <span>*ID factura:</span> <input type="text" class="text-end"
 					name="factura" id="factura"
 					value="${intervencion.getFactura().getId()}">
-				</label> <label for=""> <span>*Equipo:</span> <input type="text"
-					name="equipo" id="equipo"></label> <input type="submit"
+				</label> <input type="submit"
 					name="editar" id="editar" value="Editar">
 			</form>
 			

@@ -79,12 +79,7 @@ public class IntervencionRepository implements ICrud<Intervencion, Integer> {
             intervencion.setTipoIntervencion(dao.getTipoIntervencion());
             intervencion.setMascota(dao.getMascota());
             intervencion.setFactura(dao.getFactura());
-            intervencion.setVeterinarios(dao.getVeterinarios());
-            dao.getVeterinarios().forEach( veterinario -> {
-            	veterinario.getIntervencions().add(dao);
-            	entityManager.merge(veterinario);
-            });
-            
+            intervencion.setVeterinarios(dao.getVeterinarios());          
             entityManager.getTransaction().commit();
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
