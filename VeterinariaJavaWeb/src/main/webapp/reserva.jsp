@@ -37,7 +37,7 @@
 						id="tipoRestriccion" required>${reserva.getTipoRestriccionDia().getTipo()}</textarea></label>
 
 				<input type="submit" name="fechaReserva" id="fechaReserva"
-					value="Crear">
+					value="Editar">
 			</form>
 
 			<h3 class="text-center">Buscar reserva</h3>

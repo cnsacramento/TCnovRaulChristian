@@ -63,7 +63,7 @@ public class ReservaRepository implements ICrud<Reserva, Integer> {
 			reserva.setId(reservaOriginal.getId());
 			reserva.setFechaInicio(reservaOriginal.getFechaInicio());
 			reserva.setFechaFin(reservaOriginal.getFechaFin());
-			reserva.setIntervencion(null);//CAMBIAR CUANDO SE CREE INTERVENCION
+			//reserva.setIntervencion(null);//CAMBIAR CUANDO SE CREE INTERVENCION
 			reserva.setTipoRestriccionDia(reservaOriginal.getTipoRestriccionDia());
 
 			entityManager.getTransaction().commit();

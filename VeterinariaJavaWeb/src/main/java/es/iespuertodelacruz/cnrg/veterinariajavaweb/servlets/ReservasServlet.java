@@ -115,18 +115,6 @@ public class ReservasServlet extends HttpServlet {
 			Reserva reserva = null;
 
 			switch (request.getParameter("btnReserva")) {
-			case "Crear":
-				reserva = crearReserva(request);
-				reservasList = Arrays.asList(reserva);
-				request.setAttribute("reservasList", reservasList);
-				request.getRequestDispatcher("reserva.jsp").forward(request, response);
-				break;
-			case "Editar":
-				editarReserva(request);
-				reservasList = reservaRepository.findAll();
-				request.setAttribute("reservasList", reservasList);
-				request.getRequestDispatcher("reserva.jsp").forward(request, response);
-				break;
 			case "Borrar":
 				eliminarReserva(request);
 				reservasList = reservaRepository.findAll();
@@ -153,9 +141,11 @@ public class ReservasServlet extends HttpServlet {
 
 			switch (request.getParameter("fechaReserva")) {
 
-			case "Crear":
+			case "Editar":
 
 				desbloquear("bloqueoFecha", request);
+				request.getSession().setAttribute( "id", request.getParameter("id") );
+				request.getSession().setAttribute( "tipoRestriccion", request.getParameter("tipoRestriccion") );
 				request.getRequestDispatcher("fechaReserva.jsp").forward(request, response);
 				break;
 
@@ -246,14 +236,44 @@ public class ReservasServlet extends HttpServlet {
 				break;
 
 			case "Escoger sesiones":
-				String numeroSesiones = request.getParameter("numeroSesiones");
-				request.getSession().setAttribute("numeroSesiones", numeroSesiones);
-				desbloquear("bloqueoDatos", request);
+				
+				try {
+					String numeroSesiones = request.getParameter("numeroSesiones");
+					
+					TipoRestriccionDiaRepository tipoReservaRepository = new TipoRestriccionDiaRepository(entityManagerFactory);
+					TipoRestriccionDia tipoRestriccionDia = tipoReservaRepository.findById("laboral");
+					
+					reservaRepository = new ReservaRepository(entityManagerFactory);
+					Reserva reserva = new Reserva();		
+					String fecha = (String)request.getSession().getAttribute("fecha");
+					String strHora = (String)request.getSession().getAttribute("hora");					
+					String strFechaInicio = fecha + " " + strHora; 
+					Date fechaInicio = new SimpleDateFormat("yyyy-MM-dd HH").parse(strFechaInicio);
+					String strNumeroSesiones = request.getParameter("numeroSesiones");
+					
+					System.out.println("//////////////////");
+					System.out.println("Fecha -> " + fecha);
+					System.out.println("strHora -> " + strHora);
+					System.out.println("numeroSessiones -> " + strNumeroSesiones);
+					System.out.println("//////////////////");
+					int horaFin = Integer.parseInt(strHora) + Integer.parseInt(strNumeroSesiones);
+					String strFechaFin = fecha + " " + horaFin;
+					Date fechaFin = new SimpleDateFormat("yyyy-MM-dd HH").parse(strFechaFin);
+					
+					reserva.setId( Integer.parseInt( (String)request.getSession().getAttribute("id") ));
+					reserva.setTipoRestriccionDia(tipoRestriccionDia);
+					reserva.setFechaInicio(new Timestamp(fechaInicio.getTime()));
+					reserva.setFechaFin( new Timestamp( fechaFin.getTime() ) );
+					reserva.setTipoRestriccionDia(tipoRestriccionDia);
+					
+					reservaRepository.update(reserva);
+					
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				}
 				
 				
-				
-				reservaRepository.findById(null);
-				
+								
 				List<Reserva> reservasList = reservaRepository.findAll();
 				request.setAttribute("reservasList", reservasList);
 				request.getRequestDispatcher("reserva.jsp").forward(request, response);
@@ -305,79 +325,6 @@ public class ReservasServlet extends HttpServlet {
 			}
 		}
 
-	}
-
-	private Reserva crearReserva(HttpServletRequest request) {
-
-		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
-				.getAttribute("entityManagerFactory");
-		ReservaRepository reservaRepository = new ReservaRepository(entityManagerFactory);
-
-		try {
-			Reserva reserva = new Reserva();
-
-			String strFechaInicio = request.getParameter("fechaInicio");
-			Date fechaInicio = new SimpleDateFormat("yyyy-mm-dd").parse(strFechaInicio);
-			String strFechaFin = request.getParameter("fechaFin");
-			Date fechaFin = new SimpleDateFormat("yyyy-mm-dd").parse(strFechaFin);
-
-			reserva.setFechaInicio(new Timestamp(fechaInicio.getTime()));
-			reserva.setFechaFin(new Timestamp(fechaFin.getTime()));
-
-			IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
-			Intervencion intervencion = intervencionRepository
-					.findById(Integer.parseInt(request.getParameter("idIntervencion")));
-
-			reserva.setIntervencion(intervencion);
-
-			TipoRestriccionDiaRepository tipoRestriccionDiaRepository = new TipoRestriccionDiaRepository(
-					entityManagerFactory);
-			TipoRestriccionDia tipoRestriccionDia = tipoRestriccionDiaRepository.findById("tipoRestriccion");
-			reserva.setTipoRestriccionDia(tipoRestriccionDia);
-
-			return reservaRepository.save(reserva);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return null;
-	}
-
-	private boolean editarReserva(HttpServletRequest request) {
-
-		EntityManagerFactory entityManagerFactory = (EntityManagerFactory) request.getServletContext()
-				.getAttribute("entityManagerFactory");
-		ReservaRepository reservaRepository = new ReservaRepository(entityManagerFactory);
-
-		try {
-			Reserva reserva = new Reserva();
-
-			reserva.setId(Integer.parseInt("id"));
-			String strFechaInicio = request.getParameter("fechaInicio");
-			Date fechaInicio = new SimpleDateFormat("yyyy-MM-dd").parse(strFechaInicio);
-			String strFechaFin = request.getParameter("fechaFin");
-			Date fechaFin = new SimpleDateFormat("yyyy-MM-dd").parse(strFechaFin);
-
-			reserva.setFechaInicio(new Timestamp(fechaInicio.getTime()));
-			reserva.setFechaFin(new Timestamp(fechaFin.getTime()));
-
-			IntervencionRepository intervencionRepository = new IntervencionRepository(entityManagerFactory);
-			Intervencion intervencion = intervencionRepository
-					.findById(Integer.parseInt(request.getParameter("idIntervencion")));
-
-			reserva.setIntervencion(intervencion);
-
-			TipoRestriccionDiaRepository tipoRestriccionDiaRepository = new TipoRestriccionDiaRepository(
-					entityManagerFactory);
-			TipoRestriccionDia tipoRestriccionDia = tipoRestriccionDiaRepository.findById("tipoRestriccion");
-			reserva.setTipoRestriccionDia(tipoRestriccionDia);
-
-			return reservaRepository.update(reserva);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return false;
 	}
 
 	private boolean eliminarReserva(HttpServletRequest request) {
@@ -512,6 +459,15 @@ public class ReservasServlet extends HttpServlet {
 			request.setAttribute("bloqueoSesiones", false);
 			break;
 		}
-
+	}
+	
+	public void eliminarDatosSesion(HttpServletRequest request) {
+		
+		request.getSession().removeAttribute("id");
+		request.getSession().removeAttribute("tipoRestriccion");
+		request.getSession().removeAttribute("sesiones");
+		request.getSession().removeAttribute("fecha");
+		request.getSession().removeAttribute("hora");
+		
 	}
 }
