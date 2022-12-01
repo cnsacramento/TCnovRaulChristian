@@ -97,4 +97,20 @@ Route::post('/mascotas/edit', [App\Http\Controllers\MascotaController::class, 'u
 Route::post('/mascotas/find', [App\Http\Controllers\MascotaController::class, 'find']);
 
 
+//Cliente-mascotas
+
+Route::post('cliente/mascotas/save', [App\Http\Controllers\MascotaController::class, 'save']);
+
+Route::get('cliente/mascotas', [App\Http\Controllers\MascotaController::class, 'indexCrearMascotas']);
+
+Route::post('/mascotas/findEspecie', [App\Http\Controllers\MascotaController::class, 'findEspecie']);
+
+Route::post('/cliente/especies/save', [App\Http\Controllers\MascotaController::class, 'saveEspecieMascota']);
+
+Route::get('/cliente/especies/delete', [App\Http\Controllers\MascotaController::class, 'deleteEspecieMascota']);
+
+
+
+
+
 

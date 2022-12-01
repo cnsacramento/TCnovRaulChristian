@@ -4,18 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Mascota;
+use App\Models\EspecieMascota;
 use Doctrine\DBAL\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class MascotaController extends Controller
 {
-
     public function index(){
         $mascotas = Mascota::all();
         return view('mascotas', compact('mascotas'));
     }
 
+    public function indexCrearMascotas(){
+        $especies = EspecieMascota::all();
+        session()->put("clienteDni", $_GET['clienteDni']);
+        return view('crearMascota', compact('especies'));
+    }
+
+    public function saveEspecieMascota(Request $request){
+
+        $especie = new EspecieMascota();
+        $especie->nombre = $request->nombre;
+        if($request->peligrosa == 1){
+            $especie->peligrosa = true;
+        }else{
+            $especie->peligrosa = false;
+        }
+        $especie->save();
+
+        $especies = EspecieMascota::all();
+        return view('crearMascota', compact('especies'));
+    }
+
+    public function deleteEspecieMascota(Request $request){
+        $id=$request->especieId;
+        $especie = EspecieMascota::find($id);
+
+        if($especie != null){
+            try{
+                $especie->delete();
+            }catch(Exception $ex){}
+        }
+        $especies = EspecieMascota::all();
+        return view('crearMascota', compact('especies'));
+    }
 
     public function save(Request $request) {
 

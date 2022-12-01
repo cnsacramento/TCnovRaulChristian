@@ -91,9 +91,9 @@
 								<td data-label="DNI Dueño">{{$mascota->cliente->dni}}</td>
 								<td data-label="Opciones">
 									<div class="imagenes">
-										<a href="/mascotas/edit?id={{ $mascota->id }}" id="btnOpciones"><img alt="e" src="css/images/edit.svg"></a>
-										<a href="/mascotas/delete?id={{$mascota->id}}" id="btnOpciones"><img alt="d" src="css/images/delete.svg"></a>
-										<a href="/mascotas/intevencion?id={{$mascota->id}}" id="btnOpciones"><img alt="i" src="css/images/intervencion.svg"></a>
+										<a href="/mascotas/edit?id={{ $mascota->id }}" id="btnOpciones"><img alt="e" src="images/edit.svg"></a>
+										<a href="/mascotas/delete?id={{$mascota->id}}" id="btnOpciones"><img alt="d" src="images/delete.svg"></a>
+										<a href="/mascotas/intevencion?id={{$mascota->id}}" id="btnOpciones"><img alt="i" src="images/intervencion.svg"></a>
 									</div>
 								</td>
 		                	</tr>
