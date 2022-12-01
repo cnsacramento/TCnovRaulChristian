@@ -151,8 +151,9 @@
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Fecha Inicio</th>
-					<th>Fecha Fin</th>
+					<th>Fecha</th>
+					<th>Hora Inicio</th>
+					<th>Hora Fin</th>
 					<th>Id intervención</th>
 					<th>Id restricción día</th>
 					<th></th>
@@ -163,8 +164,9 @@
 				<c:forEach var="reserva" items="${reservasList}">
 					<tr>
 						<td data-label="ID">${reserva.getId()}</td>
-						<td data-label="FECHA INICIO">${reserva.getFechaInicio()}</td>
-						<td data-label="FECHA FIN">${reserva.getFechaFin()}</td>
+						<td data-label="FECHA">${reserva.getFechaInicio().toString().split(" ")[0]}</td>
+						<td data-label="HORA INICIO">${reserva.getFechaInicio().toString().split(" ")[1]}</td>
+						<td data-label="HORA FIN">${reserva.getFechaFin().toString().split(" ")[1]}</td>
 						<td data-label="INTERVENCIÓN">${reserva.getIntervencion().getId()}</td>
 						<td data-label="RESTRICCIÓN DÍA">${reserva.getTipoRestriccionDia().getTipo()}</td>
 						<td><a href="ReservasServlet?id=${reserva.getId()}">
