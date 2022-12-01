@@ -4,19 +4,20 @@
 <meta charset="UTF-8">
 <meta name = "viewport" content="width=device-width, initial-scale=1.0">
 <title>Mascotas</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/general.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/mascotas.css'>
 
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/general.css') }}">
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/mascotas.css')}}">
 </head>
 <body>	
 	<header>
 	  	<nav>
-            <a href="panelVeterinario.jsp" class="nav-link">Volver</a>
+		  <a href="/" class="nav-link">Volver</a>
         </nav>
 	</header>
 	
 	<div class ="container">
-		<form action="mascotasServlet" method="POST">
+		<form action="/mascotas/find" method="POST">
+			@csrf
 			<label for ="idMascota"> </label> 
 			<input class="controls" type="text" name="idMascota" value="" placeholder="ID"> 
 			<input class="buttons" type="submit" name="boton" value="Buscar">
@@ -25,25 +26,27 @@
 	<div class ="contenedor">
 		<div class = "formularios">
 			@if(!empty($mascota))
-		    	<form action="mascotasServlet" method="POST">
+		    	<form action="/mascotas/edit" method="POST">
+					@csrf
 		    		<label for ="nombre">ID: </label> 
-					<input class="controls" type="text" name="id" value="${{mascota->id}}" placeholder="ID" readonly="readonly"> 
+					<input class="controls" type="text" name="id" value="{{$mascota->id}}" placeholder="ID" readonly="readonly"> 
 					<label for ="nombre">Nombre: </label> 
-					<input class="controls" type="text" name="nombre" value="${{mascota->nombre}}" placeholder="Nombre" required="required"> 
+					<input class="controls" type="text" name="nombre" value="{{$mascota->nombre}}" placeholder="Nombre" required="required"> 
 					<label for ="fechaNacimiento">Fecha nacimiento: </label> 
-					<input class="controls" type="date" name="fechaNacimiento" value="${{fechaNacimiento}}" placeholder="Fecha_Nacimiento" required="required"> 
+					<input class="controls" type="date" name="fechaNacimiento" value="{{$mascota->fecha_nacimiento}}" placeholder="Fecha_Nacimiento" required="required"> 
 					<label for ="nombreMascota">Peso: </label> 
-					<input class="controls" type="text" name="peso" value="${{mascota->peso}}" placeholder="Peso" required="required"> 
+					<input class="controls" type="text" name="peso" value="{{$mascota->peso}}" placeholder="Peso" required="required"> 
 					<label for ="especie"> Especie: </label> 
-					<input class="controls" type="text" name="especie" value="${{mascota->especieMascota->getId}}" placeholder="ID_ESPECIE" required="required"> 
+					<input class="controls" type="text" name="especie" value="{{$mascota->id_especie}}" placeholder="ID_ESPECIE" required="required"> 
 					<label for ="cliente"> Cliente: </label>
-					<input class="controls" type="text" name="cliente" value="${{mascota->cliente->dni}}" placeholder="DNI_CLIENTE" required="required"> 
+					<input class="controls" type="text" name="dni" value="{{$mascota->cliente->dni}}" placeholder="DNI_CLIENTE" required="required"> 
 					<input class="buttons" type="submit" name="boton" value="Editar">
 				</form><br>
 		    @endif
 
 			@if(empty($mascota))
-		    	<form action="mascotasServlet" method="POST">
+		    	<form action="/mascotas/edit" method="POST">
+				@csrf
 				<label for ="nombre">ID: </label> 
 					<input class="controls" type="text" name="id" value="" placeholder="ID" readonly="readonly"> 
 					<label for ="nombre">Nombre: </label> 
@@ -88,9 +91,9 @@
 								<td data-label="DNI Dueño">{{$mascota->cliente->dni}}</td>
 								<td data-label="Opciones">
 									<div class="imagenes">
-										<a href="MascotasServlet?metodo=edit&id={{$mascota->id}}" id="btnOpciones"><img alt="editMascota" src="css/images/edit.svg"></a>
-										<a href="MascotasServlet?metodo=delete&id={{$mascota->id}}" id="btnOpciones"><img alt="deleteMascota" src="css/images/delete.svg"></a>
-										<a href="MascotasServlet?metodo=intervencion&id={{$mascota->id}}" id="btnOpciones"><img alt="Intervencion" src="css/images/intervencion.svg"></a>
+										<a href="/mascotas/edit?id={{ $mascota->id }}" id="btnOpciones"><img alt="e" src="css/images/edit.svg"></a>
+										<a href="/mascotas/delete?id={{$mascota->id}}" id="btnOpciones"><img alt="d" src="css/images/delete.svg"></a>
+										<a href="/mascotas/intevencion?id={{$mascota->id}}" id="btnOpciones"><img alt="i" src="css/images/intervencion.svg"></a>
 									</div>
 								</td>
 		                	</tr>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facturas</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='{{ asset('css/general.css') }}'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/general.css') }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/crud.css') }}">
     <meta name="description" content="Métodos para realizar el CRUD sobre facturas">
 </head>

@@ -29,7 +29,7 @@
             </div>
         </a>
 
-        <a href="MascotasServlet">
+        <a href="mascotas">
             <div class="container-panel">
 
                 <img src="images/mascota.png" alt="">

@@ -87,3 +87,14 @@ Route::get('/facturas/opciones', [App\Http\Controllers\FacturaController::class,
 Route::get('/mascotas', [App\Http\Controllers\MascotaController::class, 'index']);
 
 Route::post('/mascotas/save', [App\Http\Controllers\MascotaController::class, 'save']);
+
+Route::get('/mascotas/delete', [App\Http\Controllers\MascotaController::class, 'delete']);
+
+Route::get('/mascotas/edit', [App\Http\Controllers\MascotaController::class, 'rellenarEdit']);
+
+Route::post('/mascotas/edit', [App\Http\Controllers\MascotaController::class, 'update']);
+
+Route::post('/mascotas/find', [App\Http\Controllers\MascotaController::class, 'find']);
+
+
+

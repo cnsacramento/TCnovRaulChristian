@@ -24,16 +24,16 @@ class MascotaController extends Controller
             DB::beginTransaction();
             $mascota = new Mascota();
             $mascota->nombre = $request->nombre;
-            $mascota->fechaNacimiento = $request->fechaNacimiento;
+            $mascota->fecha_nacimiento = $request->fechaNacimiento;
             $mascota->peso = $request->peso;
 
             $cliente = Cliente::find($request->dniCliente);
 
             $mascota->cliente()->associate($request->cliente);
-            $mascota->especieMascotum()->associate($request->especie);
+            $mascota->especieMascota()->associate($request->especie);
             $mascota->save();
 
-            $cliente->refresh();
+            $mascota->refresh();
             DB::commit();
         }
         catch (Exception $e)
@@ -46,14 +46,18 @@ class MascotaController extends Controller
 
     public function delete(Request $request){
         $id=$request->id;
-        $mascota = Mascotas::find($id);
+        $mascota = Mascota::find($id);
 
         if($mascota != null){
-            $mascota->delete();
+            try{
+                $mascota->delete();
+            }catch(Exception $ex){}
         }
+        $mascotas = Mascota::all();
+        return view('mascotas', compact('mascotas'));
     }
 
-    public function update(){
+    public function update(Request $request){
 
         $id = $request->id;
         $mascota = Mascota::find($id);
@@ -61,13 +65,12 @@ class MascotaController extends Controller
         if($mascota != null){
 
             $mascota->nombre = $request->nombre;
-            $mascota->fechaNacimiento = $request->fechaNacimiento;
+            $mascota->fecha_nacimiento = $request->fechaNacimiento;
             $mascota->peso = $request->peso;
 
-            $cliente = Cliente::find($request->dniCliente);
-            $especie = EspecieMascota::find($request->especie);
+            $cliente = Cliente::find($request->dni);
             $mascota->cliente()->associate($cliente);
-            $mascota->especie()->associate($especie);
+            $mascota->especieMascota()->associate($request->especie);
 
             $mascota->update();
 
@@ -78,6 +81,29 @@ class MascotaController extends Controller
             return view('mascotas');
         }
 
+    }
+
+    public function rellenarEdit(Request $request){
+        $id=$request->id;
+        $mascota = Mascota::find($id);
+
+        $mascotas = Mascota::all();
+        return view('mascotas', compact('mascotas', 'mascota'));
+    }
+
+
+    public function find(Request $request){
+
+        $mascota = Mascota::find($request->idMascota);
+
+        if($mascota != null){
+            $mascotas = collect([$mascota]);
+            return view('mascotas', compact('mascotas'));
+        }else{
+
+            $mascotas = Mascota::all();
+            return view('mascotas', compact('mascotas'));
+        }
     }
 
 }
