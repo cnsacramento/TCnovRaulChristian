@@ -19,7 +19,20 @@ class MascotaController extends Controller
     public function indexCrearMascotas(){
         $especies = EspecieMascota::all();
         session()->put("clienteDni", $_GET['clienteDni']);
-        return view('crearMascota', compact('especies'));
+        $mascotas = Mascota::where('dni_cliente', session()->get("clienteDni"))->get();
+        return view('crearMascota', compact('especies', 'mascotas'));
+    }
+
+    public function findEspecie(Request $request){
+        $especie = $request->nombreEspecie;
+        if(!Empty($especie)){
+            $especies = EspecieMascota::where('nombre', "like", "%$especie%")->get();
+        }else{
+            $especies = EspecieMascota::all();
+        }
+
+        $mascotas = Mascota::where('dni_cliente', session()->get("clienteDni"))->get();
+        return view('crearMascota', compact('especies', 'mascotas'));
     }
 
     public function saveEspecieMascota(Request $request){
@@ -33,12 +46,13 @@ class MascotaController extends Controller
         }
         $especie->save();
 
+        $mascotas = Mascota::where('dni_cliente', session()->get("clienteDni"))->get();
         $especies = EspecieMascota::all();
-        return view('crearMascota', compact('especies'));
+        return view('crearMascota', compact('especies', 'mascotas'));
     }
 
     public function deleteEspecieMascota(Request $request){
-        $id=$request->especieId;
+        $id=$request->especieIdDelete;
         $especie = EspecieMascota::find($id);
 
         if($especie != null){
@@ -46,8 +60,39 @@ class MascotaController extends Controller
                 $especie->delete();
             }catch(Exception $ex){}
         }
+        $mascotas = Mascota::where('dni_cliente', session()->get("clienteDni"))->get();
         $especies = EspecieMascota::all();
-        return view('crearMascota', compact('especies'));
+        return view('crearMascota', compact('especies', 'mascotas'));
+    }
+
+    public function editRellenarCampos(Request $request){
+        $id=$request->especieIdEdit;
+        $especie = EspecieMascota::find($id);
+
+        $mascotas = Mascota::where('dni_cliente', session()->get("clienteDni"))->get();
+        $especies = EspecieMascota::all();
+        return view('crearMascota', compact('especies', 'mascotas', 'especie'));
+    }
+    
+    public function editEspecieMascota(Request $request){
+        $id = $request->especieIdEdit;
+        $especie = EspecieMascota::find($id);
+
+        if($especie != null){
+
+            $especie->nombre = $request->nombre;
+            if($request->peligrosa == 1){
+                $especie->peligrosa = true;
+            }else{
+                $especie->peligrosa = false;
+            }
+
+            $especie->update();
+        }
+
+        $mascotas = Mascota::where('dni_cliente', session()->get("clienteDni"))->get();
+        $especies = EspecieMascota::all();
+        return view('crearMascota', compact('especies', 'mascotas'));
     }
 
     public function save(Request $request) {
@@ -61,9 +106,9 @@ class MascotaController extends Controller
             $mascota->peso = $request->peso;
 
             $cliente = Cliente::find($request->dniCliente);
-
+            $especie = EspecieMascota::find($request->especie);
             $mascota->cliente()->associate($request->cliente);
-            $mascota->especieMascota()->associate($request->especie);
+            $mascota->especieMascota()->associate($especie);
             $mascota->save();
 
             $mascota->refresh();
@@ -75,6 +120,20 @@ class MascotaController extends Controller
         }
         $mascotas = Mascota::all();
         return view('mascotas', compact('mascotas'));
+    }
+
+    public function deleteMascotaByCliente(Request $request){
+        $id=$request->id;
+        $mascota = Mascota::find($id);
+
+        if($mascota != null){
+            try{
+                $mascota->delete();
+            }catch(Exception $ex){}
+        }
+        $mascotas = Mascota::where('dni_cliente', session()->get("clienteDni"))->get();
+        $especies = EspecieMascota::all();
+        return view('crearMascota', compact('especies', 'mascotas'));
     }
 
     public function delete(Request $request){
@@ -89,6 +148,8 @@ class MascotaController extends Controller
         $mascotas = Mascota::all();
         return view('mascotas', compact('mascotas'));
     }
+
+    
 
     public function update(Request $request){
 

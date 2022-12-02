@@ -33,7 +33,7 @@
 					<label for ="nombre">Nombre: </label> 
 					<input class="controls" type="text" name="nombre" value="{{$mascota->nombre}}" placeholder="Nombre" required="required"> 
 					<label for ="fechaNacimiento">Fecha nacimiento: </label> 
-					<input class="controls" type="date" name="fechaNacimiento" value="{{$mascota->fecha_nacimiento}}" placeholder="Fecha_Nacimiento" required="required"> 
+					<input class="controls" type="date" name="fechaNacimiento" value="{{explode(' ', $mascota->fecha_nacimiento)[0]}}" placeholder="Fecha_Nacimiento" required="required"> 
 					<label for ="nombreMascota">Peso: </label> 
 					<input class="controls" type="text" name="peso" value="{{$mascota->peso}}" placeholder="Peso" required="required"> 
 					<label for ="especie"> Especie: </label> 
@@ -85,15 +85,15 @@
 							<tr>
 			                    <td data-label="ID">{{$mascota->id}}</td>
 			                    <td data-label="Nombre">{{$mascota->nombre}}</td>
-			                    <td data-label="Nacimiento">{{$mascota->fecha_nacimiento}}</td>
+			                    <td data-label="Nacimiento">{{explode(" ", $mascota->fecha_nacimiento)[0]}}</td>
 			                    <td data-label="Peso">{{$mascota->peso}}</td>
-			                    <td data-label="Especie">{{$mascota->id_especie}}</td>
+			                    <td data-label="Especie">{{$mascota->especieMascota->nombre}}</td>
 								<td data-label="DNI Dueño">{{$mascota->cliente->dni}}</td>
 								<td data-label="Opciones">
 									<div class="imagenes">
-										<a href="/mascotas/edit?id={{ $mascota->id }}" id="btnOpciones"><img alt="e" src="images/edit.svg"></a>
-										<a href="/mascotas/delete?id={{$mascota->id}}" id="btnOpciones"><img alt="d" src="images/delete.svg"></a>
-										<a href="/mascotas/intevencion?id={{$mascota->id}}" id="btnOpciones"><img alt="i" src="images/intervencion.svg"></a>
+										<a href="/mascotas/edit?id={{ $mascota->id }}" id="btnOpciones"><img alt="e" src="{{asset('images/edit.svg') }}"></a>
+										<a href="/mascotas/delete?id={{$mascota->id}}" id="btnOpciones"><img alt="d" src="{{asset('images/delete.svg')}}"></a>
+										<a href="/mascotas/intevencion?id={{$mascota->id}}" id="btnOpciones"><img alt="i" src="{{asset('images/intervencion.svg')}}"></a>
 									</div>
 								</td>
 		                	</tr>

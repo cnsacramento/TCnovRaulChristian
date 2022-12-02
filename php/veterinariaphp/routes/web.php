@@ -99,15 +99,22 @@ Route::post('/mascotas/find', [App\Http\Controllers\MascotaController::class, 'f
 
 //Cliente-mascotas
 
-Route::post('cliente/mascotas/save', [App\Http\Controllers\MascotaController::class, 'save']);
+Route::post('/cliente/mascotas/save', [App\Http\Controllers\MascotaController::class, 'save']);
 
-Route::get('cliente/mascotas', [App\Http\Controllers\MascotaController::class, 'indexCrearMascotas']);
+Route::get('/cliente/mascotas', [App\Http\Controllers\MascotaController::class, 'indexCrearMascotas']);
 
 Route::post('/mascotas/findEspecie', [App\Http\Controllers\MascotaController::class, 'findEspecie']);
 
-Route::post('/cliente/especies/save', [App\Http\Controllers\MascotaController::class, 'saveEspecieMascota']);
+Route::post('/especies/save', [App\Http\Controllers\MascotaController::class, 'saveEspecieMascota']);
 
 Route::get('/cliente/especies/delete', [App\Http\Controllers\MascotaController::class, 'deleteEspecieMascota']);
+
+Route::get('/cliente/especies/edit', [App\Http\Controllers\MascotaController::class, 'editRellenarCampos']);
+
+Route::post('/cliente/especies/edit', [App\Http\Controllers\MascotaController::class, 'editEspecieMascota']);
+
+Route::get('/clientes/mascotas/delete', [App\Http\Controllers\MascotaController::class, 'deleteMascotaByCliente']);
+
 
 
 
