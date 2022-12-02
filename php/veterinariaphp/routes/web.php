@@ -48,6 +48,8 @@ Route::get('/clientes/opciones', [App\Http\Controllers\ClientesController::class
 
 Route::get('/intervenciones', [App\Http\Controllers\IntervencionController::class, 'index']);
 
+Route::post('/intervenciones/crear', [App\Http\Controllers\IntervencionController::class, 'crear']);
+
 Route::post('/intervenciones/mostrar-intervenciones', [App\Http\Controllers\IntervencionController::class, 'index']);
 
 Route::get('/intervenciones/opciones', [App\Http\Controllers\IntervencionController::class, 'opciones']);

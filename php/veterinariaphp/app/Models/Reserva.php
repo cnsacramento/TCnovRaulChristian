@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Reserva extends Model
 {
+
+    public $timestamps = false;
     /**
      * The table associated with the model.
      *
@@ -42,4 +44,6 @@ class Reserva extends Model
     {
         return $this->belongsTo('App\Models\TipoRestriccionDia', 'id_restriccion_dia', 'tipo');
     }
+
+
 }

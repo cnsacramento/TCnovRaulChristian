@@ -23,34 +23,10 @@
 
             <h3 class="text-center">Crear intervención</h3>
 
-            <form action="/intervencion/crear" method="post">
+            <form action="/intervenciones/crear" method="post">
                 @csrf
-                <label for=""> <span>*Asunto:</span> <input type="text" name="asunto" id="asunto"
-                        maxlength="30" required>
-                </label> <label for=""> <span>*Descripción:</span>
-                    <textarea name="descripcion" id="descripcion" required></textarea>
-                </label>
-
-                <div class="selectform">
-                    <label for=""> <span>*Tipo intervención:</span></label> <select name="tipointervencion">
-                        @foreach($tiposIntervenciones as $tipoIntervencion)
-                            <option value="{{ $tipoIntervencion->tipo }}">{{ $tipoIntervencion->tipo }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <label for=""> <span>*ID mascota:</span> <input type="number" name="idmascota" id="idmascota">
-                </label> <label for=""> <span>*ID factura:</span> <input type="number" name="factura"
-                        id="factura">
-                </label> <label for=""> <span>*Equipo:</span> <input type="text" name="equipo"
-                        id="equipo" required>
-
-                </label> <input type="submit" name="crear" value="Continuar">
+                <input type="submit" name="fechaIntervencion" value="Crear">
             </form>
-
-        </article>
-
-        <article>
 
             <h3 class="text-center">Editar intervención</h3>
 
@@ -76,16 +52,12 @@
                 </div>
 
                 <label for=""> <span>*ID mascota:</span> <input type="number" name="idmascota" id="idmascota"
-                        value="@if(isset($intervencion)) {{ $intervencion->id_mascota }}@endif">
+                        value="@if(isset($intervencion)){{ $intervencion->id_mascota }}@endif">
                 </label> <label for=""> <span>*ID factura:</span> <input type="text" name="factura"
-                        id="factura" value="@if(isset($intervencion)) {{ $intervencion->id_factura }}@endif">
-                </label> <label for=""> <span>*Equipo:</span> <input type="text" name="equipo"
-                        id="equipo"></label> <input type="submit" name="editar" id="editar" value="Editar">
+                        id="factura" value="@if(isset($intervencion)){{ $intervencion->id_factura }}@endif">
+                </label>
+                 <input type="submit" name="editar" id="editar" value="Editar">
             </form>
-
-        </article>
-
-        <article>
 
             <h3 class="text-center">Eliminar intervención</h3>
             <form action="/intervenciones/eliminar" method="post">
@@ -146,11 +118,6 @@
                         required>
                 </label> <input type="submit" name="btntipo" value="Eliminar">
             </form>
-
-        </article>
-
-
-        <article>
 
             <h3 class="text-center">Mostrar tipo intervención</h3>
 

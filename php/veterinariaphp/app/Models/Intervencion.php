@@ -70,6 +70,6 @@ class Intervencion extends Model
      */
     public function reservas()
     {
-        return $this->hasMany('App\Models\Reserva', 'id_intervencion');
+        return $this->hasMany('App\Models\Reserva', 'id_intervencion', 'id');
     }
 }
