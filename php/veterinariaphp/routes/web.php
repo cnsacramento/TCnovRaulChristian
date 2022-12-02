@@ -96,7 +96,6 @@ Route::post('/mascotas/edit', [App\Http\Controllers\MascotaController::class, 'u
 
 Route::post('/mascotas/find', [App\Http\Controllers\MascotaController::class, 'find']);
 
-
 //Cliente-mascotas
 
 Route::post('/cliente/mascotas/save', [App\Http\Controllers\MascotaController::class, 'save']);
@@ -141,4 +140,12 @@ Route::get('/veterinario/borrarVeterinario', [App\Http\Controllers\VeterinarioCo
 
 Route::post('/veterinario/findByName', [App\Http\Controllers\VeterinarioController::class, 'findByNombre']);
 
+// LOGIN
 
+Route::get('/index', function () {
+    return view('index');
+});
+
+Route::post('/login', [App\Http\Controllers\LoginController::class, 'login']);
+
+Route::get('/login/cerrarSesion', [App\Http\Controllers\LoginController::class, 'cerrarSesion']);

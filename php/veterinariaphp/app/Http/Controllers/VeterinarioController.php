@@ -109,7 +109,7 @@ class VeterinarioController extends Controller
                 DB::beginTransaction();
                 $cuenta = new CuentaVeterinario();
                 $cuenta->correo = $request->correo;
-                $cuenta->contrasenia = $request->contrasenia;
+                $cuenta->contrasenia = password_hash($request->contrasenia, PASSWORD_BCRYPT);
                 $cuenta->save();
 
                 $veterinario = new Veterinario();
