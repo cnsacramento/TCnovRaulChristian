@@ -138,7 +138,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="mascotas?metodo=save&clienteDni={{ $cliente->dni }}&especieId=">
+                                <a href="/cliente/mascotas?clienteDni={{ $cliente->dni }}&especieId=">
                                     Mascotas
                                 </a>
                             </td>

@@ -17,6 +17,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Mascota extends Model
 {
+
+    public $timestamps = false;
+    
     /**
      * The table associated with the model.
      *
@@ -48,7 +51,7 @@ class Mascota extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function especieMascotum()
+    public function especieMascota()
     {
         return $this->belongsTo('App\Models\EspecieMascota', 'id_especie');
     }

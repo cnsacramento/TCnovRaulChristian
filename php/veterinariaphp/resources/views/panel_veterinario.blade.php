@@ -12,12 +12,12 @@
 <body>
 
     <header class="header-panel-veterinario">
-        <a href="index.jsp">Cerrar sesión</a>
+        <a href="/login/cerrarSesion">Cerrar sesión</a>
     </header>
 
     <section class="section-panel">
 
-        <h1 class="h1-panel">${usuario.getCorreo()}</h1>
+        <h1 class="h1-panel">{{session()->get("usuario")->correo}}</h1>
 
         <a href="clientes">
             <div class="container-panel">
@@ -29,7 +29,7 @@
             </div>
         </a>
 
-        <a href="MascotasServlet">
+        <a href="mascotas">
             <div class="container-panel">
 
                 <img src="images/mascota.png" alt="">
@@ -49,7 +49,7 @@
             </div>
         </a>
 
-        <a href="VeterinarioServlet?metodo=">
+        <a href="veterinario">
             <div class="container-panel">
 
                 <img src="images/veterinario.png" alt="">
