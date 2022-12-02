@@ -6,7 +6,6 @@
 <title>CrearMascota</title>
 	<link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/general.css') }}">
     <link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/mascotas.css')}}">
-
 </head>
 <body>	
 	<header>

@@ -10,7 +10,7 @@
 <body>
 	<header>
 	  	<nav>
-            <a href="panelVeterinario.jsp" class="nav-link">Volver</a>
+		  <a href="/" class="nav-link">Volver</a>
         </nav>
 	</header>
 	
@@ -21,7 +21,8 @@
 			@if(empty($especialidadAsignada) && empty($veterinario))
 			    <div class = "formularios">    
 				    <div class="container">
-				    	<form action="veterinarioServlet" method="POST">
+				    	<form action="/veterinario/crearVeterinario" method="POST">
+						@csrf
 				    		<a href="#tableEspecialidades">
 					    		<input class="controls" type="text" name="dni" value="" placeholder="DNI" readonly="readonly"> 
 								<input class="controls" type="text" name="nombre" value="" placeholder="Nombre" readonly="readonly"> 
@@ -39,7 +40,8 @@
 			@if(!empty($especialidadAsignada))
 			    <div class = "formularios">    
 				    <div class="container">
-				    	<form action="veterinarioServlet" method="POST">
+				    	<form action="/veterinario/crearVeterinario" method="POST">
+							@csrf
 				    		<input class="controls" type="text" name="dni" value="" placeholder="DNI" pattern="[0-9]{7,8}[A-Za-z]"> 
 							<input class="controls" type="text" name="nombre" value="" placeholder="Nombre"> 
 							<input class="controls" type="text" name="apellidos" value="" placeholder="Apellidos"> 
@@ -58,7 +60,8 @@
 	   		@if(!empty($veterinario))
 			    <div class = "formularios">    
 				    <div class="container">
-				    	<form action="veterinarioServlet" method="POST">
+				    	<form action="/veterinario/editarVeterinario" method="POST">
+							@csrf
 				    		<input class="controls" type="text" name="dni" value="{{$veterinario->dni}}" placeholder="DNI" pattern="[0-9]{7,8}[A-Za-z]" readonly="readonly"> 
 							<input class="controls" type="text" name="nombre" value="{{$veterinario->nombre}}" placeholder="Nombre"> 
 							<input class="controls" type="text" name="apellidos" value="{{$veterinario->apellidos}}" placeholder="Apellidos"> 
@@ -72,9 +75,10 @@
 	   		 
 			<div class ="container">
 			<div class ="container">
-				<form action="veterinarioServlet" method="POST">
-					<label for ="nombreEspecie"> </label> 
-					<input class="controls" type="text" name="nombreVeterinario" value="" placeholder="Nombre"> 
+				<form action="/veterinario/findByName" method="POST">
+					@csrf
+					<label for ="nombre"> </label> 
+					<input class="controls" type="text" name="nombre" value="" placeholder="Nombre"> 
 					<input class="buttons" type="submit" name="boton" value="Encontrar">
 				</form><br>
 			</div>
@@ -102,8 +106,8 @@
 				                    <td data-label="Peligrosa">{{$veterinario->especialidadVeterinario->nombre}}</td>
 				                    <td data-label="Opciones">
 										<div class="imagenes">
-											<a href="VeterinarioServlet?metodo=editVeterinario&veterinarioId=${veterinario.getDni()}" id="btnOpciones"><img alt="editEspecie" src="{{asset('images/edit.svg')}}"></a>
-											<a href="VeterinarioServlet?metodo=deleteVeterinario&veterinarioId=${veterinario.getDni()}" id="btnOpciones"><img alt="deleteEspecie" src="{{asset('images/delete.svg')}}"></a>
+											<a href="/veterinario/editarVeterinario?dni={{$veterinario->dni}}" id="btnOpciones"><img alt="editEspecie" src="{{asset('images/edit.svg')}}"></a>
+											<a href="/veterinario/borrarVeterinario?dni={{$veterinario->dni}}" id="btnOpciones"><img alt="deleteEspecie" src="{{asset('images/delete.svg')}}"></a>
 										</div>
 									</td>
 			                	</tr>

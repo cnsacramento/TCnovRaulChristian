@@ -115,7 +115,7 @@ Route::post('/cliente/especies/edit', [App\Http\Controllers\MascotaController::c
 
 Route::get('/clientes/mascotas/delete', [App\Http\Controllers\MascotaController::class, 'deleteMascotaByCliente']);
 
-//Veterinario
+//ESPECIALIDAD VETERINARIO
 
 Route::get('/veterinario', [App\Http\Controllers\VeterinarioController::class, 'index']);
 
@@ -129,9 +129,16 @@ Route::get('/veterinario/borrarEspecialidad', [App\Http\Controllers\VeterinarioC
 
 Route::get('/veterinario/asignarEspecialidad', [App\Http\Controllers\VeterinarioController::class, 'asignarEspecialidad']);
 
+//VETERINARIO
 
+Route::post('/veterinario/crearVeterinario', [App\Http\Controllers\VeterinarioController::class, 'crearVeterinario']);
 
+Route::get('/veterinario/editarVeterinario', [App\Http\Controllers\VeterinarioController::class, 'rellenarCamposVeterinario']);
 
+Route::post('/veterinario/editarVeterinario', [App\Http\Controllers\VeterinarioController::class, 'editarVeterinario']);
 
+Route::get('/veterinario/borrarVeterinario', [App\Http\Controllers\VeterinarioController::class, 'borrarVeterinario']);
+
+Route::post('/veterinario/findByName', [App\Http\Controllers\VeterinarioController::class, 'findByNombre']);
 
 
