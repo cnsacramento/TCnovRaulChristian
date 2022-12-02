@@ -163,7 +163,7 @@ public class IntervencionesServlet extends HttpServlet {
 					List<Integer> horasLibres = new ArrayList<>();
 
 					for (Map.Entry<Integer, Boolean> pair : sesiones.entrySet()) {
-						if (!pair.getValue())
+						if (!pair.getValue()) // En caso de false se entiende que es una hora libre
 							horasLibres.add(pair.getKey());
 					}
 
