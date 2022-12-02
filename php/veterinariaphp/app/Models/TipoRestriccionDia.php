@@ -13,30 +13,33 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TipoRestriccionDia extends Model
 {
+
+    public $timestamps = false;
+
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'tipo_restriccion_dia';
 
     /**
      * The primary key for the model.
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'tipo';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'string';
 
     /**
      * Indicates if the IDs are auto-incrementing.
-     * 
+     *
      * @var bool
      */
     public $incrementing = false;

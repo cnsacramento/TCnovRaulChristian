@@ -17,7 +17,7 @@
 
     <section class="section-panel">
 
-        <h1 class="h1-panel"></h1>
+        <h1 class="h1-panel">{{ session()->get('usuario')->correo }}</h1>
 
         <a href="clientes">
             <div class="container-panel">
@@ -74,7 +74,7 @@
 
                 <img src="images/reserva.png" alt="">
 
-                <p>Facturas</p>
+                <p>Reservas</p>
 
             </div>
         </a>
