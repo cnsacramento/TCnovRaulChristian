@@ -18,22 +18,6 @@
     </header>
 
     <div class="crud">
-    <article>
-
-    <h3 class="text-center">Crear factura</h3>
-
-    <form action="/facturas/crear" method="post">
-        @csrf
-        <label for=""> <span>*Fecha:</span> <input type="date" name="fecha" id="fecha">
-        </label> <label for=""> <span>Coste:</span> <input class="text-end" type="number"
-                step="0.01" name="coste" id="coste">
-        </label> <label for=""> <span>*Detalles:</span>
-        <textarea name="detalles" id="detalles"></textarea></label>
-
-        <input type="submit" name="btnFactura" id="btnFactura" value="Crear">
-    </form>
-
-    </article>
 
   <article>
 
