@@ -115,6 +115,11 @@ Route::post('/cliente/especies/edit', [App\Http\Controllers\MascotaController::c
 
 Route::get('/clientes/mascotas/delete', [App\Http\Controllers\MascotaController::class, 'deleteMascotaByCliente']);
 
+//Veterinario
+
+Route::get('/veterinario', [App\Http\Controllers\VeterinarioController::class, 'index']);
+
+
 
 
 

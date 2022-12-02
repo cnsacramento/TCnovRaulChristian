@@ -49,7 +49,7 @@
             </div>
         </a>
 
-        <a href="VeterinarioServlet?metodo=">
+        <a href="veterinario">
             <div class="container-panel">
 
                 <img src="images/veterinario.png" alt="">

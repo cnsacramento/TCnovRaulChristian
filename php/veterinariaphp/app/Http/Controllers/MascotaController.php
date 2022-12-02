@@ -185,7 +185,6 @@ class MascotaController extends Controller
         return view('mascotas', compact('mascotas', 'mascota'));
     }
 
-
     public function find(Request $request){
 
         $mascota = Mascota::find($request->idMascota);
