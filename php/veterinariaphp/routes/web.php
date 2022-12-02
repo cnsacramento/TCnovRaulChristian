@@ -151,3 +151,27 @@ Route::get('/index', function () {
 Route::post('/login', [App\Http\Controllers\LoginController::class, 'login']);
 
 Route::get('/login/cerrarSesion', [App\Http\Controllers\LoginController::class, 'cerrarSesion']);
+
+// Reservas
+
+Route::get('/reservas', [App\Http\Controllers\ReservasController::class, 'index']);
+
+Route::post('/reservas/mostrar', [App\Http\Controllers\ReservasController::class, 'mostrar']);
+
+Route::post('/reservas/eliminar', [App\Http\Controllers\ReservasController::class, 'eliminarReserva']);
+
+Route::post('/reservas/mostrartodas', [App\Http\Controllers\ReservasController::class, 'mostrarTodasReservas']);
+
+// Tipo Restriccion dia
+
+Route::post('/tiporestricciondia/crear', [App\Http\Controllers\ReservasController::class, 'crearRestriccion']);
+
+Route::post('/tiporestricciondia/editar', [App\Http\Controllers\ReservasController::class, 'editarRestriccion']);
+
+Route::post('/tiporestricciondia/buscar', [App\Http\Controllers\ReservasController::class, 'opcionesRestriccionDia']);
+
+Route::post('/tiporestricciondia/eliminar', [App\Http\Controllers\ReservasController::class, 'eliminarRestriccionDia']);
+
+Route::post('/tiporestricciondia/mostrartodas', [App\Http\Controllers\ReservasController::class, 'mostrarTodasRestricciones']);
+
+Route::get('/tiporestricciondia/opciones', [App\Http\Controllers\ReservasController::class, 'opcionesRestriccionDia']);
