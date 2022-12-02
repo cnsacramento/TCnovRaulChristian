@@ -61,10 +61,11 @@
 	    	</div>
 		</c:if>
 		
-	
-		<div class="container">
+	    <div class="container">
 			<div class="wrapper">
-		        <table class="table">
+				<div class="tablas">
+					<div class="tablaIndividual">
+				        <table class="table">
 		            <caption>Seleccione la especie:</caption>
 		            <thead>
 		                <tr>
@@ -91,8 +92,45 @@
 		            	</c:forEach>
 		            </tbody>
 		        </table>
+					</div>
+					<div class="tablaIndividual">
+						<table class="table">
+							<caption>Mascotas del Cliente</caption>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Especie</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${not empty mascotas}">	
+									<c:forEach var ="mascota" items="${mascotas}">
+										<tr>
+											<td data-label="ID">${mascota.getId()}</td>
+											<td data-label="Nombre">${mascota.getNombre()}</td>
+											<td data-label="Especie">${mascota.getEspecieMascota().getNombre()}</td>
+										</tr>
+									</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
+					</div>
+				</div>
 	    	</div>
 	    </div>
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 		
 		<c:if test="${empty especieId}">
 		    <div class = "formularios">    

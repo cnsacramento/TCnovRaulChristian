@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.cnrg.veterinariajavaweb.repositories;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.persistence.RollbackException;
 
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.EspecieMascota;
 import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Mascota;
+import es.iespuertodelacruz.cnrg.veterinariajavaweb.entities.Reserva;
 
 public class MascotaRepository implements ICrud<Mascota, Integer>{
 	
@@ -127,6 +129,19 @@ public class MascotaRepository implements ICrud<Mascota, Integer>{
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		List<Mascota> lista = entityManager.createNamedQuery("Mascota.findAll", Mascota.class).getResultList();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return lista;
+	}
+	
+	public List<Mascota> findByCliente(String dni) {
+
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+
+		String query = "SELECT * FROM mascota" + " WHERE dni_cliente" + " = :dni";
+
+		List<Mascota> lista = entityManager.createNativeQuery(query, Mascota.class).setParameter("dni", dni).getResultList();
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		return lista;

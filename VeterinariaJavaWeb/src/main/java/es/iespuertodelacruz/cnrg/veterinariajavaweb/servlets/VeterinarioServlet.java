@@ -131,6 +131,7 @@ public class VeterinarioServlet extends HttpServlet {
 					veterinario.setEspecialidadVeterinario(especialidadRepository.findById(Integer.parseInt(request.getParameter("especialidad"))));
 					veterinario.setTelefono(request.getParameter("telefono"));
 					veterinario.setCuentaVeterinario(cuenta);
+					veterinarioRepository.save(veterinario);
 				}else {
 					request.setAttribute("mensaje", "No se ha podido crear la cuenta del veterinario");
 				}

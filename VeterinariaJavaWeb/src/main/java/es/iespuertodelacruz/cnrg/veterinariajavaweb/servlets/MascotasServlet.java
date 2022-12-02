@@ -62,6 +62,9 @@ public class MascotasServlet extends HttpServlet {
 					request.setAttribute("especieId", request.getParameter("especieId"));   
 				}
 				especies = especieRepository.findAll();
+				String dni = request.getParameter("clienteDni").toString();
+				mascotas = (ArrayList)mascotaRepository.findByCliente(dni);
+				request.setAttribute("mascotas", mascotas);
 				request.setAttribute("especies", especies);
 				request.getRequestDispatcher("crearMascota.jsp").forward(request, response);
 				break;
