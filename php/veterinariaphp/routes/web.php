@@ -119,6 +119,15 @@ Route::get('/clientes/mascotas/delete', [App\Http\Controllers\MascotaController:
 
 Route::get('/veterinario', [App\Http\Controllers\VeterinarioController::class, 'index']);
 
+Route::post('/veterinario/crearEspecialidad', [App\Http\Controllers\VeterinarioController::class, 'crearEspecialidad']);
+
+Route::post('/veterinario/editarEspecialidad', [App\Http\Controllers\VeterinarioController::class, 'editarEspecialidad']);
+
+Route::get('/veterinario/editarEspecialidad', [App\Http\Controllers\VeterinarioController::class, 'rellenarCampos']);
+
+Route::get('/veterinario/borrarEspecialidad', [App\Http\Controllers\VeterinarioController::class, 'borrarEspecialidad']);
+
+Route::get('/veterinario/asignarEspecialidad', [App\Http\Controllers\VeterinarioController::class, 'asignarEspecialidad']);
 
 
 
